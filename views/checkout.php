@@ -111,7 +111,7 @@ if ($success):
         </a>
         <button @click="
           if (navigator.share) {
-            navigator.share({ title: <?= json_encode($show['title']) ?>, text: 'I\'m going to <?= htmlspecialchars($show['title'], ENT_QUOTES) ?> at <?= htmlspecialchars($show['location'], ENT_QUOTES) ?>!', url: window.location.href });
+            navigator.share({ title: '<?= htmlspecialchars($show['title'], ENT_QUOTES) ?>', text: 'I am going to <?= htmlspecialchars($show['title'], ENT_QUOTES) ?> at <?= htmlspecialchars($show['location'], ENT_QUOTES) ?>!', url: window.location.href });
           } else {
             navigator.clipboard.writeText(window.location.href);
             shared = true;
