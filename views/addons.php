@@ -72,7 +72,7 @@ $addons = [
 ];
 ?>
 
-<div class="pt-[140px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen" x-data="{
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen" x-data="{
   qtys: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: 0, <?php endforeach; ?> },
   names: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: '<?= addslashes($addon['name']) ?>', <?php endforeach; ?> },
   prices: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: <?= $addon['price'] ?>, <?php endforeach; ?> },
@@ -99,16 +99,16 @@ $addons = [
   <!-- Header -->
   <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
     <div>
-      <h1 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">ENHANCE YOUR NIGHT</h1>
-      <p class="text-neutral-400 text-base mt-2">Add food &amp; drinks to your order — or skip ahead to complete your purchase.</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-black tracking-tight">Enhance Your Night</h1>
+      <p class="text-neutral-500 text-base mt-2">Add food &amp; drinks to your order — or skip ahead to complete your purchase.</p>
     </div>
-    <a href="?view=event&show=<?= urlencode($showId) ?><?= $promoCode ? '&promo=' . urlencode($promoCode) : '' ?>" class="flex items-center gap-2 text-sm font-bold text-neutral-400 hover:text-white bg-neutral-900 hover:bg-neutral-800 px-5 py-3 rounded-[5px] transition-all border border-neutral-800 whitespace-nowrap">
+    <a href="?view=event&show=<?= urlencode($showId) ?><?= $promoCode ? '&promo=' . urlencode($promoCode) : '' ?>" class="flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-black bg-neutral-100 hover:bg-neutral-200 px-5 py-3 rounded-[10px] transition-all border border-neutral-200 whitespace-nowrap">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
       Back to Event
     </a>
   </div>
 
-  <div class="border-b border-neutral-800 mb-10"></div>
+  <div class="border-b border-neutral-200 mb-10"></div>
 
   <!-- Two Column Layout -->
   <div class="grid lg:grid-cols-12 gap-10">
@@ -116,26 +116,26 @@ $addons = [
     <!-- Left: Add-on Items -->
     <div class="lg:col-span-7 space-y-4">
       <?php foreach ($addons as $addon): ?>
-      <div class="bg-neutral-900 rounded-[8px] border border-neutral-800 p-6">
+      <div class="bg-neutral-50 rounded-xl border border-neutral-200 p-6">
         <div class="flex items-start gap-4">
           <!-- Icon -->
-          <div class="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-400 shrink-0">
+          <div class="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center text-neutral-500 shrink-0">
             <?= $addon['icon'] ?>
           </div>
           <!-- Content -->
           <div class="flex-1">
             <div class="flex items-start justify-between gap-4 mb-2">
-              <h3 class="text-base font-bold text-white"><?= htmlspecialchars($addon['name']) ?></h3>
-              <span class="text-[#24CECE] font-bold text-base whitespace-nowrap">$<?= $addon['price'] ?></span>
+              <h3 class="text-base font-bold text-black"><?= htmlspecialchars($addon['name']) ?></h3>
+              <span class="text-[#F15A29] font-bold text-base whitespace-nowrap">$<?= $addon['price'] ?></span>
             </div>
             <p class="text-neutral-500 text-sm leading-relaxed mb-4"><?= htmlspecialchars($addon['desc']) ?></p>
             <!-- Quantity Controls -->
             <div class="flex items-center gap-3">
-              <button @click="qtys.<?= $addon['key'] ?> = Math.max(0, qtys.<?= $addon['key'] ?> - 1)" class="w-8 h-8 rounded-[6px] bg-neutral-800 flex items-center justify-center text-neutral-500 hover:bg-neutral-700 hover:text-white transition-colors">
+              <button @click="qtys.<?= $addon['key'] ?> = Math.max(0, qtys.<?= $addon['key'] ?> - 1)" class="w-8 h-8 rounded-[6px] bg-neutral-200 flex items-center justify-center text-neutral-500 hover:bg-neutral-300 hover:text-black transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
               </button>
-              <span x-text="qtys.<?= $addon['key'] ?>" class="text-base font-bold text-white w-6 text-center"></span>
-              <button @click="qtys.<?= $addon['key'] ?> = Math.min(10, qtys.<?= $addon['key'] ?> + 1)" class="w-8 h-8 rounded-[6px] bg-[#24CECE] flex items-center justify-center text-black hover:bg-[#20B8B8] transition-colors">
+              <span x-text="qtys.<?= $addon['key'] ?>" class="text-base font-bold text-black w-6 text-center"></span>
+              <button @click="qtys.<?= $addon['key'] ?> = Math.min(10, qtys.<?= $addon['key'] ?> + 1)" class="w-8 h-8 rounded-[6px] bg-[#F15A29] flex items-center justify-center text-white hover:bg-[#D94E22] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               </button>
             </div>
@@ -147,9 +147,9 @@ $addons = [
 
     <!-- Right: Order Summary -->
     <div class="lg:col-span-5">
-      <div class="bg-white p-8 rounded-[10px] shadow-xl sticky top-32 text-black space-y-6">
+      <div class="bg-white p-8 rounded-xl shadow-xl sticky top-32 text-black space-y-6 border border-neutral-200">
 
-        <h2 class="text-xl font-black text-black flex items-center gap-2">
+        <h2 class="text-xl font-bold text-black flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
           Order Summary
         </h2>
@@ -167,7 +167,7 @@ $addons = [
         </div>
 
         <!-- Totals -->
-        <div class="border border-neutral-200 rounded-[8px] p-4 space-y-3">
+        <div class="border border-neutral-200 rounded-xl p-4 space-y-3">
           <div class="flex justify-between text-sm text-neutral-500">
             <span>Add-ons Subtotal</span>
             <span x-text="'$' + getTotal().toFixed(2)"></span>
@@ -179,7 +179,7 @@ $addons = [
         </div>
 
         <!-- Continue to Checkout -->
-        <a :href="getCheckoutUrl()" class="block w-full py-4 bg-[#24CECE] text-black font-black text-base uppercase tracking-wider rounded-[8px] hover:bg-[#20B8B8] transition-colors text-center">Continue to Checkout</a>
+        <a :href="getCheckoutUrl()" class="block w-full py-4 bg-black text-white font-bold text-base uppercase tracking-wider rounded-[10px] hover:bg-neutral-800 transition-colors text-center">Continue to Checkout</a>
 
         <p class="text-xs text-neutral-400 text-center flex items-center justify-center gap-1.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>

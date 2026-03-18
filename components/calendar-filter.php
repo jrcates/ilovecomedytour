@@ -17,7 +17,7 @@
 
   <!-- Filter bar -->
   <div class="mb-10 sticky top-4 z-40">
-    <div class="bg-neutral-950/90 backdrop-blur-md border border-neutral-800 rounded-[8px] shadow-2xl relative">
+    <div class="bg-neutral-950/90 backdrop-blur-md border border-neutral-800 rounded-xl shadow-2xl relative">
 
       <!-- Controls -->
       <div class="flex flex-col md:flex-row md:items-center gap-0 p-3">
@@ -25,7 +25,7 @@
         <!-- All Shows + Month Picker -->
         <div class="grid grid-cols-2 md:flex md:items-center gap-3 shrink-0">
           <button @click="clearFilter()"
-                  :class="!activeDate ? 'bg-[#24CECE] text-neutral-900' : 'text-neutral-400 bg-transparent hover:bg-neutral-800'"
+                  :class="!activeDate ? 'bg-[#F15A29] text-white' : 'text-neutral-400 bg-transparent hover:bg-neutral-800'"
                   class="px-5 py-3 rounded-[5px] font-bold text-sm uppercase tracking-wider transition-colors whitespace-nowrap text-center">
             All Shows
           </button>
@@ -50,15 +50,15 @@
               <button @click="onWeekDayClick(day)"
                       :class="[
                         !day.inMonth ? 'opacity-25 cursor-default' : 'cursor-pointer',
-                        day.inMonth && activeDate === day.key ? 'bg-[#24CECE]' : '',
+                        day.inMonth && activeDate === day.key ? 'bg-[#F15A29]' : '',
                         day.inMonth && activeDate !== day.key && day.isToday ? 'bg-neutral-800' : '',
                         day.inMonth && activeDate !== day.key && !day.isToday ? 'hover:bg-neutral-800' : ''
                       ]"
-                      class="flex flex-col items-center py-2 px-1.5 md:px-3 rounded-[8px] transition-colors min-w-0 md:min-w-[60px] flex-1">
+                      class="flex flex-col items-center py-2 px-1.5 md:px-3 rounded-[10px] transition-colors min-w-0 md:min-w-[60px] flex-1">
                 <div class="text-[10px] font-bold tracking-wider"
                      :class="activeDate === day.key && day.inMonth ? 'text-black' : 'text-neutral-500'"
                      x-text="day.weekday"></div>
-                <div class="text-xl font-black"
+                <div class="text-xl font-bold"
                      :class="activeDate === day.key && day.inMonth ? 'text-black' : (day.inMonth ? 'text-white' : 'text-neutral-600')"
                      x-text="day.day"></div>
                 <div class="w-1.5 h-1.5 mt-1"
@@ -79,7 +79,7 @@
       <div x-show="calendarOpen"
            x-transition
            @click.outside="calendarOpen = false"
-           class="absolute left-1/2 -translate-x-1/2 md:left-3 md:translate-x-0 top-full mt-1 bg-[#1E2323] border border-neutral-700 rounded-[10px] shadow-2xl p-5 w-[calc(100%-24px)] max-w-[300px] md:w-[300px] z-50">
+           class="absolute left-1/2 -translate-x-1/2 md:left-3 md:translate-x-0 top-full mt-1 bg-[#1E2323] border border-neutral-700 rounded-xl shadow-2xl p-5 w-[calc(100%-24px)] max-w-[300px] md:w-[300px] z-50">
 
         <!-- Month navigation -->
         <div class="flex items-center justify-between mb-4">
@@ -113,15 +113,15 @@
           <template x-for="cell in calendarDays" :key="cell.key">
             <button @click="onCalendarDayClick(cell)"
                     :class="[
-                      cell.isSelected ? 'bg-[#24CECE] text-black font-bold' : '',
-                      !cell.isSelected && cell.isToday ? 'border border-[#24CECE] text-white font-bold' : '',
+                      cell.isSelected ? 'bg-[#F15A29] text-white font-bold' : '',
+                      !cell.isSelected && cell.isToday ? 'border border-[#F15A29] text-white font-bold' : '',
                       !cell.isSelected && !cell.isToday && cell.hasShows ? 'text-[#F26522] font-bold hover:bg-neutral-700' : '',
                       !cell.isSelected && !cell.isToday && !cell.hasShows ? 'text-neutral-400 hover:bg-neutral-700' : ''
                     ]"
                     class="flex flex-col items-center justify-center py-1.5 rounded-full text-sm cursor-pointer transition-colors">
               <span x-text="cell.day"></span>
               <template x-if="cell.hasShows">
-                <div class="w-1 h-1 rounded-full bg-[#24CECE] mt-0.5"></div>
+                <div class="w-1 h-1 rounded-full bg-[#F15A29] mt-0.5"></div>
               </template>
             </button>
           </template>
@@ -136,7 +136,7 @@
     <template x-if="groupedShows.length === 0">
       <div class="text-center py-16 text-neutral-500">
         <p class="text-lg font-medium">No shows on this date</p>
-        <button @click="clearFilter()" class="mt-4 px-6 py-2 bg-[#24CECE] text-black font-bold rounded-full text-sm hover:bg-[#20B8B8] transition-colors">View All Shows</button>
+        <button @click="clearFilter()" class="mt-4 px-6 py-2 bg-black text-white font-bold rounded-[10px] text-sm hover:bg-neutral-800 transition-colors">View All Shows</button>
       </div>
     </template>
 
@@ -144,19 +144,19 @@
       <div>
         <!-- Date header with teal bar -->
         <div class="flex items-center gap-4 mb-6 mt-8">
-          <div class="w-2 h-8 bg-[#24CECE] rounded-full"></div>
-          <h2 class="text-[22px] font-extrabold text-white uppercase tracking-tighter" x-text="group.label"></h2>
+          <div class="w-2 h-8 bg-[#F15A29] rounded-full"></div>
+          <h2 class="text-[22px] font-bold text-black tracking-tighter" x-text="group.label"></h2>
         </div>
 
         <!-- Show cards -->
         <div class="flex flex-col gap-4">
           <template x-for="show in group.shows" :key="show.id">
-            <div class="cc-show-card group bg-white rounded-[5px] p-6 flex flex-col md:flex-row items-center gap-8 transition-all border border-neutral-800">
+            <div class="cc-show-card group bg-white rounded-xl p-6 flex flex-col md:flex-row items-center gap-8 transition-all border border-neutral-200">
               <!-- Date Badge -->
               <div class="flex flex-col items-center flex-shrink-0">
                 <div class="border border-black rounded-[5px] pt-2 pb-1 px-4 text-center cc-date-badge bg-white">
                   <div class="text-sm font-bold text-black leading-none" x-text="formatDate(show.date, 'weekday')"></div>
-                  <div class="text-4xl font-black leading-none text-black my-1" x-text="formatDate(show.date, 'day')"></div>
+                  <div class="text-4xl font-bold leading-none text-black my-1" x-text="formatDate(show.date, 'day')"></div>
                   <div class="text-sm font-bold text-black leading-none" x-text="formatDate(show.date, 'month')"></div>
                 </div>
                 <div class="bg-black text-white text-xs px-3 py-1 mt-1 font-medium rounded-[5px] tracking-wide w-full text-center" x-text="formatDate(show.date, 'time')"></div>
@@ -168,18 +168,18 @@
               <!-- Content -->
               <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left self-center">
                 <div class="flex flex-wrap justify-between items-start w-full mb-3 gap-2">
-                  <h3 class="text-[20px] font-extrabold text-black uppercase" x-text="show.title"></h3>
+                  <h3 class="text-[20px] font-bold text-black" x-text="show.title"></h3>
                   <span x-show="show.status === 'Sold Out'" class="text-xs font-bold uppercase tracking-wider text-red-500 border border-red-500 px-2 py-1 rounded whitespace-nowrap">Sold Out</span>
                 </div>
                 <p class="text-neutral-500 text-sm leading-relaxed line-clamp-2" x-text="show.description"></p>
               </div>
               <!-- Button -->
               <template x-if="show.status === 'Sold Out'">
-                <button disabled class="px-8 py-3 rounded-full text-sm font-bold whitespace-nowrap flex-shrink-0 bg-neutral-800 text-neutral-500 cursor-not-allowed">Sold Out</button>
+                <button disabled class="px-8 py-3 rounded-[10px] text-sm font-bold whitespace-nowrap flex-shrink-0 bg-neutral-800 text-neutral-500 cursor-not-allowed">Sold Out</button>
               </template>
               <template x-if="show.status !== 'Sold Out'">
                 <a :href="'?view=event&show=' + show.id"
-                   class="px-8 py-3 bg-[#24CECE] text-black font-bold rounded-full text-sm hover:bg-[#20B8B8] transition-colors whitespace-nowrap flex-shrink-0 cc-hover-lift shadow-lg shadow-[#24CECE]/20">
+                   class="px-8 py-3 bg-black text-white font-bold rounded-[10px] text-sm hover:bg-neutral-800 transition-colors whitespace-nowrap flex-shrink-0 cc-hover-lift shadow-lg shadow-black/10">
                   Buy Tickets
                 </a>
               </template>

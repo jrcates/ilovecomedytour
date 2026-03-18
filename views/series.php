@@ -12,10 +12,10 @@ foreach ($shows as $s) {
 }
 
 if (!$seriesName || empty($seriesShows)) {
-  echo '<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen text-center">';
-  echo '<h1 class="text-4xl font-black mb-4">Series Not Found</h1>';
-  echo '<p class="text-neutral-400 mb-8">The show series you\'re looking for doesn\'t exist.</p>';
-  echo '<a href="?view=schedule" class="px-8 py-3 bg-[#24CECE] text-black font-bold rounded-full hover:bg-[#20B8B8] transition-colors">View Schedule</a>';
+  echo '<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen text-center">';
+  echo '<h1 class="text-4xl font-bold mb-4">Series Not Found</h1>';
+  echo '<p class="text-neutral-500 mb-8">The show series you\'re looking for doesn\'t exist.</p>';
+  echo '<a href="?view=calendar" class="px-8 py-3 bg-black text-white font-bold rounded-[10px] hover:bg-neutral-800 transition-colors">View Schedule</a>';
   echo '</div>';
   return;
 }
@@ -73,21 +73,21 @@ $meta = isset($seriesDescriptions[$seriesName]) ? $seriesDescriptions[$seriesNam
 ?>
 
 <!-- ─── Header ─── -->
-<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen">
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
 
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
     <div>
       <span class="text-[#F26522] text-sm font-bold uppercase tracking-widest mb-3 block">Recurring Show</span>
-      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Show Series</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Show Series</h1>
     </div>
-    <a href="?view=schedule" class="flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors px-4 py-2 rounded-[5px] border border-neutral-700 hover:border-neutral-500">
+    <a href="?view=calendar" class="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors px-4 py-2 rounded-[10px] border border-neutral-300 hover:border-neutral-400">
       <i data-lucide="arrow-left" class="w-4 h-4"></i>
       Back to Schedule
     </a>
   </div>
 
   <!-- ─── Series Profile Card ─── -->
-  <div class="rounded-[5px] overflow-hidden mb-20">
+  <div class="rounded-xl overflow-hidden mb-20">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
       <!-- Image -->
       <div class="lg:col-span-5">
@@ -99,39 +99,39 @@ $meta = isset($seriesDescriptions[$seriesName]) ? $seriesDescriptions[$seriesNam
       <div class="lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
         <div class="flex flex-wrap gap-2 mb-6">
           <span class="inline-block px-3 py-1 bg-[#F26522]/20 text-[#F26522] text-xs font-bold uppercase tracking-widest rounded-[5px]">Every <?= htmlspecialchars($dayOfWeek) ?></span>
-          <span class="inline-block px-3 py-1 bg-neutral-700/50 text-neutral-300 text-xs font-bold uppercase tracking-widest rounded-[5px]"><?= htmlspecialchars($showTime) ?></span>
+          <span class="inline-block px-3 py-1 bg-neutral-200 text-neutral-600 text-xs font-bold uppercase tracking-widest rounded-[5px]"><?= htmlspecialchars($showTime) ?></span>
         </div>
 
-        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight mb-6"><?= htmlspecialchars($seriesName) ?></h2>
+        <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6"><?= htmlspecialchars($seriesName) ?></h2>
 
         <!-- Quick Stats -->
         <div class="flex flex-wrap gap-6 mb-8">
-          <div class="flex items-center gap-2 text-neutral-400">
-            <i data-lucide="calendar" class="w-4 h-4 text-[#24CECE]"></i>
+          <div class="flex items-center gap-2 text-neutral-500">
+            <i data-lucide="calendar" class="w-4 h-4 text-[#F15A29]"></i>
             <span class="text-sm font-medium"><?= $totalShows ?> upcoming shows</span>
           </div>
-          <div class="flex items-center gap-2 text-neutral-400">
-            <i data-lucide="map-pin" class="w-4 h-4 text-[#24CECE]"></i>
+          <div class="flex items-center gap-2 text-neutral-500">
+            <i data-lucide="map-pin" class="w-4 h-4 text-[#F15A29]"></i>
             <span class="text-sm font-medium"><?= htmlspecialchars($firstShow['location']) ?></span>
           </div>
-          <div class="flex items-center gap-2 text-neutral-400">
-            <i data-lucide="ticket" class="w-4 h-4 text-[#24CECE]"></i>
+          <div class="flex items-center gap-2 text-neutral-500">
+            <i data-lucide="ticket" class="w-4 h-4 text-[#F15A29]"></i>
             <span class="text-sm font-medium">From <?= htmlspecialchars($firstShow['price']) ?></span>
           </div>
         </div>
 
         <!-- Tagline & Description -->
-        <p class="text-white font-bold text-lg mb-4"><?= htmlspecialchars($meta['tagline']) ?></p>
-        <p class="text-neutral-400 leading-relaxed mb-4"><?= htmlspecialchars($meta['about']) ?></p>
-        <p class="text-neutral-400 leading-relaxed mb-8"><?= htmlspecialchars($meta['extra']) ?></p>
+        <p class="text-black font-bold text-lg mb-4"><?= htmlspecialchars($meta['tagline']) ?></p>
+        <p class="text-neutral-600 leading-relaxed mb-4"><?= htmlspecialchars($meta['about']) ?></p>
+        <p class="text-neutral-600 leading-relaxed mb-8"><?= htmlspecialchars($meta['extra']) ?></p>
 
         <!-- CTA -->
         <div class="flex flex-wrap gap-3">
-          <a href="#upcoming" class="inline-flex items-center gap-2 px-6 py-3 bg-[#24CECE] text-black rounded-full font-bold text-sm uppercase tracking-wider hover:bg-[#20B8B8] transition-colors">
+          <a href="#upcoming" class="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-[10px] font-bold text-sm uppercase tracking-wider hover:bg-neutral-800 transition-colors">
             <i data-lucide="ticket" class="w-4 h-4"></i>
             View All Dates
           </a>
-          <button class="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-900 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-neutral-200 transition-colors">
+          <button class="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-900 rounded-[10px] font-bold text-sm uppercase tracking-wider hover:bg-neutral-200 transition-colors">
             <i data-lucide="share-2" class="w-4 h-4"></i>
             Share
           </button>
@@ -144,44 +144,43 @@ $meta = isset($seriesDescriptions[$seriesName]) ? $seriesDescriptions[$seriesNam
   <div id="upcoming" class="mb-12">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
       <div>
-        <h2 class="text-3xl font-bold uppercase tracking-wide mb-2">All Upcoming Dates</h2>
-        <p class="text-neutral-400">Every <?= htmlspecialchars($dayOfWeek) ?> at <?= htmlspecialchars($showTime) ?></p>
+        <h2 class="text-3xl font-bold tracking-wide mb-2 text-black">All Upcoming Dates</h2>
+        <p class="text-neutral-500">Every <?= htmlspecialchars($dayOfWeek) ?> at <?= htmlspecialchars($showTime) ?></p>
       </div>
-      <a href="?view=schedule" class="px-6 py-2 bg-[#24CECE] text-black font-bold rounded-full uppercase tracking-wider text-xs hover:bg-[#20B8B8] transition-colors">View Full Calendar</a>
+      <a href="?view=calendar" class="px-6 py-2 bg-black text-white font-bold rounded-[10px] uppercase tracking-wider text-xs hover:bg-neutral-800 transition-colors">View Full Calendar</a>
     </div>
 
     <div class="space-y-4">
       <?php foreach ($seriesShows as $show):
         $isSoldOut = $show['status'] === 'Sold Out';
+        $sd = formatShowDate($show['date']);
       ?>
-      <div class="cc-show-card bg-white rounded-[5px] p-6 flex flex-col md:flex-row items-center gap-8 transition-all border border-neutral-800">
-        <!-- Date Badge -->
-        <?php component('date-badge', ['date' => $show['date']]); ?>
-        <!-- Image -->
-        <div class="w-full md:w-[220px] h-[140px] rounded-[5px] overflow-hidden flex-shrink-0">
-          <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="cc-show-card-img w-full h-full object-cover" />
+      <div class="bg-white rounded-xl border border-neutral-200 shadow-md p-5 flex flex-col md:flex-row md:items-center gap-5">
+        <div class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-neutral-100">
+          <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover" />
         </div>
-        <!-- Content -->
-        <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left self-center">
-          <div class="flex flex-wrap justify-between items-start w-full mb-3 gap-2">
-            <h3 class="text-[20px] font-extrabold text-black uppercase"><?= htmlspecialchars($show['title']) ?></h3>
-            <?php if ($isSoldOut): ?>
-            <span class="text-xs font-bold uppercase tracking-wider text-red-500 border border-red-500 px-2 py-1 rounded whitespace-nowrap">Sold Out</span>
-            <?php elseif ($show['status'] === 'Selling Fast'): ?>
-            <span class="text-xs font-bold uppercase tracking-wider text-[#F26522] border border-[#F26522] px-2 py-1 rounded whitespace-nowrap">Selling Fast</span>
-            <?php endif; ?>
+        <div class="flex-1 min-w-0">
+          <h3 class="text-lg font-bold text-black mb-1"><?= htmlspecialchars($show['title']) ?></h3>
+          <p class="text-neutral-500 text-sm leading-relaxed mb-3"><?= htmlspecialchars($show['description']) ?></p>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <?= $sd['weekday'] ?>, <?= $sd['day'] ?> <?= $sd['month'] ?> <?= $sd['year'] ?>
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <?= $sd['time'] ?>
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-neutral-100 text-neutral-600 text-xs font-medium px-3 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <?= htmlspecialchars($show['location']) ?>
+            </span>
           </div>
-          <div class="flex items-center gap-2 bg-[#F26522] text-white text-xs font-bold px-3 py-1.5 rounded-[5px] mb-3 w-fit">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-            <span class="uppercase"><?= htmlspecialchars($show['location']) ?></span>
-          </div>
-          <p class="text-neutral-500 text-sm leading-relaxed line-clamp-2"><?= htmlspecialchars($show['description']) ?></p>
         </div>
-        <!-- Button -->
         <?php if ($isSoldOut): ?>
-        <button disabled class="px-8 py-3 rounded-full text-sm font-bold whitespace-nowrap flex-shrink-0 bg-neutral-800 text-neutral-500 cursor-not-allowed">Sold Out</button>
+        <button disabled class="px-6 py-2.5 bg-neutral-200 text-neutral-400 font-bold text-sm rounded-[10px] cursor-not-allowed whitespace-nowrap flex-shrink-0">Sold Out</button>
         <?php else: ?>
-        <a href="?view=event&show=<?= urlencode($show['id']) ?>" class="px-8 py-3 bg-[#24CECE] text-black font-bold rounded-full text-sm hover:bg-[#20B8B8] transition-colors whitespace-nowrap flex-shrink-0 cc-hover-lift shadow-lg shadow-[#24CECE]/20">Get Tickets</a>
+        <a href="?view=event&show=<?= urlencode($show['id']) ?>" class="px-6 py-2.5 bg-black text-white font-bold text-sm rounded-[10px] hover:bg-neutral-800 transition-colors whitespace-nowrap flex-shrink-0">Buy Tickets</a>
         <?php endif; ?>
       </div>
       <?php endforeach; ?>

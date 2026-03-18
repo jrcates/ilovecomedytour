@@ -43,10 +43,10 @@ foreach ($allComedians as $c) {
 }
 
 if (!$comedian) {
-  echo '<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen text-center">';
-  echo '<h1 class="text-4xl font-black mb-4">Comedian Not Found</h1>';
-  echo '<p class="text-neutral-400 mb-8">We couldn\'t find the comedian you\'re looking for.</p>';
-  echo '<a href="?view=comedians" class="px-8 py-3 bg-[#24CECE] text-black font-bold rounded-full hover:bg-[#20B8B8] transition-colors">Back to Comedians</a>';
+  echo '<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen text-center">';
+  echo '<h1 class="text-4xl font-bold mb-4">Comedian Not Found</h1>';
+  echo '<p class="text-neutral-500 mb-8">We couldn\'t find the comedian you\'re looking for.</p>';
+  echo '<a href="?view=comedians" class="px-8 py-3 bg-black text-white font-bold rounded-[10px] hover:bg-neutral-800 transition-colors">Back to Comedians</a>';
   echo '</div>';
   return;
 }
@@ -86,21 +86,21 @@ $extendedBio = [
 ?>
 
 <!-- ─── Header ─── -->
-<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen">
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
 
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
     <div>
-      <span class="text-[#24CECE] text-sm font-bold uppercase tracking-widest mb-3 block">Artist Spotlight</span>
-      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Comedian Profile</h1>
+      <span class="text-[#F15A29] text-sm font-bold uppercase tracking-widest mb-3 block">Artist Spotlight</span>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Comedian Profile</h1>
     </div>
-    <a href="?view=comedians" class="flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors px-4 py-2 rounded-[5px] border border-neutral-700 hover:border-neutral-500">
+    <a href="?view=comedians" class="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors px-4 py-2 rounded-[10px] border border-neutral-300 hover:border-neutral-400">
       <i data-lucide="arrow-left" class="w-4 h-4"></i>
       Back
     </a>
   </div>
 
   <!-- ─── Profile Card ─── -->
-  <div class="rounded-[5px] overflow-hidden mb-20">
+  <div class="rounded-xl overflow-hidden mb-20">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
       <!-- Photo -->
       <div class="lg:col-span-5">
@@ -110,35 +110,35 @@ $extendedBio = [
       </div>
       <!-- Info -->
       <div class="lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-        <span class="inline-block px-3 py-1 bg-neutral-700/50 text-neutral-300 text-xs font-bold uppercase tracking-widest rounded-[5px] w-fit mb-6">Stand-Up Comic</span>
+        <span class="inline-block px-3 py-1 bg-neutral-200 text-neutral-600 text-xs font-bold uppercase tracking-widest rounded-[5px] w-fit mb-6">Stand-Up Comic</span>
 
-        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight mb-6"><?= htmlspecialchars($comedian['name']) ?></h2>
+        <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6"><?= htmlspecialchars($comedian['name']) ?></h2>
 
         <!-- Social Icons -->
         <div class="flex gap-3 mb-8">
-          <a href="#" class="w-10 h-10 rounded-full border border-neutral-600 flex items-center justify-center text-neutral-400 hover:border-[#24CECE] hover:text-[#24CECE] transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 hover:border-[#F15A29] hover:text-[#F15A29] transition-colors">
             <i data-lucide="instagram" class="w-4 h-4"></i>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full border border-neutral-600 flex items-center justify-center text-neutral-400 hover:border-[#24CECE] hover:text-[#24CECE] transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 hover:border-[#F15A29] hover:text-[#F15A29] transition-colors">
             <i data-lucide="twitter" class="w-4 h-4"></i>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full border border-neutral-600 flex items-center justify-center text-neutral-400 hover:border-[#24CECE] hover:text-[#24CECE] transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 hover:border-[#F15A29] hover:text-[#F15A29] transition-colors">
             <i data-lucide="facebook" class="w-4 h-4"></i>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full border border-neutral-600 flex items-center justify-center text-neutral-400 hover:border-[#24CECE] hover:text-[#24CECE] transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 hover:border-[#F15A29] hover:text-[#F15A29] transition-colors">
             <i data-lucide="globe" class="w-4 h-4"></i>
           </a>
         </div>
 
         <!-- Bio -->
-        <p class="text-white font-bold text-lg mb-4"><?= htmlspecialchars($comedian['bio']) ?></p>
+        <p class="text-black font-bold text-lg mb-4"><?= htmlspecialchars($comedian['bio']) ?></p>
         <?php foreach ($extendedBio as $paragraph): ?>
-        <p class="text-neutral-400 leading-relaxed mb-4"><?= htmlspecialchars($paragraph) ?></p>
+        <p class="text-neutral-600 leading-relaxed mb-4"><?= htmlspecialchars($paragraph) ?></p>
         <?php endforeach; ?>
 
         <!-- Share Button -->
         <div class="mt-6">
-          <button class="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-900 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-neutral-200 transition-colors">
+          <button class="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-900 rounded-[10px] font-bold text-sm uppercase tracking-wider hover:bg-neutral-200 transition-colors">
             <i data-lucide="share-2" class="w-4 h-4"></i>
             Share Profile
           </button>
@@ -151,32 +151,39 @@ $extendedBio = [
   <div class="mb-12">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
       <div>
-        <h2 class="text-3xl font-bold uppercase tracking-wide mb-2">Upcoming Appearances</h2>
-        <p class="text-neutral-400">Catch <?= htmlspecialchars($firstName) ?> at these upcoming shows</p>
+        <h2 class="text-3xl font-bold tracking-wide mb-2 text-black">Upcoming Appearances</h2>
+        <p class="text-neutral-500">Catch <?= htmlspecialchars($firstName) ?> at these upcoming shows</p>
       </div>
-      <a href="?view=schedule" class="px-6 py-2 bg-[#24CECE] text-black font-bold rounded-full uppercase tracking-wider text-xs hover:bg-[#20B8B8] transition-colors">View Full Calendar</a>
+      <a href="?view=calendar" class="px-6 py-2 bg-black text-white font-bold rounded-[10px] uppercase tracking-wider text-xs hover:bg-neutral-800 transition-colors">View Full Calendar</a>
     </div>
 
     <div class="space-y-4">
-      <?php foreach ($appearances as $show): ?>
-      <div class="cc-show-card bg-white rounded-[5px] p-6 flex flex-col md:flex-row items-center gap-8 transition-all border border-neutral-800">
-        <!-- Date Badge -->
-        <?php component('date-badge', ['date' => $show['date']]); ?>
-        <!-- Image -->
-        <div class="w-full md:w-[220px] h-[140px] rounded-[5px] overflow-hidden flex-shrink-0">
-          <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="cc-show-card-img w-full h-full object-cover" />
+      <?php foreach ($appearances as $show):
+        $sd = formatShowDate($show['date']);
+      ?>
+      <div class="bg-white rounded-xl border border-neutral-200 shadow-md p-5 flex flex-col md:flex-row md:items-center gap-5">
+        <div class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-neutral-100">
+          <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover" />
         </div>
-        <!-- Content -->
-        <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left self-center">
-          <h3 class="text-2xl font-black text-black uppercase mb-3"><?= htmlspecialchars($show['title']) ?></h3>
-          <div class="flex items-center gap-2 bg-[#F26522] text-white text-xs font-bold px-3 py-1.5 rounded-[5px] mb-3 w-fit">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-            <span class="uppercase"><?= htmlspecialchars($show['location']) ?>, South Glastonbury, CT</span>
+        <div class="flex-1 min-w-0">
+          <h3 class="text-lg font-bold text-black mb-1"><?= htmlspecialchars($show['title']) ?></h3>
+          <p class="text-neutral-500 text-sm leading-relaxed mb-3"><?= htmlspecialchars($show['description']) ?></p>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <?= $sd['weekday'] ?>, <?= $sd['day'] ?> <?= $sd['month'] ?> <?= $sd['year'] ?>
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <?= $sd['time'] ?>
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-neutral-100 text-neutral-600 text-xs font-medium px-3 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <?= htmlspecialchars($show['location']) ?>
+            </span>
           </div>
-          <p class="text-neutral-500 text-sm leading-relaxed line-clamp-2"><?= htmlspecialchars($show['description']) ?></p>
         </div>
-        <!-- Button -->
-        <a href="?view=event&show=<?= urlencode($show['id']) ?>" class="px-8 py-3 bg-[#24CECE] text-black font-bold rounded-full text-sm hover:bg-[#20B8B8] transition-colors whitespace-nowrap flex-shrink-0 cc-hover-lift shadow-lg shadow-[#24CECE]/20">Get Tickets</a>
+        <a href="?view=event&show=<?= urlencode($show['id']) ?>" class="w-full md:w-auto text-center px-6 py-2.5 bg-black text-white font-bold text-sm rounded-[10px] hover:bg-neutral-800 transition-colors whitespace-nowrap flex-shrink-0">Buy Tickets</a>
       </div>
       <?php endforeach; ?>
     </div>

@@ -34,7 +34,7 @@ for ($i = 0; $i < 160; $i++) {
 
 $search      = isset($_GET['q']) ? htmlspecialchars(trim($_GET['q'])) : '';
 $page        = max(1, intval($_GET['page'] ?? 1));
-$perPage     = 16;
+$perPage     = 12;
 
 $filtered = array_filter($allComedians, fn($c) => !$search || stripos($c['name'], $search) !== false);
 $filtered = array_values($filtered);
@@ -44,76 +44,72 @@ $page = min($page, $totalPages);
 $current = array_slice($filtered, ($page - 1) * $perPage, $perPage);
 ?>
 
-<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen">
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
 
   <!-- Header & Search -->
-  <div class="flex flex-col items-center text-center gap-8 mb-20">
+  <div class="flex flex-col gap-8 mb-20">
     <div>
-      <?php component('page-header', ['title' => 'OUR <span class="text-[#24CECE]">COMEDIANS</span>', 'description' => "Meet the talented performers lighting up our stage. From rising stars to seasoned headliners, we bring you the best laughs in Brooklyn.", 'centered' => true]); ?>
+      <?php component('page-header', ['title' => 'Our Comedians']); ?>
     </div>
 
     <!-- Search -->
     <form method="GET" action="?view=comedians" class="w-full">
       <input type="hidden" name="view" value="comedians" />
-      <div class="relative flex items-center bg-neutral-900/80 border border-neutral-700 rounded-[5px] p-2 shadow-2xl focus-within:border-[#24CECE] transition-all group">
-        <i data-lucide="search" class="ml-3 md:ml-5 w-5 h-5 md:w-6 md:h-6 text-neutral-500 group-focus-within:text-[#24CECE] transition-colors shrink-0"></i>
-        <input type="text" name="q" value="<?= $search ?>" placeholder="Search by name..." class="w-full bg-transparent border-none focus:outline-none focus:ring-0 text-base md:text-lg px-3 md:px-4 text-white placeholder:text-neutral-500 h-10 md:h-12 min-w-0" />
-        <button type="submit" class="bg-[#24CECE] text-neutral-950 font-bold py-2.5 md:py-3 px-5 md:px-8 rounded-[5px] hover:bg-[#20B8B8] transition-all shrink-0 text-sm md:text-base">Search</button>
+      <div class="relative flex items-center bg-neutral-50 border border-neutral-300 rounded-xl p-2 shadow-md focus-within:border-[#F15A29] transition-all group">
+        <i data-lucide="search" class="ml-3 md:ml-5 w-5 h-5 md:w-6 md:h-6 text-neutral-400 group-focus-within:text-[#F15A29] transition-colors shrink-0"></i>
+        <input type="text" name="q" value="<?= $search ?>" placeholder="Search by name..." class="w-full bg-transparent border-none focus:outline-none focus:ring-0 text-base md:text-lg px-3 md:px-4 text-black placeholder:text-neutral-400 h-10 md:h-12 min-w-0" />
+        <button type="submit" class="bg-black text-white font-bold py-2.5 md:py-3 px-5 md:px-8 rounded-[10px] hover:bg-neutral-800 transition-all shrink-0 text-sm md:text-base">Search</button>
       </div>
     </form>
   </div>
 
   <!-- Grid -->
   <?php if (count($current) > 0): ?>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-16">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mb-16">
     <?php foreach ($current as $comedian): ?>
       <?php component('comedian-card', ['comedian' => $comedian]); ?>
     <?php endforeach; ?>
   </div>
   <?php else: ?>
-  <div class="text-center py-20 bg-neutral-900/50 rounded-[5px] border border-neutral-800">
-    <p class="text-3xl font-bold mb-2 text-white">No comedians found</p>
+  <div class="text-center py-20 bg-neutral-50 rounded-xl border border-neutral-200">
+    <p class="text-3xl font-bold mb-2 text-black">No comedians found</p>
     <p class="text-neutral-500 mb-8 text-lg">We couldn't find anyone matching "<?= $search ?>".</p>
-    <a href="?view=comedians" class="px-8 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-bold rounded-[5px] transition-colors">Clear search</a>
+    <a href="?view=comedians" class="px-8 py-3 bg-black hover:bg-neutral-800 text-white font-bold rounded-[10px] transition-colors">Clear search</a>
   </div>
   <?php endif; ?>
 
   <!-- Pagination -->
   <?php if ($totalPages > 1): ?>
-  <div class="flex flex-col items-center gap-6 mt-20 border-t border-neutral-900 pt-10">
-    <div class="flex items-center gap-3 flex-wrap justify-center">
-      <?php if ($page > 1): ?>
-      <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $page - 1 ?>" class="w-12 h-12 rounded-[5px] bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors">
-        <i data-lucide="chevron-left" class="w-6 h-6"></i>
-      </a>
-      <?php else: ?>
-      <span class="w-12 h-12 rounded-[5px] bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-600 opacity-50">
-        <i data-lucide="chevron-left" class="w-6 h-6"></i>
-      </span>
-      <?php endif; ?>
+  <div class="flex items-center justify-center gap-1 mt-16 flex-wrap">
+    <?php if ($page > 1): ?>
+    <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $page - 1 ?>" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-black transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <?php else: ?>
+    <span class="w-10 h-10 flex items-center justify-center text-neutral-300">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </span>
+    <?php endif; ?>
 
-      <?php for ($p = 1; $p <= $totalPages; $p++):
-        if ($totalPages > 10 && abs($p - $page) > 2 && $p !== 1 && $p !== $totalPages) continue;
-      ?>
-      <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $p ?>"
-         class="w-12 h-12 rounded-[5px] font-bold transition-all text-lg flex items-center justify-center <?= $p === $page ? 'bg-[#24CECE] text-neutral-900 scale-110' : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:bg-neutral-800 hover:text-white' ?>">
-        <?= $p ?>
-      </a>
-      <?php endfor; ?>
+    <?php for ($p = 1; $p <= $totalPages; $p++):
+      // On mobile show: first, last, current, and neighbors
+      if ($totalPages > 7 && abs($p - $page) > 2 && $p !== 1 && $p !== $totalPages) continue;
+    ?>
+    <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $p ?>"
+       class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full text-sm font-medium transition-colors <?= $p === $page ? 'bg-[#F15A29] text-white' : 'text-neutral-500 hover:text-black' ?>">
+      <?= $p ?>
+    </a>
+    <?php endfor; ?>
 
-      <?php if ($page < $totalPages): ?>
-      <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $page + 1 ?>" class="w-12 h-12 rounded-[5px] bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors">
-        <i data-lucide="chevron-right" class="w-6 h-6"></i>
-      </a>
-      <?php else: ?>
-      <span class="w-12 h-12 rounded-[5px] bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-600 opacity-50">
-        <i data-lucide="chevron-right" class="w-6 h-6"></i>
-      </span>
-      <?php endif; ?>
-    </div>
-    <div class="text-neutral-500">
-      Showing <span class="text-white font-bold"><?= (($page - 1) * $perPage) + 1 ?></span> &ndash; <span class="text-white font-bold"><?= min($page * $perPage, $total) ?></span> of <span class="text-white font-bold"><?= $total ?></span> comedians
-    </div>
+    <?php if ($page < $totalPages): ?>
+    <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $page + 1 ?>" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-black transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <?php else: ?>
+    <span class="w-10 h-10 flex items-center justify-center text-neutral-300">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </span>
+    <?php endif; ?>
   </div>
   <?php endif; ?>
 </div>

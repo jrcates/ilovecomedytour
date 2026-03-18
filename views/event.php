@@ -11,10 +11,10 @@ foreach ($shows as $s) {
 }
 
 if (!$show) {
-  echo '<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen text-center">';
+  echo '<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen text-center">';
   echo '<h1 class="text-4xl font-bold mb-4">Event Not Found</h1>';
-  echo '<p class="text-neutral-400 mb-8">The event you\'re looking for doesn\'t exist.</p>';
-  echo '<a href="?view=schedule" class="px-8 py-3 bg-[#24CECE] text-black font-bold rounded-full hover:bg-[#20B8B8] transition-colors">View Schedule</a>';
+  echo '<p class="text-neutral-500 mb-8">The event you\'re looking for doesn\'t exist.</p>';
+  echo '<a href="?view=calendar" class="px-8 py-3 bg-black text-white font-bold rounded-[10px] hover:bg-neutral-800 transition-colors">View Schedule</a>';
   echo '</div>';
   return;
 }
@@ -52,7 +52,7 @@ function findComedianId(string $performer, array $lookup): ?int {
 }
 ?>
 
-<div class="pt-[140px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen" x-data="{ aboutExpanded: false }">
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen" x-data="{ aboutExpanded: false }">
 
   <!-- Tab Navigation -->
   <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -60,48 +60,36 @@ function findComedianId(string $performer, array $lookup): ?int {
       <a href="#about-section" class="cc-event-tab text-sm font-medium px-4 py-2 rounded-[5px] border border-neutral-300 bg-white text-black transition-colors">About</a>
       <a href="#restrictions-section" class="cc-event-tab text-xs md:text-sm font-medium px-3 md:px-4 py-2 rounded-[5px] border border-neutral-300 bg-white text-black transition-colors">Restrictions</a>
     </div>
-    <a href="?view=schedule" class="flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors px-4 py-2 rounded-[5px] border border-neutral-700 hover:border-neutral-500">
+    <a href="?view=calendar" class="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors px-4 py-2 rounded-[10px] border border-neutral-300 hover:border-neutral-400">
       <i data-lucide="arrow-left" class="w-4 h-4"></i>
       Back
     </a>
   </div>
 
   <!-- Hero Banner -->
-  <style>
-    .cc-event-hero { width: 100%; min-height: 420px; display: flex; background: white; border-radius: 5px; overflow: hidden; position: relative; }
-    @media (max-width: 1280px) {
-      .cc-event-hero { height: auto; flex-direction: column; }
-    }
-  </style>
   <div class="mb-12">
-    <div class="cc-event-hero">
+    <div class="bg-[#1e1e1e] rounded-xl overflow-hidden flex flex-col md:flex-row items-stretch md:h-[378px]">
       <!-- Left Content -->
-      <div class="w-full md:w-[678px] h-full p-6 md:p-12 md:pl-16 flex flex-col justify-center gap-6 bg-white text-neutral-900 relative z-10">
-        <!-- Date Badge (larger version for hero) -->
-        <div class="flex flex-col items-center w-fit">
-          <div class="border border-black rounded-[5px] pt-2 pb-1 px-4 text-center min-w-[80px] bg-white">
-            <div class="text-sm font-bold text-black leading-none"><?= $d['weekday'] ?></div>
-            <div class="text-5xl font-black leading-none text-black my-1"><?= $d['day'] ?></div>
-            <div class="text-sm font-bold text-black leading-none"><?= $d['month'] ?></div>
-          </div>
-          <div class="bg-black text-white text-xs px-3 py-1 mt-1 font-medium rounded-[5px] tracking-wide w-full text-center"><?= $d['time'] ?></div>
+      <div class="flex-1 p-6 md:pb-10 md:px-14 md:pt-0 flex flex-col justify-end gap-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight"><?= htmlspecialchars($show['title']) ?></h2>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <?= $d['weekday'] ?>, <?= $d['day'] ?> <?= $d['month'] ?> <?= $d['year'] ?>
+          </span>
+          <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <?= $d['time'] ?>
+          </span>
         </div>
-
-        <div class="space-y-4 max-w-lg relative z-10">
-          <h1 class="text-3xl md:text-5xl font-black uppercase leading-[0.9] tracking-tight text-black"><?= htmlspecialchars($show['title']) ?></h1>
-          <div class="inline-flex items-center gap-2 bg-[#F26522] text-white text-sm font-medium px-4 py-2 rounded-[5px] w-fit">
-            <i data-lucide="map-pin" class="w-4 h-4"></i>
-            Comedy Club
-          </div>
+        <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full w-fit">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <?= htmlspecialchars($show['location']) ?>
         </div>
       </div>
       <!-- Right Image -->
-      <div class="hidden md:block absolute top-1/2 right-12 -translate-y-1/2 w-[420px] h-[340px] rounded-[5px] overflow-hidden shadow-2xl">
-        <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover" />
-      </div>
-      <!-- Mobile Image Fallback -->
-      <div class="md:hidden w-full h-[200px]">
-        <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover" />
+      <div class="w-full md:w-[380px] h-[220px] md:h-full flex-shrink-0 p-4 md:p-6">
+        <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover rounded-xl" />
       </div>
     </div>
   </div>
@@ -114,11 +102,11 @@ function findComedianId(string $performer, array $lookup): ?int {
 
       <!-- ABOUT -->
       <div id="about-section">
-        <h2 class="text-lg font-black uppercase tracking-wide text-white mb-4">About</h2>
-        <div :class="aboutExpanded ? '' : 'line-clamp-3'" class="cc-about-text text-neutral-400 text-base leading-relaxed">
+        <h2 class="text-lg font-bold tracking-wide text-black mb-4">About</h2>
+        <div :class="aboutExpanded ? '' : 'line-clamp-3'" class="cc-about-text text-neutral-600 text-base leading-relaxed">
           <p><?= htmlspecialchars($show['description']) ?> Join us at our comedy club in the heart of Brooklyn for an unforgettable night of live entertainment. Our intimate venue offers the perfect setting to experience comedy up close and personal, with excellent sightlines from every seat in the house. Whether you're a seasoned comedy fan or a first-timer, this show promises non-stop laughs from start to finish. Doors open one hour before showtime — arrive early to grab a drink from our full bar and settle into the best seats. We've been a cornerstone of Brooklyn's comedy scene, hosting both rising stars and legendary performers in an atmosphere that feels like home.</p>
         </div>
-        <button @click="aboutExpanded = !aboutExpanded" class="text-[#24CECE] text-sm font-bold mt-3 hover:text-[#20B8B8] transition-colors" x-text="aboutExpanded ? 'Read Less' : 'Read More...'">Read More...</button>
+        <button @click="aboutExpanded = !aboutExpanded" class="text-[#F15A29] text-sm font-bold mt-3 hover:text-[#D94E22] transition-colors" x-text="aboutExpanded ? 'Read Less' : 'Read More...'">Read More...</button>
       </div>
 
       <!-- FEATURING (only comedians with profiles, min 3) -->
@@ -154,17 +142,17 @@ function findComedianId(string $performer, array $lookup): ?int {
       ?>
       <?php if (!empty($profiledPerformers)): ?>
       <div>
-        <h2 class="text-lg font-black uppercase tracking-wide text-white mb-6">Featuring</h2>
+        <h2 class="text-lg font-bold tracking-wide text-black mb-6">Featuring</h2>
         <div class="flex flex-wrap gap-5">
           <?php foreach ($profiledPerformers as $p):
             $initials = getInitials($p['name']);
             $bgColor = $avatarColors[$p['index'] % count($avatarColors)];
           ?>
-          <a href="?view=comedian&id=<?= $p['id'] ?>" class="flex flex-col items-center gap-2 w-[130px] group">
-            <div class="w-[130px] h-[130px] rounded-[8px] flex items-center justify-center group-hover:ring-2 group-hover:ring-[#24CECE] transition-all" style="background-color: <?= $bgColor ?>">
-              <span class="text-4xl font-black text-white tracking-wider"><?= $initials ?></span>
+          <a href="?view=comedian&id=<?= $p['id'] ?>" class="flex flex-col items-center gap-2 w-[100px] md:w-[130px] group">
+            <div class="w-[100px] h-[100px] md:w-[130px] md:h-[130px] rounded-xl flex items-center justify-center group-hover:ring-2 group-hover:ring-[#F15A29] transition-all" style="background-color: <?= $bgColor ?>">
+              <span class="text-4xl font-bold text-white tracking-wider"><?= $initials ?></span>
             </div>
-            <span class="text-sm font-bold text-white text-center leading-tight group-hover:text-[#24CECE] transition-colors"><?= htmlspecialchars($p['name']) ?></span>
+            <span class="text-sm font-bold text-black text-center leading-tight group-hover:text-[#F15A29] transition-colors"><?= htmlspecialchars($p['name']) ?></span>
           </a>
           <?php endforeach; ?>
         </div>
@@ -173,14 +161,14 @@ function findComedianId(string $performer, array $lookup): ?int {
 
       <!-- SERIES BANNER -->
       <?php if (!empty($show['series'])): ?>
-      <a href="?view=series&name=<?= urlencode($show['series']) ?>" class="block w-full bg-[#F26522] hover:bg-[#D9551A] transition-colors text-white font-semibold text-center py-3.5 px-6 rounded-[8px] text-sm md:text-base">
+      <a href="?view=series&name=<?= urlencode($show['series']) ?>" class="block w-full bg-[#F26522] hover:bg-[#D9551A] transition-colors text-white font-semibold text-center py-3.5 px-6 rounded-[10px] text-sm md:text-base">
         This event is part of: <?= htmlspecialchars($show['series']) ?>!
       </a>
       <?php endif; ?>
 
       <!-- RESTRICTIONS & REQUIREMENTS -->
-      <div id="restrictions-section" class="bg-white rounded-[10px] border border-neutral-200 p-8">
-        <h2 class="text-lg font-black uppercase tracking-wide text-black mb-6 flex items-center gap-2">
+      <div id="restrictions-section" class="bg-white rounded-xl border border-neutral-200 p-8">
+        <h2 class="text-lg font-bold tracking-wide text-black mb-6 flex items-center gap-2">
           <i data-lucide="info" class="w-5 h-5 text-neutral-500"></i>
           Restrictions &amp; Requirements
         </h2>
@@ -214,17 +202,17 @@ function findComedianId(string $performer, array $lookup): ?int {
 
     <!-- Right Column: Purchase Tickets -->
     <div class="lg:col-span-5 order-1 lg:order-2">
-      <div class="bg-white p-8 rounded-[10px] shadow-xl sticky top-32 text-black space-y-6">
+      <div class="bg-white p-8 rounded-xl shadow-xl sticky top-32 text-black space-y-6 border border-neutral-200">
 
-        <h2 class="text-2xl font-black uppercase tracking-tight text-black">Purchase Tickets</h2>
+        <h2 class="text-2xl font-bold tracking-tight text-black">Purchase Tickets</h2>
 
         <?php if (!$isSoldOut): ?>
           <?php component('ticket-selector', ['show' => $show, 'promoCode' => $promoCode]); ?>
         <?php else: ?>
         <!-- Sold Out State -->
         <div class="pt-4 border-t border-neutral-200 text-center">
-          <button disabled class="w-full py-4 bg-neutral-200 text-neutral-500 font-black text-base uppercase tracking-wider rounded-[8px] cursor-not-allowed">Sold Out</button>
-          <p class="text-xs text-neutral-400 mt-3">This show is sold out. Check our schedule for other available shows.</p>
+          <button disabled class="w-full py-4 bg-neutral-200 text-neutral-500 font-bold text-base tracking-wider rounded-[10px] cursor-not-allowed">Sold Out</button>
+          <p class="text-xs text-neutral-400 mt-3">This show is sold out. Check our calendar for other available shows.</p>
         </div>
         <?php endif; ?>
 

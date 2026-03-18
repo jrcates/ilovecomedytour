@@ -3,18 +3,17 @@ require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/data.php';
 
 $view = isset($_GET['view']) ? preg_replace('/[^a-z\-]/', '', $_GET['view']) : 'home';
-$validViews = ['home','schedule','comedians','comedian','gallery','menu',
-               'about','contact','openmic','private','gift','event',
-               'addons','checkout','thank-you','series','promodates'];
+$validViews = ['home','calendar','comedians','comedian','menu',
+               'about','contact','gift','event','hotel','management',
+               'addons','checkout','thank-you','series','promodates','design-system'];
 if (!in_array($view, $validViews)) $view = 'home';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php component('layout/head'); ?>
-<body class="min-h-screen bg-[#171C1C] text-neutral-100 overflow-x-hidden">
+<body class="min-h-screen bg-white text-neutral-900 overflow-x-hidden">
 <div class="overflow-x-hidden w-full">
-  <?php component('layout/header-glow'); ?>
-  <?php component('layout/nav', ['logoImg' => $logoImg, 'logoImgAlt' => $logoImgAlt]); ?>
+  <?php component('layout/nav', ['logoImg' => $logoImg, 'logoImgAlt' => $logoImgAlt, 'currentView' => $view]); ?>
   <main class="cc-view-fade<?= $view !== 'home' ? ' cc-inner-page' : '' ?>">
     <?php
       $viewFile = __DIR__ . "/views/{$view}.php";

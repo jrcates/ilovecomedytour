@@ -29,7 +29,7 @@ $d = formatShowDate($show['date']);
 
   <!-- Show Info -->
   <div class="mb-6 pb-6 border-b border-neutral-200">
-    <h3 class="text-xl font-black uppercase tracking-tight text-black mb-2"><?= htmlspecialchars($show['title']) ?></h3>
+    <h3 class="text-xl font-bold tracking-tight text-black mb-2"><?= htmlspecialchars($show['title']) ?></h3>
     <div class="text-sm text-neutral-500">
       <?= $d['weekday'] ?>, <?= $d['month'] ?> <?= $d['day'] ?> &middot; <?= $d['time'] ?>
     </div>
@@ -83,8 +83,8 @@ $d = formatShowDate($show['date']);
   <!-- Grand Total -->
   <div class="border-t-2 border-neutral-200 mt-4 pt-4">
     <div class="flex items-center justify-between">
-      <span class="text-lg font-black uppercase text-black">Total</span>
-      <span class="text-2xl font-black text-black">$<?= number_format($grandTotal, 2) ?></span>
+      <span class="text-lg font-bold uppercase text-black">Total</span>
+      <span class="text-2xl font-bold text-black">$<?= number_format($grandTotal, 2) ?></span>
     </div>
   </div>
 

@@ -43,24 +43,24 @@ function menuSection(string $title, string $iconSvg, array $items, string $image
   <div class="flex flex-col <?= $side === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row' ?> gap-12 lg:gap-20 items-start">
     <!-- Image -->
     <div class="w-full lg:w-5/12 sticky top-24">
-      <div class="rounded-[5px] overflow-hidden shadow-2xl border border-neutral-800 aspect-[3/4] lg:aspect-auto lg:h-[600px] relative group">
+      <div class="rounded-xl overflow-hidden shadow-2xl border border-neutral-200 aspect-[3/4] lg:aspect-auto lg:h-[600px] relative group">
         <div class="absolute inset-0 bg-neutral-900/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
         <img src="<?= $image ?>" alt="<?= htmlspecialchars($title) ?>" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
       </div>
     </div>
     <!-- Content -->
     <div class="w-full lg:w-7/12 space-y-8">
-      <div class="flex items-center gap-4 border-b border-[#24CECE]/30 pb-4">
-        <div class="p-3 bg-[#24CECE]/10 rounded-[5px] text-[#24CECE]"><?= $iconSvg ?></div>
-        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight"><?= htmlspecialchars($title) ?></h2>
+      <div class="flex items-center gap-4 border-b border-[#F15A29]/30 pb-4">
+        <div class="p-3 bg-[#F15A29]/10 rounded-xl text-[#F15A29]"><?= $iconSvg ?></div>
+        <h2 class="text-3xl md:text-5xl font-bold text-black tracking-tight"><?= htmlspecialchars($title) ?></h2>
       </div>
       <div class="grid gap-6">
         <?php foreach ($items as $item): ?>
         <div class="group">
           <div class="flex justify-between items-baseline mb-1">
-            <h3 class="text-xl font-bold text-neutral-200 group-hover:text-[#24CECE] transition-colors"><?= htmlspecialchars($item['name']) ?></h3>
+            <h3 class="text-xl font-bold text-black group-hover:text-[#F15A29] transition-colors"><?= htmlspecialchars($item['name']) ?></h3>
             <div class="cc-dotted-line"></div>
-            <span class="text-xl font-bold text-[#24CECE] flex-shrink-0"><?= htmlspecialchars($item['price']) ?></span>
+            <span class="text-xl font-bold text-[#F15A29] flex-shrink-0"><?= htmlspecialchars($item['price']) ?></span>
           </div>
           <?php if (!empty($item['description'])): ?>
           <p class="text-neutral-500 text-sm font-medium leading-relaxed max-w-[90%]"><?= htmlspecialchars($item['description']) ?></p>
@@ -102,18 +102,13 @@ $coffeeIcon = '<i data-lucide="coffee" class="w-8 h-8"></i>';
 $snackIcon = '<i data-lucide="cookie" class="w-8 h-8"></i>';
 ?>
 
-<div class="pt-[150px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen">
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
 
   <!-- Header -->
-  <div class="text-center mb-20">
-    <h1 class="text-4xl md:text-5xl font-black mb-6 uppercase tracking-tight text-white">
-      DRINKS <span class="text-[#24CECE]">MENU</span>
+  <div class="mb-20">
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight text-black">
+      Drinks Menu
     </h1>
-    <p class="text-xl text-white max-w-2xl mx-auto mb-6">We started opening during the day, on Friday, Saturday and Sunday. We open at noon.</p>
-    <div class="inline-flex items-center gap-2 text-neutral-400 bg-neutral-900 px-6 py-3 rounded-[5px] border border-neutral-800">
-      <i data-lucide="wine" class="w-5 h-5 text-[#24CECE]"></i>
-      <span class="font-semibold uppercase tracking-wider text-sm">2-Drink Minimum at All Shows</span>
-    </div>
   </div>
 
   <div class="w-full mx-auto pb-12">

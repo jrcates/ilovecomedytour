@@ -9,6 +9,9 @@
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+          },
           colors: {
             teal: { DEFAULT: '#24CECE', dark: '#20B8B8' },
           }
@@ -16,6 +19,25 @@
       }
     }
   </script>
+
+  <!-- Base layer styles: defaults that Tailwind utilities can override without !important -->
+  <style type="text/tailwindcss">
+    @layer base {
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+      }
+      button,
+      a[class*="font-bold"][class*="px-"] {
+        border-radius: 10px;
+      }
+      button.cc-gallery-item {
+        border-radius: 10px;
+      }
+      a.cc-tab-btn {
+        border-radius: 5px;
+      }
+    }
+  </style>
 
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>

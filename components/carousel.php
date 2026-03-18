@@ -1,155 +1,226 @@
+<?php
+$slideData = [];
+foreach ($shows as $i => $slide) {
+  $d = formatShowDate($slide['date']);
+  $slideData[] = ['index' => $i, 'slide' => $slide, 'date' => $d];
+}
+$totalSlides = count($slideData);
+?>
+
 <style>
-  .cc-hero-carousel { overflow: visible; position: relative; }
-  .cc-hero-track { display: flex; transition: transform 0.5s ease; gap: 0; }
-  .cc-hero-slide {
-    flex: 0 0 1200px; display: flex; justify-content: center;
-    transition: opacity 0.5s ease;
-    opacity: 0.5;
+  #ccTrack {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  .cc-hero-slide.active { opacity: 1; }
-  .cc-hero-card { width: 1200px; height: 660px; display: flex; background: white; border-radius: 0; overflow: hidden; position: relative; }
-  .cc-hero-slide.active .cc-hero-card { border-radius: 5px; }
-  @media (max-width: 1280px) {
-    .cc-hero-slide { flex: 0 0 70vw; }
-    .cc-hero-card { width: 70vw; height: auto; flex-direction: column; }
-  }
-  @media (max-width: 768px) {
-    .cc-hero-slide { flex: 0 0 88vw; }
-    .cc-hero-card { width: 88vw; flex-direction: column; }
-  }
-  .cc-carousel-prev, .cc-carousel-next {
-    position: absolute; top: 50%; z-index: 20;
-    width: 50px; height: 50px; background: white; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; transform: translateY(-50%);
-    border: none;
-  }
-  .cc-carousel-prev { left: calc(50% - 600px - 25px); }
-  .cc-carousel-next { right: calc(50% - 600px - 25px); }
-  @media (max-width: 1280px) {
-    .cc-carousel-prev { left: calc(50% - 35vw - 25px); }
-    .cc-carousel-next { right: calc(50% - 35vw - 25px); }
-  }
-  @media (max-width: 768px) {
-    .cc-carousel-prev { left: 4px; width: 40px; height: 40px; }
-    .cc-carousel-next { right: 4px; width: 40px; height: 40px; }
-  }
+  .cc-slide { flex-shrink: 0; overflow: hidden; }
 </style>
 
-<section class="relative pt-[150px] pb-0 flex flex-col items-center justify-center overflow-hidden">
-  <div class="w-full relative" x-data x-init="$nextTick(() => { new CCCarousel($el) })">
-    <div class="cc-hero-carousel">
-      <div class="cc-hero-track">
-        <?php foreach ($shows as $slide):
-          $d = formatShowDate($slide['date']);
-        ?>
-        <div class="cc-hero-slide">
-          <div class="cc-hero-card">
-            <!-- Left Content -->
-            <div class="w-full md:w-[678px] h-full p-8 md:p-16 md:pl-20 flex flex-col justify-between gap-6 md:gap-10 bg-white text-neutral-900 relative z-10">
-              <!-- Date Badge -->
-              <div class="flex flex-col items-center w-fit">
-                <div class="border border-black rounded-[5px] pt-2 pb-1 px-4 text-center min-w-[80px] bg-white">
-                  <div class="text-sm font-bold text-black leading-none"><?= htmlspecialchars($d['weekday']) ?></div>
-                  <div class="text-5xl font-black leading-none text-black my-1"><?= $d['day'] ?></div>
-                  <div class="text-sm font-bold text-black leading-none"><?= htmlspecialchars($d['month']) ?></div>
-                </div>
-                <div class="bg-black text-white text-xs px-3 py-1 mt-1 font-medium rounded-[5px] tracking-wide w-full text-center"><?= htmlspecialchars($d['time']) ?></div>
+<section class="relative pt-[130px] md:pt-[210px] pb-8" style="overflow:hidden;">
+  <div style="overflow:hidden;">
+    <div id="ccTrack">
+      <?php foreach ($slideData as $sd): $isFirst = $sd['index'] === 0; ?>
+      <div class="cc-slide" data-index="<?= $sd['index'] ?>" style="width:<?= $isFirst ? '100%' : '470px' ?>; opacity:<?= $isFirst ? '1' : '0.5' ?>;">
+
+        <!-- Card view -->
+        <div class="cc-card" style="<?= $isFirst ? '' : 'display:none;' ?> background:#1e1e1e; border-radius:10px; border:1px solid rgba(255,255,255,0.08); overflow:hidden; display:<?= $isFirst ? 'flex' : 'none' ?>;">
+          <!-- Mobile: text first, image below -->
+          <div class="flex flex-col md:hidden w-full">
+            <div class="p-5 pb-4 flex flex-col gap-3">
+              <h2 class="text-xl font-bold text-white leading-tight"><?= htmlspecialchars($sd['slide']['title']) ?></h2>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <?= $sd['date']['weekday'] ?>, <?= $sd['date']['day'] ?> <?= $sd['date']['month'] ?> <?= $sd['date']['year'] ?>
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <?= htmlspecialchars($sd['date']['time']) ?>
+                </span>
               </div>
-              <div class="space-y-4 md:space-y-5 max-w-lg mb-4 md:mb-8 relative z-10">
-                <h2 class="text-3xl md:text-5xl font-black uppercase leading-[0.9] tracking-tight text-black"><?= htmlspecialchars($slide['title']) ?></h2>
-                <p class="text-neutral-500 text-base md:text-lg leading-relaxed font-normal"><?= htmlspecialchars($slide['description']) ?></p>
-                <a href="?view=event&show=<?= urlencode($slide['id']) ?>" class="inline-block px-8 py-3 bg-[#24CECE] hover:bg-[#20B8B8] text-black font-bold rounded-full text-base transition-all mt-2 hover:-translate-y-0.5">Buy Tickets</a>
+              <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full max-w-full w-fit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="truncate"><?= htmlspecialchars($sd['slide']['location']) ?></span>
+              </div>
+              <a href="?view=event&show=<?= urlencode($sd['slide']['id']) ?>" class="inline-block px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors w-fit">Buy Tickets</a>
+            </div>
+            <div class="w-full h-[300px] px-3 pb-3">
+              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="" class="w-full h-full object-cover rounded-lg" />
+            </div>
+          </div>
+          <!-- Desktop: side-by-side layout -->
+          <div class="hidden md:flex w-full" style="height:520px;">
+            <div style="width:50%; padding:40px; display:flex; flex-direction:column; justify-content:flex-end; gap:14px;">
+              <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight"><?= htmlspecialchars($sd['slide']['title']) ?></h2>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <?= $sd['date']['weekday'] ?>, <?= $sd['date']['day'] ?> <?= $sd['date']['month'] ?> <?= $sd['date']['year'] ?>
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <?= htmlspecialchars($sd['date']['time']) ?>
+                </span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full max-w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="truncate"><?= htmlspecialchars($sd['slide']['location']) ?></span>
+              </div>
+              <p class="text-neutral-500 text-xs leading-relaxed line-clamp-3"><?= htmlspecialchars($sd['slide']['description']) ?></p>
+              <div>
+                <a href="?view=event&show=<?= urlencode($sd['slide']['id']) ?>" class="inline-block px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors">Buy Tickets</a>
               </div>
             </div>
-            <!-- Mobile Image -->
-            <div class="block md:hidden w-full h-[200px] overflow-hidden">
-              <img src="<?= htmlspecialchars($slide['image']) ?>" alt="<?= htmlspecialchars($slide['title']) ?>" class="w-full h-full object-cover" />
-            </div>
-            <!-- Desktop Image -->
-            <div class="hidden md:block absolute top-1/2 right-12 -translate-y-1/2 w-[460px] h-[480px] rounded-[5px] overflow-hidden shadow-2xl">
-              <img src="<?= htmlspecialchars($slide['image']) ?>" alt="<?= htmlspecialchars($slide['title']) ?>" class="w-full h-full object-cover" />
+            <div style="width:50%; padding:14px 14px 14px 0;">
+              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" />
             </div>
           </div>
         </div>
-        <?php endforeach; ?>
+
+        <!-- Thumb view -->
+        <div class="cc-thumb" style="display:<?= $isFirst ? 'none' : 'flex' ?>; height:520px; border-radius:10px; overflow:hidden; background:#1e1e1e; border:1px solid rgba(255,255,255,0.08); padding:14px; align-items:center; justify-content:center;">
+          <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" />
+        </div>
+
       </div>
+      <?php endforeach; ?>
     </div>
-    <button class="cc-carousel-prev"><i data-lucide="chevron-left" class="w-8 h-8 text-black"></i></button>
-    <button class="cc-carousel-next"><i data-lucide="chevron-right" class="w-8 h-8 text-black"></i></button>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="max-w-[1200px] mx-auto px-6 flex justify-between items-center mt-6">
+    <div id="ccDots" class="flex items-center gap-2"></div>
+    <div class="flex items-center gap-2">
+      <button id="ccPrev" class="w-9 h-9 rounded-full bg-neutral-700 hover:bg-neutral-600 flex items-center justify-center transition-colors border border-white/10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button id="ccNext" class="w-9 h-9 rounded-full bg-neutral-700 hover:bg-neutral-600 flex items-center justify-center transition-colors border border-white/10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
 <script>
-class CCCarousel {
-  constructor(el) {
-    this.el = el;
-    this.track = el.querySelector('.cc-hero-track');
-    this.slides = Array.from(this.track.children);
-    this.total = this.slides.length;
-    this.isTransitioning = false;
+document.addEventListener('DOMContentLoaded', function() {
+  var track  = document.getElementById('ccTrack');
+  if (!track) return;
+  var slides = Array.from(track.querySelectorAll('.cc-slide'));
+  var total  = slides.length;
+  var current = 0;
+  var busy = false;
+  var prevOff = 0;
+  var gap = 16;
 
-    // Clone all slides and append/prepend for infinite loop
-    this.slides.forEach(s => this.track.appendChild(s.cloneNode(true)));
-    this.slides.forEach(s => this.track.insertBefore(s.cloneNode(true), this.track.firstChild));
+  // Content width matches the site (1200px max, centered)
+  var isMobile = window.innerWidth < 768;
+  function contentWidth() { return Math.min(1200, window.innerWidth - (isMobile ? 32 : 48)); }
+  function contentLeft() { return Math.max(isMobile ? 16 : 24, (window.innerWidth - contentWidth()) / 2); }
+  var thumbW = isMobile ? 0 : (window.innerWidth < 1024 ? 380 : 470);
 
-    this.allSlides = Array.from(this.track.children);
-    this.current = this.total; // start at first original slide
-
-    this.position(false);
-    this.bindEvents();
-    this.autoplay = setInterval(() => this.next(), 5000);
-
-    // Re-init Lucide icons for cloned slides
-    if (typeof lucide !== 'undefined') lucide.createIcons();
+  // Dots
+  var dots = [];
+  var dotsBox = document.getElementById('ccDots');
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('button');
+    (function(idx) { d.addEventListener('click', function() { go(idx); }); })(i);
+    dotsBox.appendChild(d);
+    dots.push(d);
   }
 
-  position(animate) {
-    const slideW = this.allSlides[0].offsetWidth;
-    const viewW = window.innerWidth;
-    const offset = -this.current * slideW + (viewW - slideW) / 2;
+  function render(animate) {
+    var cw = contentWidth();
+    var cl = contentLeft();
 
-    this.track.style.transition = animate ? 'transform 0.5s ease' : 'none';
-    this.track.style.transform = `translateX(${offset}px)`;
-
-    this.allSlides.forEach((s, i) => s.classList.toggle('active', i === this.current));
-  }
-
-  goTo(idx) {
-    if (this.isTransitioning) return;
-    this.isTransitioning = true;
-    this.current = idx;
-    this.position(true);
-  }
-
-  next() { this.goTo(this.current + 1); }
-  prev() { this.goTo(this.current - 1); }
-
-  bindEvents() {
-    this.track.addEventListener('transitionend', () => {
-      this.isTransitioning = false;
-      if (this.current >= this.total * 2) {
-        this.current -= this.total;
-        this.position(false);
-      }
-      if (this.current < this.total) {
-        this.current += this.total;
-        this.position(false);
+    // 1. Set each slide's width: active = content width, inactive = thumb
+    slides.forEach(function(sl, i) {
+      var card  = sl.querySelector('.cc-card');
+      var thumb = sl.querySelector('.cc-thumb');
+      sl.style.display = '';
+      if (i === current) {
+        sl.style.width = cw + 'px';
+        sl.style.opacity = '1';
+        card.style.display = 'block';
+        thumb.style.display = 'none';
+      } else if (isMobile) {
+        sl.style.display = 'none';
+      } else {
+        sl.style.width = thumbW + 'px';
+        sl.style.opacity = '0.5';
+        card.style.display = 'none';
+        thumb.style.display = 'flex';
       }
     });
 
-    this.el.querySelector('.cc-carousel-prev').addEventListener('click', () => this.prev());
-    this.el.querySelector('.cc-carousel-next').addEventListener('click', () => this.next());
+    // 2. Calculate translateX to align active slide with content area
+    var before = 0;
+    if (!isMobile) {
+      for (var i = 0; i < current; i++) {
+        before += thumbW + gap;
+      }
+    }
+    var offset = isMobile ? cl : cl - before;
 
-    // Touch swipe
-    let startX = 0;
-    this.track.addEventListener('touchstart', e => { startX = e.changedTouches[0].screenX; }, { passive: true });
-    this.track.addEventListener('touchend', e => {
-      const diff = startX - e.changedTouches[0].screenX;
-      if (Math.abs(diff) > 50) diff > 0 ? this.next() : this.prev();
+    if (!animate) {
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(' + offset + 'px)';
+    } else {
+      // Spring bounce: overshoot, bounce back, settle
+      var dir = offset > prevOff ? 1 : -1;
+      var overshoot = 30 * dir;
+
+      track.style.transition = 'transform 0.25s cubic-bezier(0.2, 0, 0.5, 1)';
+      track.style.transform = 'translateX(' + (offset + overshoot) + 'px)';
+
+      setTimeout(function() {
+        track.style.transition = 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateX(' + (offset - overshoot * 0.3) + 'px)';
+      }, 260);
+
+      setTimeout(function() {
+        track.style.transition = 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateX(' + offset + 'px)';
+      }, 470);
+    }
+    prevOff = offset;
+
+    // 3. Dots
+    dots.forEach(function(d, i) {
+      d.className = i === current
+        ? 'w-8 h-2.5 rounded-full bg-white transition-all duration-300'
+        : 'w-2.5 h-2.5 rounded-full bg-neutral-600 transition-all duration-300';
     });
-
-    window.addEventListener('resize', () => this.position(false));
   }
-}
+
+  function go(idx) {
+    if (busy || idx < 0 || idx >= total || idx === current) return;
+    busy = true;
+    current = idx;
+    render(true);
+    setTimeout(function() { busy = false; }, 650);
+  }
+
+  document.getElementById('ccNext').addEventListener('click', function() {
+    clearInterval(auto);
+    go(current < total - 1 ? current + 1 : 0);
+  });
+  document.getElementById('ccPrev').addEventListener('click', function() {
+    clearInterval(auto);
+    go(current > 0 ? current - 1 : total - 1);
+  });
+
+  var sx = 0;
+  track.addEventListener('touchstart', function(e) { sx = e.changedTouches[0].screenX; }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var d = sx - e.changedTouches[0].screenX;
+    if (Math.abs(d) > 50) { clearInterval(auto); d > 0 ? go(current<total-1?current+1:0) : go(current>0?current-1:total-1); }
+  });
+
+  window.addEventListener('resize', function() { isMobile = window.innerWidth < 768; thumbW = isMobile ? 0 : (window.innerWidth < 1024 ? 380 : 470); render(false); });
+
+  // Init
+  render(false);
+  var auto = setInterval(function() { go(current<total-1?current+1:0); }, 5000);
+});
 </script>
