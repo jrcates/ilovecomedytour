@@ -77,8 +77,15 @@ function findComedianId(string $performer, array $lookup): ?int {
     <div class="cc-event-hero">
       <!-- Left Content -->
       <div class="w-full md:w-[678px] h-full p-6 md:p-12 md:pl-16 flex flex-col justify-center gap-6 bg-white text-neutral-900 relative z-10">
-        <!-- Date Badge -->
-        <?php component('date-badge', ['date' => $show['date']]); ?>
+        <!-- Date Badge (larger version for hero) -->
+        <div class="flex flex-col items-center w-fit">
+          <div class="border border-black rounded-[5px] pt-2 pb-1 px-4 text-center min-w-[80px] bg-white">
+            <div class="text-sm font-bold text-black leading-none"><?= $d['weekday'] ?></div>
+            <div class="text-5xl font-black leading-none text-black my-1"><?= $d['day'] ?></div>
+            <div class="text-sm font-bold text-black leading-none"><?= $d['month'] ?></div>
+          </div>
+          <div class="bg-black text-white text-xs px-3 py-1 mt-1 font-medium rounded-[5px] tracking-wide w-full text-center"><?= $d['time'] ?></div>
+        </div>
 
         <div class="space-y-4 max-w-lg relative z-10">
           <h1 class="text-3xl md:text-5xl font-black uppercase leading-[0.9] tracking-tight text-black"><?= htmlspecialchars($show['title']) ?></h1>
