@@ -3,7 +3,7 @@ require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/data.php';
 
 $view = isset($_GET['view']) ? preg_replace('/[^a-z\-]/', '', $_GET['view']) : 'home';
-$validViews = ['home','calendar','comedians','comedian','menu',
+$validViews = ['home','calendar','comedians','comedian',
                'about','contact','gift','event','hotel','management',
                'addons','checkout','thank-you','series','promodates','design-system'];
 if (!in_array($view, $validViews)) $view = 'home';
