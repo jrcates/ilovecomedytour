@@ -74,7 +74,7 @@ $addons = [
 
 <div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen" x-data="{
   qtys: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: 0, <?php endforeach; ?> },
-  names: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: <?= json_encode($addon['name']) ?>, <?php endforeach; ?> },
+  names: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: '<?= htmlspecialchars($addon['name'], ENT_QUOTES) ?>', <?php endforeach; ?> },
   prices: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: <?= $addon['price'] ?>, <?php endforeach; ?> },
   getTotal() {
     let t = 0;
