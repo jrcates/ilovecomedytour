@@ -13,7 +13,7 @@
             sans: ['Montserrat', 'sans-serif'],
           },
           colors: {
-            teal: { DEFAULT: '#24CECE', dark: '#20B8B8' },
+            orange: { DEFAULT: '#F15A29' },
           }
         }
       }
@@ -28,9 +28,6 @@
       }
       button,
       a[class*="font-bold"][class*="px-"] {
-        border-radius: 10px;
-      }
-      button.cc-gallery-item {
         border-radius: 10px;
       }
       a.cc-tab-btn {

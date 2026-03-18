@@ -3,7 +3,7 @@ $success = isset($_POST['gift_submitted']) && $_POST['gift_submitted'] === '1';
 ?>
 
 <?php if ($success): ?>
-<div class="pt-[130px] md:pt-[250px] pb-24 container mx-auto px-4 md:px-6 min-h-screen flex flex-col items-center justify-center text-center">
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen flex flex-col items-center justify-center text-center">
   <div class="w-24 h-24 bg-green-500/10 rounded-xl flex items-center justify-center mb-8">
     <i data-lucide="circle-check" class="w-12 h-12 text-green-500"></i>
   </div>

@@ -46,7 +46,7 @@ $totalSlides = count($slideData);
               <a href="?view=event&show=<?= urlencode($sd['slide']['id']) ?>" class="inline-block px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors w-fit">Buy Tickets</a>
             </div>
             <div class="w-full h-[300px] px-3 pb-3">
-              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="" class="w-full h-full object-cover rounded-lg" />
+              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="<?= htmlspecialchars($sd['slide']['title']) ?>" class="w-full h-full object-cover rounded-lg" />
             </div>
           </div>
           <!-- Desktop: side-by-side layout -->
@@ -73,14 +73,14 @@ $totalSlides = count($slideData);
               </div>
             </div>
             <div style="width:50%; padding:14px 14px 14px 0;">
-              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" />
+              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="<?= htmlspecialchars($sd['slide']['title']) ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;" />
             </div>
           </div>
         </div>
 
         <!-- Thumb view -->
         <div class="cc-thumb" style="display:<?= $isFirst ? 'none' : 'flex' ?>; height:520px; border-radius:10px; overflow:hidden; background:#1e1e1e; border:1px solid rgba(255,255,255,0.08); padding:14px; align-items:center; justify-content:center;">
-          <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" />
+          <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="<?= htmlspecialchars($sd['slide']['title']) ?>" style="width:100%; height:100%; object-fit:cover; border-radius:10px;" />
         </div>
 
       </div>
@@ -92,10 +92,10 @@ $totalSlides = count($slideData);
   <div class="max-w-[1200px] mx-auto px-6 flex justify-between items-center mt-6">
     <div id="ccDots" class="flex items-center gap-2"></div>
     <div class="flex items-center gap-2">
-      <button id="ccPrev" class="w-9 h-9 rounded-full bg-neutral-700 hover:bg-neutral-600 flex items-center justify-center transition-colors border border-white/10">
+      <button id="ccPrev" aria-label="Previous slide" class="w-9 h-9 rounded-full bg-neutral-700 hover:bg-neutral-600 flex items-center justify-center transition-colors border border-white/10">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
       </button>
-      <button id="ccNext" class="w-9 h-9 rounded-full bg-neutral-700 hover:bg-neutral-600 flex items-center justify-center transition-colors border border-white/10">
+      <button id="ccNext" aria-label="Next slide" class="w-9 h-9 rounded-full bg-neutral-700 hover:bg-neutral-600 flex items-center justify-center transition-colors border border-white/10">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </button>
     </div>

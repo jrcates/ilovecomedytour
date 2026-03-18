@@ -104,7 +104,7 @@ function findComedianId(string $performer, array $lookup): ?int {
       <div id="about-section">
         <h2 class="text-lg font-bold tracking-wide text-black mb-4">About</h2>
         <div :class="aboutExpanded ? '' : 'line-clamp-3'" class="cc-about-text text-neutral-600 text-base leading-relaxed">
-          <p><?= htmlspecialchars($show['description']) ?> Join us at our comedy club in the heart of Brooklyn for an unforgettable night of live entertainment. Our intimate venue offers the perfect setting to experience comedy up close and personal, with excellent sightlines from every seat in the house. Whether you're a seasoned comedy fan or a first-timer, this show promises non-stop laughs from start to finish. Doors open one hour before showtime — arrive early to grab a drink from our full bar and settle into the best seats. We've been a cornerstone of Brooklyn's comedy scene, hosting both rising stars and legendary performers in an atmosphere that feels like home.</p>
+          <p><?= htmlspecialchars($show['description']) ?> Join us at <?= htmlspecialchars($show['location']) ?> for an unforgettable night of live entertainment. Our intimate venue offers the perfect setting to experience comedy up close and personal, with excellent sightlines from every seat in the house. Whether you're a seasoned comedy fan or a first-timer, this show promises non-stop laughs from start to finish. Doors open one hour before showtime — arrive early to grab a drink and settle into the best seats.</p>
         </div>
         <button @click="aboutExpanded = !aboutExpanded" class="text-[#F15A29] text-sm font-bold mt-3 hover:text-[#D94E22] transition-colors" x-text="aboutExpanded ? 'Read Less' : 'Read More...'">Read More...</button>
       </div>

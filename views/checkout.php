@@ -112,7 +112,7 @@ if ($success):
 </div>
 <?php else: ?>
 
-<div class="pt-[130px] md:pt-[250px] pb-24 container mx-auto px-4 md:px-6 max-w-[1200px]" x-data="{
+<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6" x-data="{
   step: 1,
   isMobile: window.innerWidth < 1024,
   baseTotal: <?= $total ?>,

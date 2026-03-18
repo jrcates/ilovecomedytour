@@ -20,9 +20,9 @@
   <!-- Key Info -->
   <div class="grid md:grid-cols-3 gap-6 max-w-3xl w-full mb-16">
     <?php foreach ([
-      ['📅', 'Date', 'Saturday, Oct 12, 2024'],
-      ['🕗', 'Doors Open', '7:00 PM — Show at 8:00 PM'],
-      ['📍', 'Location', 'Comedy Club, Brooklyn, NY'],
+      ['📅', 'Date', 'Check your confirmation email'],
+      ['🕗', 'Doors Open', '1 hour before showtime'],
+      ['📍', 'Location', 'See your ticket for venue details'],
     ] as [$icon, $title, $detail]): ?>
     <div class="bg-neutral-50 p-6 rounded-xl border border-neutral-200 text-center">
       <div class="text-3xl mb-2"><?= $icon ?></div>
