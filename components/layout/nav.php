@@ -6,7 +6,7 @@
           x-data="{ scrolled: false }"
           @scroll.window="scrolled = (window.scrollY > 50)"
           :class="scrolled ? 'cc-nav-scrolled' : ''"
-          class="fixed top-0 w-full z-50 bg-black <?= (isset($currentView) && $currentView !== 'home') ? 'overflow-hidden' : '' ?>"
+          class="fixed top-0 w-full z-50 bg-black <?= (isset($currentView) && $currentView !== 'home') ? 'overflow-hidden' : '' ?>">
     <!-- Gradient glow (desktop only) -->
     <div class="hidden md:block absolute top-0 left-0 w-full h-[600px] pointer-events-none overflow-hidden">
       <div class="absolute -top-[500px] left-1/2 -translate-x-1/2 ml-[-400px] w-[700px] h-[700px] rounded-full bg-[#F15A29] opacity-50 blur-[130px]"></div>

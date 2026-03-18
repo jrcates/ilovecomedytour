@@ -1,6 +1,6 @@
 <?php
 $success = isset($_POST['checkout_submitted']) && $_POST['checkout_submitted'] === '1';
-$showId = isset($_GET['show']) ? $_GET['show'] : null;
+$showId = isset($_GET['show']) ? preg_replace('/[^a-z0-9\-]/', '', $_GET['show']) : null;
 $promoCode = isset($_GET['promo']) ? preg_replace('/[^A-Za-z0-9]/', '', $_GET['promo']) : '';
 $addonsTotal = isset($_GET['addons']) ? floatval($_GET['addons']) : 0;
 $addonItems = [];

@@ -125,8 +125,8 @@ $isPromoFlat2 = strtoupper($promoCode) === 'EE001';
 
   <!-- Promo banner or note -->
   <?php if ($isPromoFlat2): ?>
-  <div class="bg-[#F26522]/10 border border-[#F26522] rounded-[10px] p-3 text-center mt-4">
-    <p class="text-[#F26522] font-bold text-sm">
+  <div class="bg-[#F15A29]/10 border border-[#F15A29] rounded-[10px] p-3 text-center mt-4">
+    <p class="text-[#F15A29] font-bold text-sm">
       <i data-lucide="sparkles" class="w-4 h-4 inline-block align-middle mr-1"></i>
       Promo EE001 applied &mdash; $2 off per ticket!
     </p>

@@ -4,7 +4,7 @@
     <i data-lucide="palette" class="w-4 h-4"></i>
     Design System
   </a>
-  <a href="?view=promodates" class="flex items-center gap-2 px-5 py-3 bg-[#F26522] hover:bg-[#D9551A] text-white font-bold text-sm rounded-[10px] shadow-lg transition-colors">
+  <a href="?view=promodates" class="flex items-center gap-2 px-5 py-3 bg-[#F15A29] hover:bg-[#D9551A] text-white font-bold text-sm rounded-[10px] shadow-lg transition-colors">
     <i data-lucide="sparkles" class="w-4 h-4"></i>
     Promo Dates
   </a>

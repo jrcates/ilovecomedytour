@@ -1,5 +1,5 @@
 <?php
-$showId = isset($_GET['show']) ? $_GET['show'] : null;
+$showId = isset($_GET['show']) ? preg_replace('/[^a-z0-9\-]/', '', $_GET['show']) : null;
 $promoCode = isset($_GET['promo']) ? preg_replace('/[^A-Za-z0-9]/', '', $_GET['promo']) : '';
 $show = null;
 
@@ -74,7 +74,7 @@ $addons = [
 
 <div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen" x-data="{
   qtys: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: 0, <?php endforeach; ?> },
-  names: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: '<?= addslashes($addon['name']) ?>', <?php endforeach; ?> },
+  names: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: <?= json_encode($addon['name']) ?>, <?php endforeach; ?> },
   prices: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: <?= $addon['price'] ?>, <?php endforeach; ?> },
   getTotal() {
     let t = 0;

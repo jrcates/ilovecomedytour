@@ -1,5 +1,5 @@
 <?php
-$showId = isset($_GET['show']) ? $_GET['show'] : null;
+$showId = isset($_GET['show']) ? preg_replace('/[^a-z0-9\-]/', '', $_GET['show']) : null;
 $promoCode = isset($_GET['promo']) ? preg_replace('/[^A-Za-z0-9]/', '', $_GET['promo']) : '';
 $show = null;
 
@@ -161,7 +161,7 @@ function findComedianId(string $performer, array $lookup): ?int {
 
       <!-- SERIES BANNER -->
       <?php if (!empty($show['series'])): ?>
-      <a href="?view=series&name=<?= urlencode($show['series']) ?>" class="block w-full bg-[#F26522] hover:bg-[#D9551A] transition-colors text-white font-semibold text-center py-3.5 px-6 rounded-[10px] text-sm md:text-base">
+      <a href="?view=series&name=<?= urlencode($show['series']) ?>" class="block w-full bg-[#F15A29] hover:bg-[#D9551A] transition-colors text-white font-semibold text-center py-3.5 px-6 rounded-[10px] text-sm md:text-base">
         This event is part of: <?= htmlspecialchars($show['series']) ?>!
       </a>
       <?php endif; ?>

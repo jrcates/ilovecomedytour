@@ -62,7 +62,7 @@
                      :class="activeDate === day.key && day.inMonth ? 'text-black' : (day.inMonth ? 'text-white' : 'text-neutral-600')"
                      x-text="day.day"></div>
                 <div class="w-1.5 h-1.5 mt-1"
-                     :class="day.hasShows && day.inMonth ? 'rounded-full bg-[#F26522]' : ''"></div>
+                     :class="day.hasShows && day.inMonth ? 'rounded-full bg-[#F15A29]' : ''"></div>
               </button>
             </template>
           </div>
@@ -115,7 +115,7 @@
                     :class="[
                       cell.isSelected ? 'bg-[#F15A29] text-white font-bold' : '',
                       !cell.isSelected && cell.isToday ? 'border border-[#F15A29] text-white font-bold' : '',
-                      !cell.isSelected && !cell.isToday && cell.hasShows ? 'text-[#F26522] font-bold hover:bg-neutral-700' : '',
+                      !cell.isSelected && !cell.isToday && cell.hasShows ? 'text-[#F15A29] font-bold hover:bg-neutral-700' : '',
                       !cell.isSelected && !cell.isToday && !cell.hasShows ? 'text-neutral-400 hover:bg-neutral-700' : ''
                     ]"
                     class="flex flex-col items-center justify-center py-1.5 rounded-full text-sm cursor-pointer transition-colors">

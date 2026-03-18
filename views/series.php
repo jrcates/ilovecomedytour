@@ -77,7 +77,7 @@ $meta = isset($seriesDescriptions[$seriesName]) ? $seriesDescriptions[$seriesNam
 
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
     <div>
-      <span class="text-[#F26522] text-sm font-bold uppercase tracking-widest mb-3 block">Recurring Show</span>
+      <span class="text-[#F15A29] text-sm font-bold uppercase tracking-widest mb-3 block">Recurring Show</span>
       <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Show Series</h1>
     </div>
     <a href="?view=calendar" class="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors px-4 py-2 rounded-[10px] border border-neutral-300 hover:border-neutral-400">
@@ -98,7 +98,7 @@ $meta = isset($seriesDescriptions[$seriesName]) ? $seriesDescriptions[$seriesNam
       <!-- Info -->
       <div class="lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
         <div class="flex flex-wrap gap-2 mb-6">
-          <span class="inline-block px-3 py-1 bg-[#F26522]/20 text-[#F26522] text-xs font-bold uppercase tracking-widest rounded-[5px]">Every <?= htmlspecialchars($dayOfWeek) ?></span>
+          <span class="inline-block px-3 py-1 bg-[#F15A29]/20 text-[#F15A29] text-xs font-bold uppercase tracking-widest rounded-[5px]">Every <?= htmlspecialchars($dayOfWeek) ?></span>
           <span class="inline-block px-3 py-1 bg-neutral-200 text-neutral-600 text-xs font-bold uppercase tracking-widest rounded-[5px]"><?= htmlspecialchars($showTime) ?></span>
         </div>
 

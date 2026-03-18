@@ -65,7 +65,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               <span class="truncate"><?= htmlspecialchars($show['location']) ?></span>
             </div>
-            <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3 mb-4">Join us for Comedy Night at <?= htmlspecialchars($show['location']) ?>. The show will take place indoors. Capacity is limited.</p>
+            <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3 mb-4"><?= htmlspecialchars($show['description']) ?></p>
             <div class="mt-auto">
               <a href="?view=event&show=<?= urlencode($show['id']) ?>" class="inline-block px-6 py-2.5 bg-black text-white font-bold text-sm rounded-[10px] hover:bg-neutral-800 transition-colors">Buy Tickets</a>
             </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <h3 class="text-lg font-bold text-black mb-1"><?= htmlspecialchars($show['title']) ?></h3>
-          <p class="text-neutral-500 text-sm leading-relaxed mb-3">Join us for Comedy Night at <?= htmlspecialchars($show['location']) ?>. The show will take place indoors. Capacity is limited.</p>
+          <p class="text-neutral-500 text-sm leading-relaxed mb-3"><?= htmlspecialchars($show['description']) ?></p>
           <div class="flex flex-wrap items-center gap-2">
             <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>

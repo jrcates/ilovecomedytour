@@ -2,7 +2,7 @@
 
   <!-- Header -->
   <div class="mb-12">
-    <h1 class="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight">About Us</h1>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-black mb-3 tracking-tight">About Us</h1>
   </div>
 
   <!-- Main Content: Text + Logo -->
