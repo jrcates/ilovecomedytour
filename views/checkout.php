@@ -104,14 +104,15 @@ if ($success):
         $gcalDetails = urlencode('Comedy Craft Beer & Wine & More - ' . $show['title']);
         $gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text={$gcalTitle}&dates={$gcalStart}/{$gcalEnd}&location={$gcalLocation}&details={$gcalDetails}";
       ?>
-      <div class="border-t border-dashed border-white/10 pt-5 flex gap-3" x-data="{ shared: false }">
+      <div class="border-t border-dashed border-white/10 pt-5 flex gap-3"
+           x-data="{ shared: false, shareTitle: <?= htmlspecialchars(json_encode($show['title']), ENT_QUOTES) ?>, shareLocation: <?= htmlspecialchars(json_encode($show['location']), ENT_QUOTES) ?> }">
         <a href="<?= $gcalUrl ?>" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
           <i data-lucide="calendar" class="w-4 h-4"></i>
           Save to Calendar
         </a>
         <button @click="
           if (navigator.share) {
-            navigator.share({ title: '<?= htmlspecialchars($show['title'], ENT_QUOTES) ?>', text: 'I am going to <?= htmlspecialchars($show['title'], ENT_QUOTES) ?> at <?= htmlspecialchars($show['location'], ENT_QUOTES) ?>!', url: window.location.href });
+            navigator.share({ title: shareTitle, text: 'I am going to ' + shareTitle + ' at ' + shareLocation + '!', url: window.location.href });
           } else {
             navigator.clipboard.writeText(window.location.href);
             shared = true;
