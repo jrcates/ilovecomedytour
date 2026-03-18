@@ -149,7 +149,7 @@ function findComedianId(string $performer, array $lookup): ?int {
             $bgColor = $avatarColors[$p['index'] % count($avatarColors)];
           ?>
           <a href="?view=comedian&id=<?= $p['id'] ?>" class="flex flex-col items-center gap-2 w-[100px] md:w-[130px] group">
-            <div class="w-[100px] h-[100px] md:w-[130px] md:h-[130px] rounded-xl flex items-center justify-center group-hover:ring-2 group-hover:ring-[#F15A29] transition-all" style="background-color: <?= $bgColor ?>">
+            <div class="w-[100px] h-[100px] md:w-[130px] md:h-[130px] rounded-xl flex items-center justify-center group-hover:ring-2 group-hover:ring-[#F15A29] transition-all bg-[<?= $bgColor ?>]">
               <span class="text-4xl font-bold text-white tracking-wider"><?= $initials ?></span>
             </div>
             <span class="text-sm font-bold text-black text-center leading-tight group-hover:text-[#F15A29] transition-colors"><?= htmlspecialchars($p['name']) ?></span>

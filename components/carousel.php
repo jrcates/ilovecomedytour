@@ -24,7 +24,7 @@ $totalSlides = count($slideData);
       <div class="cc-slide" data-index="<?= $sd['index'] ?>" style="width:<?= $isFirst ? '100%' : '470px' ?>; opacity:<?= $isFirst ? '1' : '0.5' ?>;">
 
         <!-- Card view -->
-        <div class="cc-card" style="<?= $isFirst ? '' : 'display:none;' ?> background:#1e1e1e; border-radius:10px; border:1px solid rgba(255,255,255,0.08); overflow:hidden; display:<?= $isFirst ? 'flex' : 'none' ?>;">
+        <div class="cc-card" style="background:#1e1e1e; border-radius:10px; border:1px solid rgba(255,255,255,0.08); overflow:hidden; display:<?= $isFirst ? 'block' : 'none' ?>;">
           <!-- Mobile: text first, image below -->
           <div class="flex flex-col md:hidden w-full">
             <div class="p-5 pb-4 flex flex-col gap-3">

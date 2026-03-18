@@ -104,14 +104,22 @@ if ($success):
         $gcalDetails = urlencode('Comedy Craft Beer & Wine & More - ' . $show['title']);
         $gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text={$gcalTitle}&dates={$gcalStart}/{$gcalEnd}&location={$gcalLocation}&details={$gcalDetails}";
       ?>
-      <div class="border-t border-dashed border-white/10 pt-5 flex gap-3">
+      <div class="border-t border-dashed border-white/10 pt-5 flex gap-3" x-data="{ shared: false }">
         <a href="<?= $gcalUrl ?>" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
           <i data-lucide="calendar" class="w-4 h-4"></i>
           Save to Calendar
         </a>
-        <button onclick="if(navigator.share){navigator.share({title:'<?= htmlspecialchars($show['title'], ENT_QUOTES) ?>',text:'I\'m going to <?= htmlspecialchars($show['title'], ENT_QUOTES) ?> at <?= htmlspecialchars($show['location'], ENT_QUOTES) ?>!',url:window.location.href})}else{navigator.clipboard.writeText(window.location.href);this.innerHTML='<i data-lucide=&quot;check&quot; class=&quot;w-4 h-4&quot;></i> Link Copied!';lucide.createIcons();setTimeout(()=>{this.innerHTML='<i data-lucide=&quot;share-2&quot; class=&quot;w-4 h-4&quot;></i> Share';lucide.createIcons()},2000)}" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
-          <i data-lucide="share-2" class="w-4 h-4"></i>
-          Share
+        <button @click="
+          if (navigator.share) {
+            navigator.share({ title: <?= json_encode($show['title']) ?>, text: 'I\'m going to <?= htmlspecialchars($show['title'], ENT_QUOTES) ?> at <?= htmlspecialchars($show['location'], ENT_QUOTES) ?>!', url: window.location.href });
+          } else {
+            navigator.clipboard.writeText(window.location.href);
+            shared = true;
+            setTimeout(() => { shared = false }, 2000);
+          }
+        " class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
+          <i :data-lucide="shared ? 'check' : 'share-2'" class="w-4 h-4"></i>
+          <span x-text="shared ? 'Link Copied!' : 'Share'"></span>
         </button>
       </div>
       <?php endif; ?>

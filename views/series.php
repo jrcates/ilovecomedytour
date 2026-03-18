@@ -1,5 +1,5 @@
 <?php
-$seriesName = isset($_GET['name']) ? $_GET['name'] : null;
+$seriesName = isset($_GET['name']) ? htmlspecialchars($_GET['name'], ENT_QUOTES, 'UTF-8') : null;
 
 // Find all shows in this series
 $seriesShows = [];
