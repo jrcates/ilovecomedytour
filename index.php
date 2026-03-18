@@ -13,7 +13,7 @@ if (!in_array($view, $validViews)) $view = 'home';
 <?php component('layout/head'); ?>
 <body class="min-h-screen bg-white text-neutral-900 overflow-x-hidden">
 <div class="overflow-x-hidden w-full">
-  <?php component('layout/nav', ['logoImg' => $logoImg, 'logoImgAlt' => $logoImgAlt, 'currentView' => $view]); ?>
+  <?php component('layout/nav', ['currentView' => $view]); ?>
   <main class="cc-view-fade<?= $view !== 'home' ? ' cc-inner-page' : '' ?>">
     <?php
       $viewFile = __DIR__ . "/views/{$view}.php";
@@ -26,7 +26,7 @@ if (!in_array($view, $validViews)) $view = 'home';
   </main>
   <?php component('layout/promo-button'); ?>
   <?php component('layout/newsletter'); ?>
-  <?php component('layout/footer', ['logoImg' => $logoImg]); ?>
+  <?php component('layout/footer'); ?>
 </div>
 </body>
 </html>

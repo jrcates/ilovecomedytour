@@ -4,10 +4,7 @@
 //  Shows generated: today + 3 months
 // ─────────────────────────────────────────────
 
-$siteName = 'Comedy Club';
-
-$logoImg        = 'assets/logo-white.png';
-$logoImgAlt     = 'assets/logo-white.png';
+$siteName = 'Comedy Craft Beer & Wine & More';
 
 // Series definitions keyed by day of week (0=Sun … 6=Sat)
 // 'week_parity' => 0 = even weeks only, 1 = odd weeks only, omit = every week
