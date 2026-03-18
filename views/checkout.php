@@ -77,7 +77,6 @@ if ($success):
   <?php if ($show && $d): ?>
   <div class="w-full max-w-[560px] bg-[#1E2323] rounded-[10px] overflow-hidden border-t-4 border-[#24CECE] text-left">
     <div class="p-8">
-      <!-- Title Row -->
       <div class="flex items-start justify-between gap-4 mb-6">
         <div>
           <h2 class="text-2xl font-black uppercase tracking-tight text-white leading-tight mb-1"><?= htmlspecialchars($show['title']) ?></h2>
@@ -88,8 +87,6 @@ if ($success):
           <div class="text-2xl font-black text-white leading-none mt-0.5"><?= $d['day'] ?></div>
         </div>
       </div>
-
-      <!-- Details -->
       <div class="space-y-4 mb-8">
         <div class="flex items-center gap-3 text-neutral-300">
           <i data-lucide="calendar" class="w-5 h-5 text-[#94A0AF] shrink-0"></i>
@@ -106,11 +103,7 @@ if ($success):
           </div>
         </div>
       </div>
-
-      <!-- Dotted Divider -->
       <div class="border-t border-dashed border-neutral-700 mb-6"></div>
-
-      <!-- Action Buttons -->
       <div class="flex gap-3">
         <button onclick="return false;" class="flex-1 flex items-center justify-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-sm py-3 rounded-[8px] transition-colors">
           <i data-lucide="download" class="w-4 h-4"></i>
@@ -125,7 +118,6 @@ if ($success):
   </div>
   <?php endif; ?>
 
-  <!-- Back to Home -->
   <a href="?view=home" class="mt-10 inline-block px-12 py-4 bg-[#24CECE] text-black font-black text-base uppercase tracking-wider rounded-[8px] hover:bg-[#20B8B8] transition-colors">Back to Home</a>
 
 </div>
@@ -140,7 +132,7 @@ if ($success):
   giftApplied: false,
   promoOpen: <?= strtoupper($promoCode) === 'EE001' ? 'true' : 'false' ?>,
   promoInput: '<?= strtoupper($promoCode) === 'EE001' ? 'EE001' : '' ?>',
-  promoMsg: <?= strtoupper($promoCode) === 'EE001' ? \"'Promo code applied! $2 off per ticket.'\" : \"''\" ?>,
+  promoMsg: <?= strtoupper($promoCode) === 'EE001' ? \"'Promo code applied! \\$2 off per ticket.'\" : \"''\" ?>,
   promoMsgType: <?= strtoupper($promoCode) === 'EE001' ? \"'success'\" : \"''\" ?>,
   giftOpen: false,
   giftInput: '',
@@ -185,7 +177,7 @@ if ($success):
       this.giftMsgType = 'error';
     }
   }
-}" @resize.window="isMobile = window.innerWidth < 1024">
+}" @resize.window="isMobile = window.innerWidth < 1024; if (!isMobile) { step = 1 }">
 
   <!-- Header -->
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b border-neutral-800 pb-8">
@@ -201,38 +193,101 @@ if ($success):
     <!-- Left Column: Order Summary -->
     <div class="lg:col-span-7 space-y-8 order-2 lg:order-1" x-show="!isMobile || step === 1">
 
-      <!-- Cart Summary Component -->
-      <?php component('cart-summary', ['ticketItems' => $ticketItems, 'addonItems' => $addonItems, 'show' => $show, 'promoCode' => $promoCode]); ?>
-
-      <!-- Promo Code -->
+      <!-- Event Details -->
       <section class="bg-[#3A4655] rounded-[5px] border border-neutral-800 p-8">
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" x-model="promoOpen" @change="if (!promoOpen) { promoInput = ''; promoMsg = ''; promoApplied = false; }" class="w-4 h-4 accent-[#24CECE] cursor-pointer" />
-          <span class="text-sm font-medium text-[#94A0AF]">I have a promo code</span>
-        </label>
-        <div x-show="promoOpen" x-cloak class="mt-3">
-          <div class="flex gap-2">
-            <input type="text" x-model="promoInput" placeholder="Enter code" class="flex-1 bg-white text-black border border-neutral-200 rounded-[5px] px-4 py-3 focus:ring-2 focus:ring-[#24CECE] outline-none uppercase placeholder:capitalize text-sm" />
-            <button type="button" @click="applyPromo()" class="px-5 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-bold rounded-[5px] transition-colors text-sm">Apply</button>
+        <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+          <i data-lucide="ticket" class="w-5 h-5 text-[#24CECE]"></i>
+          Event Details
+        </h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-xl font-bold text-[#24CECE] mb-1"><?= $show ? htmlspecialchars($show['title']) : 'Comedy Show' ?></h3>
+            <p class="text-neutral-400 text-sm"><?= $show ? htmlspecialchars($show['location']) : 'Comedy Club' ?></p>
           </div>
-          <p x-show="promoMsg" x-text="promoMsg" :class="promoMsgType === 'success' ? 'text-green-400' : 'text-red-500'" class="text-xs mt-2"></p>
+          <div class="space-y-3 pt-4">
+            <div class="flex items-center gap-3 text-neutral-300">
+              <i data-lucide="calendar" class="w-5 h-5 text-[#94A0AF]"></i>
+              <span><?= $show ? date('l, F j, Y', strtotime($show['date'])) : 'TBD' ?></span>
+            </div>
+            <div class="flex items-center gap-3 text-neutral-300">
+              <i data-lucide="clock" class="w-5 h-5 text-[#94A0AF]"></i>
+              <span><?= $show ? htmlspecialchars($show['time']) : 'TBD' ?></span>
+            </div>
+            <div class="flex items-center gap-3 text-neutral-300">
+              <i data-lucide="map-pin" class="w-5 h-5 text-[#94A0AF]"></i>
+              <span>Comedy Club, Brooklyn, NY</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Discount Summary -->
-      <section class="bg-[#3A4655] rounded-[5px] border border-neutral-800 p-8 space-y-3">
-        <div x-show="promoApplied" class="flex justify-between text-sm text-green-400">
-          <span x-text="promoApplied === 'percent5' ? 'Promo Code 1111 (5%)' : 'Promo Code EE001 ($2 x ' + totalTicketCount + ')'"></span>
-          <span x-text="'-$' + promoDiscount.toFixed(2)"></span>
+      <!-- Order Summary -->
+      <section class="bg-[#3A4655] rounded-[5px] border border-neutral-800 p-8">
+        <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+          <i data-lucide="receipt" class="w-5 h-5 text-[#24CECE]"></i>
+          Order Summary
+        </h2>
+
+        <!-- Tickets -->
+        <?php foreach ($ticketItems as $ti): ?>
+        <div class="flex items-center justify-between py-4 border-b border-neutral-700">
+          <div>
+            <div class="font-bold text-white"><?= htmlspecialchars($ti['name']) ?></div>
+            <div class="text-xs text-[#94A0AF] mt-0.5"><?= $ti['qty'] ?> x $<?= number_format($ti['price'], 2) ?></div>
+          </div>
+          <span class="font-bold text-white">$<?= number_format($ti['price'] * $ti['qty'], 2) ?></span>
         </div>
-        <div x-show="giftApplied" class="flex justify-between text-sm text-green-400">
-          <span>Gift Certificate (5%)</span>
-          <span x-text="'-$' + giftDiscount.toFixed(2)"></span>
+        <?php endforeach; ?>
+
+        <!-- Add-ons -->
+        <?php if (!empty($addonItems)): ?>
+        <div class="py-4 border-b border-neutral-700 space-y-2">
+          <?php foreach ($addonItems as $addon): ?>
+          <div class="flex justify-between text-sm text-neutral-300">
+            <span><?= htmlspecialchars($addon['name']) ?> x<?= $addon['qty'] ?></span>
+            <span>$<?= number_format($addon['price'] * $addon['qty'], 2) ?></span>
+          </div>
+          <?php endforeach; ?>
         </div>
-        <div class="flex justify-between text-lg font-bold text-white">
-          <span>Total</span>
-          <span class="text-[#24CECE]" x-text="'$' + finalTotal.toFixed(2)"></span>
+        <?php endif; ?>
+
+        <!-- Fees -->
+        <div class="py-4 border-b border-neutral-700 space-y-2">
+          <div class="flex justify-between text-sm text-neutral-300"><span>Tax</span><span>$<?= number_format($tax, 2) ?></span></div>
+          <div class="flex justify-between text-sm text-neutral-300"><span>Service Fee</span><span>$<?= number_format($serviceFee, 2) ?></span></div>
         </div>
+
+        <!-- Total + Discounts -->
+        <div class="py-4 border-b border-neutral-700 space-y-2">
+          <div x-show="promoApplied" class="flex justify-between text-sm text-green-400">
+            <span x-text="promoApplied === 'percent5' ? 'Promo Code 1111 (5%)' : 'Promo Code EE001 ($2 x ' + totalTicketCount + ')'"></span>
+            <span x-text="'-$' + promoDiscount.toFixed(2)"></span>
+          </div>
+          <div x-show="giftApplied" class="flex justify-between text-sm text-green-400">
+            <span>Gift Certificate (5%)</span>
+            <span x-text="'-$' + giftDiscount.toFixed(2)"></span>
+          </div>
+          <div class="flex justify-between text-lg font-bold text-white">
+            <span>Total</span>
+            <span class="text-[#24CECE]" x-text="'$' + finalTotal.toFixed(2)"></span>
+          </div>
+        </div>
+
+        <!-- Promo Code -->
+        <div class="py-4">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" x-model="promoOpen" @change="if (!promoOpen) { promoInput = ''; promoMsg = ''; promoApplied = false; }" class="w-4 h-4 accent-[#24CECE] cursor-pointer" />
+            <span class="text-sm font-medium text-[#94A0AF]">I have a promo code</span>
+          </label>
+          <div x-show="promoOpen" x-cloak class="mt-3">
+            <div class="flex gap-2">
+              <input type="text" x-model="promoInput" placeholder="Enter code" class="flex-1 bg-white text-black border border-neutral-200 rounded-[5px] px-4 py-3 focus:ring-2 focus:ring-[#24CECE] outline-none uppercase placeholder:capitalize text-sm" />
+              <button type="button" @click="applyPromo()" class="px-5 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-bold rounded-[5px] transition-colors text-sm">Apply</button>
+            </div>
+            <p x-show="promoMsg" x-text="promoMsg" :class="promoMsgType === 'success' ? 'text-green-400' : 'text-red-500'" class="text-xs mt-2"></p>
+          </div>
+        </div>
+
         <div class="flex justify-between items-center text-xs text-[#94A0AF] italic">
           <span>* All sales are final</span>
           <span>NY Sales Tax (8.875%)</span>

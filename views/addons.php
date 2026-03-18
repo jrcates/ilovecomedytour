@@ -73,17 +73,24 @@ $addons = [
 ?>
 
 <div class="pt-[140px] pb-24 max-w-[1200px] mx-auto px-6 min-h-screen" x-data="{
-  addons: {
-    <?php foreach ($addons as $addon): ?>
-    <?= $addon['key'] ?>: { name: '<?= $addon['name'] ?>', price: <?= $addon['price'] ?>, qty: 0 },
-    <?php endforeach; ?>
+  qtys: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: 0, <?php endforeach; ?> },
+  names: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: '<?= addslashes($addon['name']) ?>', <?php endforeach; ?> },
+  prices: { <?php foreach ($addons as $addon): ?><?= $addon['key'] ?>: <?= $addon['price'] ?>, <?php endforeach; ?> },
+  getTotal() {
+    let t = 0;
+    for (let k in this.qtys) t += this.qtys[k] * this.prices[k];
+    return t;
   },
-  get total() { return Object.values(this.addons).reduce((s, a) => s + a.price * a.qty, 0); },
-  get selectedItems() { return Object.values(this.addons).filter(a => a.qty > 0); },
-  get checkoutUrl() {
-    let items = Object.values(this.addons).filter(a => a.qty > 0).map(a => a.name + ':' + a.qty + ':' + a.price).join('|');
-    let url = '?view=checkout&show=<?= urlencode($showId) ?>&tickets=<?= urlencode($ticketsParam) ?>&addons=' + this.total;
-    if (items) url += '&addon_items=' + encodeURIComponent(items);
+  getSelectedItems() {
+    let items = [];
+    for (let k in this.qtys) { if (this.qtys[k] > 0) items.push({ name: this.names[k], qty: this.qtys[k], price: this.prices[k] }); }
+    return items;
+  },
+  getCheckoutUrl() {
+    let items = [];
+    for (let k in this.qtys) { if (this.qtys[k] > 0) items.push(this.names[k] + ':' + this.qtys[k] + ':' + this.prices[k]); }
+    let url = '?view=checkout&show=<?= urlencode($showId) ?>&tickets=<?= urlencode($ticketsParam) ?>&addons=' + this.getTotal();
+    if (items.length > 0) url += '&addon_items=' + encodeURIComponent(items.join('|'));
     url += '<?= $promoCode ? "&promo=" . urlencode($promoCode) : "" ?>';
     return url;
   }
@@ -124,11 +131,11 @@ $addons = [
             <p class="text-neutral-500 text-sm leading-relaxed mb-4"><?= htmlspecialchars($addon['desc']) ?></p>
             <!-- Quantity Controls -->
             <div class="flex items-center gap-3">
-              <button @click="addons.<?= $addon['key'] ?>.qty = Math.max(0, addons.<?= $addon['key'] ?>.qty - 1)" class="w-8 h-8 rounded-[6px] bg-neutral-800 flex items-center justify-center text-neutral-500 hover:bg-neutral-700 hover:text-white transition-colors">
+              <button @click="qtys.<?= $addon['key'] ?> = Math.max(0, qtys.<?= $addon['key'] ?> - 1)" class="w-8 h-8 rounded-[6px] bg-neutral-800 flex items-center justify-center text-neutral-500 hover:bg-neutral-700 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
               </button>
-              <span x-text="addons.<?= $addon['key'] ?>.qty" class="text-base font-bold text-white w-6 text-center"></span>
-              <button @click="addons.<?= $addon['key'] ?>.qty = Math.min(10, addons.<?= $addon['key'] ?>.qty + 1)" class="w-8 h-8 rounded-[6px] bg-[#24CECE] flex items-center justify-center text-black hover:bg-[#20B8B8] transition-colors">
+              <span x-text="qtys.<?= $addon['key'] ?>" class="text-base font-bold text-white w-6 text-center"></span>
+              <button @click="qtys.<?= $addon['key'] ?> = Math.min(10, qtys.<?= $addon['key'] ?> + 1)" class="w-8 h-8 rounded-[6px] bg-[#24CECE] flex items-center justify-center text-black hover:bg-[#20B8B8] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               </button>
             </div>
@@ -147,11 +154,11 @@ $addons = [
           Order Summary
         </h2>
 
-        <p x-show="selectedItems.length === 0" class="text-sm text-neutral-400 italic">No add-ons selected yet.</p>
+        <p x-show="getSelectedItems().length === 0" class="text-sm text-neutral-400 italic">No add-ons selected yet.</p>
 
         <!-- Summary Line Items -->
-        <div x-show="selectedItems.length > 0" class="space-y-2">
-          <template x-for="item in selectedItems" :key="item.name">
+        <div x-show="getSelectedItems().length > 0" class="space-y-2">
+          <template x-for="item in getSelectedItems()" :key="item.name">
             <div class="flex justify-between text-sm">
               <span class="text-neutral-600" x-text="item.name + ' x' + item.qty"></span>
               <span class="text-neutral-800 font-medium" x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
@@ -163,16 +170,16 @@ $addons = [
         <div class="border border-neutral-200 rounded-[8px] p-4 space-y-3">
           <div class="flex justify-between text-sm text-neutral-500">
             <span>Add-ons Subtotal</span>
-            <span x-text="'$' + total.toFixed(2)"></span>
+            <span x-text="'$' + getTotal().toFixed(2)"></span>
           </div>
           <div class="flex justify-between text-base font-bold text-black">
             <span>Add-ons Total</span>
-            <span class="text-black" x-text="'$' + total.toFixed(2)"></span>
+            <span class="text-black" x-text="'$' + getTotal().toFixed(2)"></span>
           </div>
         </div>
 
         <!-- Continue to Checkout -->
-        <a :href="checkoutUrl" class="block w-full py-4 bg-[#24CECE] text-black font-black text-base uppercase tracking-wider rounded-[8px] hover:bg-[#20B8B8] transition-colors text-center">Continue to Checkout</a>
+        <a :href="getCheckoutUrl()" class="block w-full py-4 bg-[#24CECE] text-black font-black text-base uppercase tracking-wider rounded-[8px] hover:bg-[#20B8B8] transition-colors text-center">Continue to Checkout</a>
 
         <p class="text-xs text-neutral-400 text-center flex items-center justify-center gap-1.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
