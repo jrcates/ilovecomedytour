@@ -93,16 +93,28 @@ if ($success):
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         <?= htmlspecialchars($show['location']) ?>
       </div>
+      <?php if ($show):
+        $startDt = new DateTime($show['date']);
+        $endDt = clone $startDt;
+        $endDt->modify('+2 hours');
+        $gcalStart = $startDt->format('Ymd\THis');
+        $gcalEnd = $endDt->format('Ymd\THis');
+        $gcalTitle = urlencode($show['title']);
+        $gcalLocation = urlencode($show['location']);
+        $gcalDetails = urlencode('Comedy Craft Beer & Wine & More - ' . $show['title']);
+        $gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text={$gcalTitle}&dates={$gcalStart}/{$gcalEnd}&location={$gcalLocation}&details={$gcalDetails}";
+      ?>
       <div class="border-t border-dashed border-white/10 pt-5 flex gap-3">
-        <button onclick="return false;" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
-          <i data-lucide="download" class="w-4 h-4"></i>
+        <a href="<?= $gcalUrl ?>" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
           Save to Calendar
-        </button>
-        <button onclick="return false;" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
+        </a>
+        <button onclick="if(navigator.share){navigator.share({title:'<?= htmlspecialchars($show['title'], ENT_QUOTES) ?>',text:'I\'m going to <?= htmlspecialchars($show['title'], ENT_QUOTES) ?> at <?= htmlspecialchars($show['location'], ENT_QUOTES) ?>!',url:window.location.href})}else{navigator.clipboard.writeText(window.location.href);this.innerHTML='<i data-lucide=&quot;check&quot; class=&quot;w-4 h-4&quot;></i> Link Copied!';lucide.createIcons();setTimeout(()=>{this.innerHTML='<i data-lucide=&quot;share-2&quot; class=&quot;w-4 h-4&quot;></i> Share';lucide.createIcons()},2000)}" class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-3 rounded-[10px] transition-colors">
           <i data-lucide="share-2" class="w-4 h-4"></i>
           Share
         </button>
       </div>
+      <?php endif; ?>
     </div>
   </div>
   <?php endif; ?>
