@@ -30,16 +30,16 @@ $totalSlides = count($slideData);
             <div class="p-5 pb-4 flex flex-col gap-3">
               <h2 class="text-xl font-bold text-white leading-tight"><?= htmlspecialchars($sd['slide']['title']) ?></h2>
               <div class="flex flex-wrap items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                   <?= $sd['date']['weekday'] ?>, <?= $sd['date']['day'] ?> <?= $sd['date']['month'] ?> <?= $sd['date']['year'] ?>
                 </span>
-                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   <?= htmlspecialchars($sd['date']['time']) ?>
                 </span>
               </div>
-              <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full max-w-full w-fit">
+              <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full max-w-full overflow-hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <span class="truncate"><?= htmlspecialchars($sd['slide']['location']) ?></span>
               </div>
@@ -54,20 +54,20 @@ $totalSlides = count($slideData);
             <div style="width:50%; padding:40px; display:flex; flex-direction:column; justify-content:flex-end; gap:14px;">
               <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight"><?= htmlspecialchars($sd['slide']['title']) ?></h2>
               <div class="flex flex-wrap items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                   <?= $sd['date']['weekday'] ?>, <?= $sd['date']['day'] ?> <?= $sd['date']['month'] ?> <?= $sd['date']['year'] ?>
                 </span>
-                <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   <?= htmlspecialchars($sd['date']['time']) ?>
                 </span>
               </div>
-              <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full max-w-full">
+              <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full max-w-full overflow-hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <span class="truncate"><?= htmlspecialchars($sd['slide']['location']) ?></span>
               </div>
-              <p class="text-neutral-500 text-xs leading-relaxed line-clamp-3"><?= htmlspecialchars($sd['slide']['description']) ?></p>
+              <p class="text-neutral-400 text-xs leading-relaxed line-clamp-3"><?= htmlspecialchars($sd['slide']['description']) ?></p>
               <div>
                 <a href="?view=event&show=<?= urlencode($sd['slide']['id']) ?>" class="inline-block px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors">Buy Tickets</a>
               </div>

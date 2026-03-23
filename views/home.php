@@ -3,7 +3,7 @@ $heroShows    = array_slice($shows, 0, 3);
 $upcomingShows = array_slice($shows, 3, 6);
 ?>
 
-<div class="text-neutral-100 bg-black relative">
+<div class="-mt-[90px] md:-mt-[190px] text-neutral-100 bg-black relative">
   <?php component('carousel', ['shows' => $heroShows]); ?>
 </div>
 

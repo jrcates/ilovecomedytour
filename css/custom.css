@@ -1,5 +1,5 @@
 [x-cloak] { display: none !important; }
-::selection { background: #F15A29; color: #fff; }
+::selection { background: #d12027; color: #fff; }
 .cc-no-scrollbar::-webkit-scrollbar { display: none; }
 .cc-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 /* Slide-in drawer animation (legacy + new) */
@@ -18,14 +18,14 @@
 .cc-gallery-item img { transition: transform 0.5s ease; }
 .cc-gallery-item:hover img { transform: scale(1.05); }
 /* Show card hover */
-.cc-show-card:hover { box-shadow: 0 20px 40px rgba(241,90,41,0.1); }
+.cc-show-card:hover { box-shadow: 0 20px 40px rgba(209,32,39,0.1); }
 .cc-show-card:hover .cc-show-card-img { transform: scale(1.1); }
 .cc-show-card-img { transition: transform 0.5s ease; }
 /* Dotted line */
 .cc-dotted-line { border-bottom: 2px dotted rgba(255,255,255,0.15); flex-grow: 1; margin: 0 1rem; position: relative; top: -2px; }
-/* Sticky nav */
-#cc-main-nav { transition: padding 0.3s ease, box-shadow 0.3s ease; }
-#cc-main-nav.cc-nav-scrolled { background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); padding-top: 1rem; padding-bottom: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+/* Nav */
+main { padding-top: 290px; }
+@media (max-width: 767px) { main { padding-top: 140px; } }
 /* Carousel */
 .cc-hero-carousel { overflow: hidden; }
 .cc-hero-track { display: flex; transition: transform 0.5s ease; }

@@ -5,11 +5,11 @@
      x-effect="if (devicePreview === 'mobile' && !isEmbed) document.body.style.overflow = 'hidden'; else document.body.style.overflow = '';">
 
   <!-- Toggle buttons — centered above the phone frame in mobile mode -->
-  <div :class="devicePreview === 'mobile' ? 'fixed top-2 left-1/2 -translate-x-1/2 z-[90]' : 'fixed top-4 right-4 z-[90]'"
+  <div :class="devicePreview === 'mobile' ? 'fixed top-2 left-1/2 -translate-x-1/2 z-[90]' : 'fixed top-4 left-4 z-[90]'"
        class="flex items-center gap-1 bg-black/90 backdrop-blur-sm rounded-full p-1 border border-white/10 shadow-lg transition-all duration-300">
     <button
       @click="devicePreview = 'desktop'"
-      :class="devicePreview === 'desktop' ? 'bg-[#F15A29] text-white' : 'text-neutral-400 hover:text-white'"
+      :class="devicePreview === 'desktop' ? 'bg-[#d12027] text-white' : 'text-neutral-400 hover:text-white'"
       class="w-9 h-9 flex items-center justify-center rounded-full transition-colors"
       title="Desktop view"
     >
@@ -17,7 +17,7 @@
     </button>
     <button
       @click="devicePreview = 'mobile'"
-      :class="devicePreview === 'mobile' ? 'bg-[#F15A29] text-white' : 'text-neutral-400 hover:text-white'"
+      :class="devicePreview === 'mobile' ? 'bg-[#d12027] text-white' : 'text-neutral-400 hover:text-white'"
       class="w-9 h-9 flex items-center justify-center rounded-full transition-colors"
       title="Mobile view"
     >

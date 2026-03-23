@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= isset($siteName) ? $siteName : 'Comedy Club' ?></title>
+  <title><?= isset($siteName) ? $siteName : 'Comedy Break Inn' ?></title>
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,7 +13,8 @@
             sans: ['Montserrat', 'sans-serif'],
           },
           colors: {
-            orange: { DEFAULT: '#F15A29' },
+            red: { DEFAULT: '#d12027', light: '#e85a5f', lighter: '#f4a3a6', 50: '#fce8e8', dark: '#a91a20', darker: '#7f1318' },
+            charcoal: { DEFAULT: '#383839', light: '#5a5a5b', lighter: '#8c8c8d', 50: '#e8e8e8' },
           }
         }
       }

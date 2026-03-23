@@ -8,18 +8,18 @@ foreach ($promoShows as $show) {
 $showDatesJson = json_encode(array_keys($showsByDate));
 ?>
 
-<div class="pt-[130px] md:pt-[250px] pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
+<div class="pt-12 pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
 
   <div x-data="ccPromoPage()" x-init="init()">
 
     <!-- Header: Title + Filter + Grid/List toggle -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-black tracking-tight">Promo Dates</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Promo Dates</h1>
       <div class="flex items-center gap-3 w-full md:w-auto">
         <!-- Filter by Date button -->
         <div class="relative w-full md:w-auto">
           <button @click.stop="calendarOpen = !calendarOpen"
-                  :class="(activeDate || calendarOpen) ? 'border-[#F15A29] text-[#F15A29] bg-[#F15A29]/5' : 'border-neutral-300 text-black hover:border-neutral-400'"
+                  :class="(activeDate || calendarOpen) ? 'border-[#d12027] text-[#d12027] bg-[#d12027]/5' : 'border-white/10 text-white hover:border-white/20'"
                   class="flex items-center justify-center gap-2 px-5 py-2.5 rounded-[10px] border font-bold text-sm transition-colors w-full md:w-auto">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             <span x-text="activeDate ? formatDateLabel(activeDate) : 'Filter by Date'"></span>
@@ -28,13 +28,13 @@ $showDatesJson = json_encode(array_keys($showsByDate));
 
           <!-- Calendar Popup -->
           <div x-show="calendarOpen" x-transition @click.outside="calendarOpen = false"
-               class="absolute right-0 top-full mt-2 bg-white border border-neutral-200 rounded-xl shadow-lg p-5 w-[300px] z-50">
+               class="absolute right-0 top-full mt-2 bg-neutral-900 border border-white/10 rounded-xl shadow-lg p-5 w-[300px] z-50">
             <div class="flex items-center justify-between mb-4">
-              <button @click="calPrevMonth()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-black transition-colors">
+              <button @click="calPrevMonth()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 text-neutral-400 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
               </button>
-              <span class="text-black font-bold text-sm" x-text="monthNames[calMonth] + ' ' + calYear"></span>
-              <button @click="calNextMonth()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-black transition-colors">
+              <span class="text-white font-bold text-sm" x-text="monthNames[calMonth] + ' ' + calYear"></span>
+              <button @click="calNextMonth()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 text-neutral-400 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
             </div>
@@ -48,31 +48,31 @@ $showDatesJson = json_encode(array_keys($showsByDate));
               <template x-for="cell in calendarDays" :key="cell.key">
                 <button @click="onCalendarDayClick(cell)"
                         :class="[
-                          cell.isSelected ? 'bg-black text-white font-bold' : '',
-                          !cell.isSelected && cell.hasShows ? 'bg-[#F15A29]/10 text-[#F15A29] font-bold hover:bg-[#F15A29]/20' : '',
-                          !cell.isSelected && !cell.hasShows ? 'text-neutral-400 hover:bg-neutral-100' : ''
+                          cell.isSelected ? 'bg-[#d12027] text-white font-bold' : '',
+                          !cell.isSelected && cell.hasShows ? 'bg-[#d12027]/10 text-[#d12027] font-bold hover:bg-[#d12027]/20' : '',
+                          !cell.isSelected && !cell.hasShows ? 'text-neutral-400 hover:bg-white/5' : ''
                         ]"
                         class="w-9 h-9 flex items-center justify-center rounded-full text-sm transition-colors">
                   <span x-text="cell.day"></span>
                 </button>
               </template>
             </div>
-            <div class="mt-3 flex items-center gap-2 text-xs text-neutral-500">
-              <div class="w-3 h-3 rounded-full bg-[#F15A29]/20 border border-[#F15A29]/30"></div>
+            <div class="mt-3 flex items-center gap-2 text-xs text-neutral-400">
+              <div class="w-3 h-3 rounded-full bg-[#d12027]/20 border border-[#d12027]/30"></div>
               Event Scheduled
             </div>
             <template x-if="activeDate">
-              <button @click="clearFilter()" class="mt-3 w-full py-2 text-xs font-bold text-neutral-500 hover:text-black transition-colors">Clear Filter</button>
+              <button @click="clearFilter()" class="mt-3 w-full py-2 text-xs font-bold text-neutral-400 hover:text-white transition-colors">Clear Filter</button>
             </template>
           </div>
         </div>
 
         <!-- Grid/List toggle (desktop only) -->
-        <div class="hidden md:flex items-center gap-1 border-l border-neutral-200 pl-3 ml-1">
-          <button @click="viewMode = 'grid'" :class="viewMode === 'grid' ? 'bg-[#F15A29]/10 text-[#F15A29] border-[#F15A29]' : 'bg-white text-neutral-400 border-neutral-200 hover:border-neutral-300'" class="w-10 h-10 rounded-lg border flex items-center justify-center transition-colors">
+        <div class="hidden md:flex items-center gap-1 border-l border-white/10 pl-3 ml-1">
+          <button @click="viewMode = 'grid'" :class="viewMode === 'grid' ? 'bg-[#d12027]/10 text-[#d12027] border-[#d12027]' : 'bg-white/5 text-neutral-400 border-white/10 hover:border-white/20'" class="w-10 h-10 rounded-lg border flex items-center justify-center transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           </button>
-          <button @click="viewMode = 'list'" :class="viewMode === 'list' ? 'bg-[#F15A29]/10 text-[#F15A29] border-[#F15A29]' : 'bg-white text-neutral-400 border-neutral-200 hover:border-neutral-300'" class="w-10 h-10 rounded-lg border flex items-center justify-center transition-colors">
+          <button @click="viewMode = 'list'" :class="viewMode === 'list' ? 'bg-[#d12027]/10 text-[#d12027] border-[#d12027]' : 'bg-white/5 text-neutral-400 border-white/10 hover:border-white/20'" class="w-10 h-10 rounded-lg border flex items-center justify-center transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
           </button>
         </div>
@@ -80,47 +80,47 @@ $showDatesJson = json_encode(array_keys($showsByDate));
     </div>
 
     <!-- Promo Banner -->
-    <div class="mb-10 bg-[#F15A29]/10 border border-[#F15A29]/20 rounded-xl p-5 flex items-center gap-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#F15A29] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0012.5 14l.657-4.387a2 2 0 01.985-1.456L19 5.5l-2.5 4.857a2 2 0 01-.985 1.456L10.657 15.5z"/><path d="M11.5 12.5L19 5.5"/></svg>
-      <p class="text-[#F15A29] font-bold text-sm">
-        Use code <span class="bg-[#F15A29] text-white px-2 py-0.5 rounded font-bold text-xs mx-1">EE001</span> at checkout for <strong>$2 off per ticket</strong> on any show below.
+    <div class="mb-10 bg-[#d12027]/10 border border-[#d12027]/20 rounded-xl p-5 flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#d12027] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0012.5 14l.657-4.387a2 2 0 01.985-1.456L19 5.5l-2.5 4.857a2 2 0 01-.985 1.456L10.657 15.5z"/><path d="M11.5 12.5L19 5.5"/></svg>
+      <p class="text-[#d12027] font-bold text-sm">
+        Use code <span class="bg-[#d12027] text-white px-2 py-0.5 rounded font-bold text-xs mx-1">EE001</span> at checkout for <strong>$2 off per ticket</strong> on any show below.
       </p>
     </div>
 
     <!-- Empty state -->
     <template x-if="filteredShows.length === 0">
-      <div class="text-center py-16 text-neutral-500">
+      <div class="text-center py-16 text-neutral-400">
         <p class="text-lg font-medium">No shows on this date</p>
-        <button @click="clearFilter()" class="mt-4 px-6 py-2.5 bg-black text-white font-bold rounded-[10px] text-sm hover:bg-neutral-800 transition-colors">View All Shows</button>
+        <button @click="clearFilter()" class="mt-4 px-6 py-2.5 bg-white text-black font-bold rounded-[10px] text-sm hover:bg-neutral-200 transition-colors">View All Shows</button>
       </div>
     </template>
 
     <!-- Grid View (desktop only) -->
     <div x-show="viewMode === 'grid' && visibleShows.length > 0" x-transition class="hidden md:grid md:grid-cols-3 gap-6">
       <template x-for="show in visibleShows" :key="show.id">
-        <div class="bg-white rounded-xl border border-neutral-200 shadow-md overflow-hidden flex flex-col">
+        <div class="bg-white/5 rounded-xl border border-white/10 shadow-md overflow-hidden flex flex-col">
           <div class="h-[220px] overflow-hidden">
             <img :src="show.image" :alt="show.title" class="w-full h-full object-cover" />
           </div>
           <div class="p-5 flex flex-col flex-1">
-            <h3 class="text-lg font-bold text-black mb-3 line-clamp-2 min-h-[3.5rem]" x-text="show.title"></h3>
+            <h3 class="text-lg font-bold text-white mb-3 line-clamp-2 min-h-[3.5rem]" x-text="show.title"></h3>
             <div class="flex flex-wrap items-center gap-2 mb-3">
-              <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 <span x-text="formatPill(show.date, 'date')"></span>
               </span>
-              <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span x-text="formatPill(show.date, 'time')"></span>
               </span>
             </div>
-            <div class="inline-flex items-center gap-1.5 bg-neutral-100 text-neutral-600 text-xs font-medium px-3 py-1.5 rounded-full max-w-full mb-3">
+            <div class="inline-flex items-center gap-1.5 bg-white/5 text-neutral-400 text-xs font-medium px-3 py-1.5 rounded-full max-w-full overflow-hidden mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               <span class="truncate" x-text="show.location"></span>
             </div>
-            <p class="text-neutral-500 text-sm leading-relaxed line-clamp-3 mb-4" x-text="show.description"></p>
+            <p class="text-neutral-400 text-sm leading-relaxed line-clamp-3 mb-4" x-text="show.description"></p>
             <div class="mt-auto">
-              <a :href="'?view=event&show=' + show.id + '&promo=EE001'" class="inline-block px-6 py-2.5 bg-black text-white font-bold text-sm rounded-[10px] hover:bg-neutral-800 transition-colors">Buy Tickets</a>
+              <a :href="'?view=event&show=' + show.id + '&promo=EE001'" class="inline-block px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors">Buy Tickets</a>
             </div>
           </div>
         </div>
@@ -130,29 +130,29 @@ $showDatesJson = json_encode(array_keys($showsByDate));
     <!-- List View (always on mobile, toggle on desktop) -->
     <div :class="viewMode === 'list' ? '' : 'md:hidden'" class="space-y-4">
       <template x-for="show in visibleShows" :key="show.id">
-        <div class="bg-white rounded-xl border border-neutral-200 shadow-md p-5 flex flex-col md:flex-row md:items-center gap-5">
-          <div class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-neutral-100">
+        <div class="bg-white/5 rounded-xl border border-white/10 shadow-md p-5 flex flex-col md:flex-row md:items-center gap-5">
+          <div class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-white/5">
             <img :src="show.image" :alt="show.title" class="w-full h-full object-cover" />
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="text-lg font-bold text-black mb-1" x-text="show.title"></h3>
-            <p class="text-neutral-500 text-sm leading-relaxed mb-3" x-text="show.description"></p>
+            <h3 class="text-lg font-bold text-white mb-1" x-text="show.title"></h3>
+            <p class="text-neutral-400 text-sm leading-relaxed mb-3" x-text="show.description"></p>
             <div class="flex flex-wrap items-center gap-2">
-              <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 <span x-text="formatPill(show.date, 'date')"></span>
               </span>
-              <span class="inline-flex items-center gap-1.5 bg-[#F15A29] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span x-text="formatPill(show.date, 'time')"></span>
               </span>
-              <span class="inline-flex items-center gap-1.5 bg-neutral-100 text-neutral-600 text-xs font-medium px-3 py-1 rounded-full">
+              <span class="inline-flex items-center gap-1.5 bg-white/5 text-neutral-400 text-xs font-medium px-3 py-1 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <span x-text="show.location"></span>
               </span>
             </div>
           </div>
-          <a :href="'?view=event&show=' + show.id + '&promo=EE001'" class="w-full md:w-auto text-center px-6 py-2.5 bg-black text-white font-bold text-sm rounded-[10px] hover:bg-neutral-800 transition-colors whitespace-nowrap flex-shrink-0">Buy Tickets</a>
+          <a :href="'?view=event&show=' + show.id + '&promo=EE001'" class="w-full md:w-auto text-center px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors whitespace-nowrap flex-shrink-0">Buy Tickets</a>
         </div>
       </template>
     </div>
@@ -160,7 +160,7 @@ $showDatesJson = json_encode(array_keys($showsByDate));
     <!-- Show More button -->
     <template x-if="hasMore">
       <div class="mt-10">
-        <button @click="showMore()" class="block w-full py-4 bg-black text-white font-bold text-center rounded-[10px] hover:bg-neutral-800 transition-colors text-sm">Show More</button>
+        <button @click="showMore()" class="block w-full py-4 bg-white text-black font-bold text-center rounded-[10px] hover:bg-neutral-200 transition-colors text-sm">Show More</button>
       </div>
     </template>
 

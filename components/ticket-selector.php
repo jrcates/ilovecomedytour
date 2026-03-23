@@ -37,22 +37,22 @@ $isPromoFlat2 = strtoupper($promoCode) === 'EE001';
 
   <!-- General Admission -->
   <div class="rounded-xl p-5 transition-all duration-200"
-       :class="general.qty > 0 ? 'border-2 border-[#F15A29] bg-[#FFF5F0]' : 'border border-neutral-200'">
+       :class="general.qty > 0 ? 'border-2 border-[#d12027] bg-[#d12027]/10' : 'border border-white/10'">
     <div class="flex items-center justify-between">
-      <span class="font-bold text-black text-lg">General Admission</span>
-      <span class="text-xl font-bold text-black" x-text="'$' + (general.price * 1.10).toFixed(2)"></span>
+      <span class="font-bold text-white text-lg">General Admission</span>
+      <span class="text-xl font-bold text-white" x-text="'$' + (general.price * 1.10).toFixed(2)"></span>
     </div>
     <div class="flex items-center justify-between mt-1">
       <div>
         <p class="text-sm text-neutral-400" x-text="'$' + general.price.toFixed(2) + ' + $' + (general.price * 0.10).toFixed(2) + ' Service Fee'"></p>
         <p class="text-sm text-neutral-400">Standard seating</p>
       </div>
-      <div class="inline-flex items-center border border-neutral-200 rounded-[10px] overflow-hidden shrink-0 ml-4">
-        <button @click="decrement('general')" class="w-10 h-10 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 transition-colors">
+      <div class="inline-flex items-center border border-white/10 rounded-[10px] overflow-hidden shrink-0 ml-4">
+        <button @click="decrement('general')" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:bg-white/5 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
         </button>
-        <span class="w-12 text-center font-bold text-lg text-black border-l border-r border-neutral-200" x-text="general.qty"></span>
-        <button @click="increment('general')" class="w-10 h-10 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 transition-colors">
+        <span class="w-12 text-center font-bold text-lg text-white border-l border-r border-white/10" x-text="general.qty"></span>
+        <button @click="increment('general')" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:bg-white/5 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
         </button>
       </div>
@@ -61,22 +61,22 @@ $isPromoFlat2 = strtoupper($promoCode) === 'EE001';
 
   <!-- Front Row Seats -->
   <div class="rounded-xl p-5 transition-all duration-200 mt-4"
-       :class="frontrow.qty > 0 ? 'border-2 border-[#F15A29] bg-[#FFF5F0]' : 'border border-neutral-200'">
+       :class="frontrow.qty > 0 ? 'border-2 border-[#d12027] bg-[#d12027]/10' : 'border border-white/10'">
     <div class="flex items-center justify-between">
-      <span class="font-bold text-black text-lg">Front Row Seats</span>
-      <span class="text-xl font-bold text-black">$49.50</span>
+      <span class="font-bold text-white text-lg">Front Row Seats</span>
+      <span class="text-xl font-bold text-white">$49.50</span>
     </div>
     <div class="flex items-center justify-between mt-1">
       <div>
         <p class="text-sm text-neutral-400">$45.00 + $4.50 Service Fee</p>
         <p class="text-sm text-neutral-400">Guaranteed front row seating</p>
       </div>
-      <div class="inline-flex items-center border border-neutral-200 rounded-[10px] overflow-hidden shrink-0 ml-4">
-        <button @click="decrement('frontrow')" class="w-10 h-10 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 transition-colors">
+      <div class="inline-flex items-center border border-white/10 rounded-[10px] overflow-hidden shrink-0 ml-4">
+        <button @click="decrement('frontrow')" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:bg-white/5 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
         </button>
-        <span class="w-12 text-center font-bold text-lg text-black border-l border-r border-neutral-200" x-text="frontrow.qty"></span>
-        <button @click="increment('frontrow')" class="w-10 h-10 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 transition-colors">
+        <span class="w-12 text-center font-bold text-lg text-white border-l border-r border-white/10" x-text="frontrow.qty"></span>
+        <button @click="increment('frontrow')" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:bg-white/5 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
         </button>
       </div>
@@ -85,22 +85,22 @@ $isPromoFlat2 = strtoupper($promoCode) === 'EE001';
 
   <!-- Gold Front Row VIP -->
   <div class="rounded-xl p-5 transition-all duration-200 mt-4"
-       :class="vip.qty > 0 ? 'border-2 border-[#F15A29] bg-[#FFF5F0]' : 'border border-neutral-200'">
+       :class="vip.qty > 0 ? 'border-2 border-[#d12027] bg-[#d12027]/10' : 'border border-white/10'">
     <div class="flex items-center justify-between">
-      <span class="font-bold text-black text-lg">Gold Front Row VIP</span>
-      <span class="text-xl font-bold text-black">$60.50</span>
+      <span class="font-bold text-white text-lg">Gold Front Row VIP</span>
+      <span class="text-xl font-bold text-white">$60.50</span>
     </div>
     <div class="flex items-center justify-between mt-1">
       <div>
         <p class="text-sm text-neutral-400">$55.00 + $5.50 Service Fee</p>
         <p class="text-sm text-neutral-400">VIP front row with priority check-in</p>
       </div>
-      <div class="inline-flex items-center border border-neutral-200 rounded-[10px] overflow-hidden shrink-0 ml-4">
-        <button @click="decrement('vip')" class="w-10 h-10 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 transition-colors">
+      <div class="inline-flex items-center border border-white/10 rounded-[10px] overflow-hidden shrink-0 ml-4">
+        <button @click="decrement('vip')" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:bg-white/5 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
         </button>
-        <span class="w-12 text-center font-bold text-lg text-black border-l border-r border-neutral-200" x-text="vip.qty"></span>
-        <button @click="increment('vip')" class="w-10 h-10 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 transition-colors">
+        <span class="w-12 text-center font-bold text-lg text-white border-l border-r border-white/10" x-text="vip.qty"></span>
+        <button @click="increment('vip')" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:bg-white/5 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
         </button>
       </div>
@@ -116,17 +116,17 @@ $isPromoFlat2 = strtoupper($promoCode) === 'EE001';
   </template>
 
   <!-- Grand Total -->
-  <div class="border-t border-neutral-200 pt-4 mt-4">
+  <div class="border-t border-white/10 pt-4 mt-4">
     <div class="flex items-center justify-between">
-      <span class="text-lg font-bold text-black">Total</span>
-      <span class="text-2xl font-bold text-black" x-text="'$' + grandTotal.toFixed(2)"></span>
+      <span class="text-lg font-bold text-white">Total</span>
+      <span class="text-2xl font-bold text-white" x-text="'$' + grandTotal.toFixed(2)"></span>
     </div>
   </div>
 
   <!-- Promo banner or note -->
   <?php if ($isPromoFlat2): ?>
-  <div class="bg-[#F15A29]/10 border border-[#F15A29] rounded-[10px] p-3 text-center mt-4">
-    <p class="text-[#F15A29] font-bold text-sm">
+  <div class="bg-[#d12027]/10 border border-[#d12027] rounded-[10px] p-3 text-center mt-4">
+    <p class="text-[#d12027] font-bold text-sm">
       <i data-lucide="sparkles" class="w-4 h-4 inline-block align-middle mr-1"></i>
       Promo EE001 applied &mdash; $2 off per ticket!
     </p>
@@ -136,6 +136,6 @@ $isPromoFlat2 = strtoupper($promoCode) === 'EE001';
   <?php endif; ?>
 
   <!-- Checkout Button -->
-  <a :href="checkoutUrl" class="block w-full py-4 bg-black text-white font-bold text-base tracking-wider rounded-[10px] hover:bg-neutral-800 transition-colors text-center mt-4">Checkout</a>
+  <a :href="checkoutUrl" class="block w-full py-4 bg-white text-black font-bold text-base tracking-wider rounded-[10px] hover:bg-neutral-200 transition-colors text-center mt-4">Checkout</a>
 
 </div>
