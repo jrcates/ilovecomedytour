@@ -1,10 +1,10 @@
 <?php
 // ─────────────────────────────────────────────
-//  Comedy Break Inn – Shared Data
+//  Comedy Break In – Shared Data
 //  Shows generated: today + 3 months
 // ─────────────────────────────────────────────
 
-$siteName = 'Comedy Break Inn';
+$siteName = 'Comedy Break In';
 
 // Series definitions keyed by day of week (0=Sun … 6=Sat)
 // 'week_parity' => 0 = even weeks only, 1 = odd weeks only, omit = every week

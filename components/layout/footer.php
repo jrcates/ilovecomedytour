@@ -6,7 +6,7 @@
 
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <img src="assets/comedybreakinn-logo-white.png" alt="Comedy Break Inn" class="w-[300px] object-contain" />
+        <img src="assets/comedybreakinn-logo-white.png" alt="Comedy Break In" class="max-w-[300px] w-full object-contain" />
       </div>
 
       <!-- Follow Us -->
@@ -31,6 +31,12 @@
             </span>
             <span class="text-sm font-medium text-white">X / Twitter</span>
           </a>
+          <a href="#" class="flex items-center gap-3 border border-white/10 rounded-[10px] px-4 py-2.5 hover:border-white/20 transition-colors flex-1 md:flex-none md:w-[180px]">
+            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black flex-shrink-0">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </span>
+            <span class="text-sm font-medium text-white">YouTube</span>
+          </a>
         </div>
       </div>
 
@@ -53,18 +59,18 @@
             </button>
             <div x-cloak x-show="contactOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-1" class="absolute bottom-full left-0 mb-2 w-52 bg-black border border-white/10 rounded-[10px] py-2 shadow-xl z-10">
               <a href="?view=contact" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Contact</a>
-              <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown 2</a>
-              <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown 3</a>
-              <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown 4</a>
+              <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown Test 2</a>
+              <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown Test 3</a>
+              <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown Test 4</a>
               <div class="relative" @mouseenter="subOpen = true" @mouseleave="subOpen = false">
                 <button @click="subOpen = !subOpen" class="w-full flex items-center justify-between px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
-                  Dropdown 5
+                  Dropdown Test 5
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </button>
                 <div x-cloak x-show="subOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-x-1" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-1" class="absolute top-0 left-full ml-1 w-48 bg-black border border-white/10 rounded-[10px] py-2 shadow-xl">
-                  <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown 5-1</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown 5-2</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown 5-3</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown Test 5-1</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown Test 5-2</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">Dropdown Test 5-3</a>
                 </div>
               </div>
             </div>
@@ -74,14 +80,14 @@
             <span class="block text-sm text-neutral-400">Contact</span>
             <div class="pl-4 mt-1 space-y-2 border-l border-white/10">
               <a href="?view=contact" class="block text-sm text-neutral-400 hover:text-white transition-colors">Contact</a>
-              <a href="#" class="block text-sm text-neutral-400 hover:text-white transition-colors">Dropdown 2</a>
-              <a href="#" class="block text-sm text-neutral-400 hover:text-white transition-colors">Dropdown 3</a>
-              <a href="#" class="block text-sm text-neutral-400 hover:text-white transition-colors">Dropdown 4</a>
-              <span class="block text-sm text-neutral-300">Dropdown 5</span>
+              <a href="#" class="block text-sm text-neutral-400 hover:text-white transition-colors">Dropdown Test 2</a>
+              <a href="#" class="block text-sm text-neutral-400 hover:text-white transition-colors">Dropdown Test 3</a>
+              <a href="#" class="block text-sm text-neutral-400 hover:text-white transition-colors">Dropdown Test 4</a>
+              <span class="block text-sm text-neutral-400">Dropdown Test 5</span>
               <div class="pl-4 space-y-1 border-l border-white/10">
-                <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors py-0.5">Dropdown 5-1</a>
-                <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors py-0.5">Dropdown 5-2</a>
-                <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors py-0.5">Dropdown 5-3</a>
+                <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors py-0.5">Dropdown Test 5-1</a>
+                <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors py-0.5">Dropdown Test 5-2</a>
+                <a href="#" class="block text-sm text-neutral-500 hover:text-white transition-colors py-0.5">Dropdown Test 5-3</a>
               </div>
             </div>
           </div>
@@ -92,7 +98,7 @@
 
     <!-- Bottom bar -->
     <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 pt-6 border-t border-white/10">
-      <span class="block w-full sm:w-auto text-center px-6 py-2.5 bg-[#d12027] text-white text-xs font-bold rounded-[10px]">Copyright &copy; Comedy Break Inn <?= date('Y') ?></span>
+      <span class="block w-full sm:w-auto text-center px-6 py-2.5 bg-[#d12027] text-white text-xs font-bold rounded-[10px]">Copyright &copy; Comedy Break In <?= date('Y') ?></span>
       <a href="#" class="block w-full sm:w-auto text-center px-6 py-2.5 bg-white/5 text-white text-xs font-bold rounded-[10px] border border-white/10 hover:bg-white/10 transition-colors">Terms &amp; Conditions</a>
     </div>
   </div>

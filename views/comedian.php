@@ -112,7 +112,7 @@ $extendedBio = [
       <div class="lg:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
         <span class="inline-block px-3 py-1 bg-white/10 text-neutral-400 text-xs font-bold uppercase tracking-widest rounded-[5px] w-fit mb-6">Stand-Up Comic</span>
 
-        <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6"><?= htmlspecialchars($comedian['name']) ?></h2>
+        <h2 class="text-2xl sm:text-4xl md:text-6xl font-bold tracking-tight mb-6"><?= htmlspecialchars($comedian['name']) ?></h2>
 
         <!-- Social Icons -->
         <div class="flex gap-3 mb-8">

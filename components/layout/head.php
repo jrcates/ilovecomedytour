@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= isset($siteName) ? $siteName : 'Comedy Break Inn' ?></title>
+  <title><?= isset($siteName) ? $siteName : 'Comedy Break In' ?></title>
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>

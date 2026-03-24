@@ -65,7 +65,7 @@ if ($success):
 <div class="pt-12 pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen flex flex-col items-center text-center">
 
   <!-- Check Icon -->
-  <div class="w-20 h-20 bg-green-50 rounded-xl flex items-center justify-center mb-8">
+  <div class="w-20 h-20 bg-green-500/10 rounded-xl flex items-center justify-center mb-8">
     <i data-lucide="circle-check" class="w-10 h-10 text-green-500"></i>
   </div>
 
@@ -101,7 +101,7 @@ if ($success):
         $gcalEnd = $endDt->format('Ymd\THis');
         $gcalTitle = urlencode($show['title']);
         $gcalLocation = urlencode($show['location']);
-        $gcalDetails = urlencode('Comedy Break Inn - ' . $show['title']);
+        $gcalDetails = urlencode('Comedy Break In - ' . $show['title']);
         $gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text={$gcalTitle}&dates={$gcalStart}/{$gcalEnd}&location={$gcalLocation}&details={$gcalDetails}";
       ?>
       <div class="border-t border-dashed border-white/10 pt-5 flex gap-3"
@@ -308,7 +308,7 @@ if ($success):
 
         <div class="flex justify-between items-center text-xs text-neutral-400 italic">
           <span>* All sales are final</span>
-          <span>NY Sales Tax (8.875%)</span>
+          <span>Sales Tax (8.875%)</span>
         </div>
 
         <!-- Mobile Continue Button -->
@@ -352,7 +352,7 @@ if ($success):
               </div>
               Customer Information
             </h3>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-2"><label class="text-xs font-bold text-neutral-400 uppercase">First Name</label><input required type="text" name="first_name" class="w-full bg-white/5 border border-white/10 text-white rounded-[10px] p-3 focus:ring-2 focus:ring-[#d12027] outline-none" /></div>
               <div class="space-y-2"><label class="text-xs font-bold text-neutral-400 uppercase">Last Name</label><input required type="text" name="last_name" class="w-full bg-white/5 border border-white/10 text-white rounded-[10px] p-3 focus:ring-2 focus:ring-[#d12027] outline-none" /></div>
               <div class="space-y-2"><label class="text-xs font-bold text-neutral-400 uppercase">Email</label><input required type="email" name="email" class="w-full bg-white/5 border border-white/10 text-white rounded-[10px] p-3 focus:ring-2 focus:ring-[#d12027] outline-none" /></div>

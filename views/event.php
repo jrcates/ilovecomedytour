@@ -21,8 +21,6 @@ if (!$show) {
 
 $d = formatShowDate($show['date']);
 $isSoldOut = $show['status'] === 'Sold Out';
-$priceValue = $show['priceValue'];
-$isPromoFlat2 = strtoupper($promoCode) === 'EE001';
 
 // Generate initials from performer name
 function getInitials(string $name): string {
@@ -75,11 +73,11 @@ function findComedianId(string $performer, array $lookup): ?int {
         <div class="flex flex-wrap items-center gap-2">
           <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <?= $d['weekday'] ?>, <?= $d['day'] ?> <?= $d['month'] ?> <?= $d['year'] ?>
+            <?= htmlspecialchars($d['weekday']) ?>, <?= htmlspecialchars($d['day']) ?> <?= htmlspecialchars($d['month']) ?> <?= htmlspecialchars($d['year']) ?>
           </span>
           <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <?= $d['time'] ?>
+            <?= htmlspecialchars($d['time']) ?>
           </span>
         </div>
         <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full w-fit">
@@ -125,8 +123,6 @@ function findComedianId(string $performer, array $lookup): ?int {
         $minFeatured = 3;
         if (count($profiledPerformers) < $minFeatured) {
           $showSeed = crc32($show['id']);
-          $allIds = array_keys($comedianLookup);
-          $allNames = array_flip($comedianLookup);
           $needed = $minFeatured - count($profiledPerformers);
           $offset = abs($showSeed) % 160;
           for ($fi = 0; $fi < 160 && $needed > 0; $fi++) {

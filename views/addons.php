@@ -131,11 +131,11 @@ $addons = [
             <p class="text-neutral-400 text-sm leading-relaxed mb-4"><?= htmlspecialchars($addon['desc']) ?></p>
             <!-- Quantity Controls -->
             <div class="flex items-center gap-3">
-              <button @click="qtys.<?= $addon['key'] ?> = Math.max(0, qtys.<?= $addon['key'] ?> - 1)" class="w-8 h-8 rounded-[6px] bg-white/10 flex items-center justify-center text-neutral-400 hover:bg-white/20 hover:text-white transition-colors">
+              <button @click="qtys.<?= $addon['key'] ?> = Math.max(0, qtys.<?= $addon['key'] ?> - 1)" class="w-10 h-10 rounded-[6px] bg-white/10 flex items-center justify-center text-neutral-400 hover:bg-white/20 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
               </button>
               <span x-text="qtys.<?= $addon['key'] ?>" class="text-base font-bold text-white w-6 text-center"></span>
-              <button @click="qtys.<?= $addon['key'] ?> = Math.min(10, qtys.<?= $addon['key'] ?> + 1)" class="w-8 h-8 rounded-[6px] bg-[#d12027] flex items-center justify-center text-white hover:bg-[#a91a20] transition-colors">
+              <button @click="qtys.<?= $addon['key'] ?> = Math.min(10, qtys.<?= $addon['key'] ?> + 1)" class="w-10 h-10 rounded-[6px] bg-[#d12027] flex items-center justify-center text-white hover:bg-[#a91a20] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               </button>
             </div>

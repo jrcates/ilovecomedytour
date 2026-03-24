@@ -17,7 +17,7 @@ $bios = [
   "Writer for Saturday Night Live and touring headliner.",
   "Host of the popular 'Brooklyn Laughs' podcast.",
   "Seen on HBO's 'Crashing' and Late Night with Seth Meyers.",
-  "Just for Laughs New Face and Comedy Break Inn regular.",
+  "Just for Laughs New Face and Comedy Break In regular.",
   "Top touring act performing across the country.",
 ];
 
@@ -32,11 +32,12 @@ for ($i = 0; $i < 160; $i++) {
   ];
 }
 
-$search      = isset($_GET['q']) ? htmlspecialchars(trim($_GET['q'])) : '';
+$searchRaw   = isset($_GET['q']) ? trim($_GET['q']) : '';
+$search      = htmlspecialchars($searchRaw);
 $page        = max(1, intval($_GET['page'] ?? 1));
 $perPage     = 12;
 
-$filtered = array_filter($allComedians, fn($c) => !$search || stripos($c['name'], $search) !== false);
+$filtered = array_filter($allComedians, fn($c) => !$searchRaw || stripos($c['name'], $searchRaw) !== false);
 $filtered = array_values($filtered);
 $total    = count($filtered);
 $totalPages = max(1, (int)ceil($total / $perPage));
@@ -82,7 +83,7 @@ $current = array_slice($filtered, ($page - 1) * $perPage, $perPage);
   <?php if ($totalPages > 1): ?>
   <div class="flex items-center justify-center gap-1 mt-16 flex-wrap">
     <?php if ($page > 1): ?>
-    <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $page - 1 ?>" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
+    <a href="?view=comedians&q=<?= urlencode($searchRaw) ?>&page=<?= $page - 1 ?>" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     </a>
     <?php else: ?>
@@ -95,14 +96,14 @@ $current = array_slice($filtered, ($page - 1) * $perPage, $perPage);
       // On mobile show: first, last, current, and neighbors
       if ($totalPages > 7 && abs($p - $page) > 2 && $p !== 1 && $p !== $totalPages) continue;
     ?>
-    <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $p ?>"
+    <a href="?view=comedians&q=<?= urlencode($searchRaw) ?>&page=<?= $p ?>"
        class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full text-sm font-medium transition-colors <?= $p === $page ? 'bg-[#d12027] text-white' : 'text-neutral-400 hover:text-white' ?>">
       <?= $p ?>
     </a>
     <?php endfor; ?>
 
     <?php if ($page < $totalPages): ?>
-    <a href="?view=comedians&q=<?= urlencode($search) ?>&page=<?= $page + 1 ?>" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
+    <a href="?view=comedians&q=<?= urlencode($searchRaw) ?>&page=<?= $page + 1 ?>" class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     </a>
     <?php else: ?>

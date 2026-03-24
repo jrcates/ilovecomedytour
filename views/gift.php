@@ -66,7 +66,7 @@ $success = isset($_POST['gift_submitted']) && $_POST['gift_submitted'] === '1';
         <!-- Amount -->
         <div>
           <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d12027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Gift Amount</h3>
-          <div class="grid grid-cols-4 gap-4 mb-4">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
             <button type="button" @click="amount = 25" :class="amount === 25 ? 'bg-[#d12027] text-white border-[#d12027]' : 'bg-white/5 text-neutral-400 border-white/10 hover:border-[#d12027]/50'" class="cc-amount-btn py-3 rounded-[10px] font-bold border transition-all">$25</button>
             <button type="button" @click="amount = 50" :class="amount === 50 ? 'bg-[#d12027] text-white border-[#d12027]' : 'bg-white/5 text-neutral-400 border-white/10 hover:border-[#d12027]/50'" class="cc-amount-btn py-3 rounded-[10px] font-bold border transition-all">$50</button>
             <button type="button" @click="amount = 75" :class="amount === 75 ? 'bg-[#d12027] text-white border-[#d12027]' : 'bg-white/5 text-neutral-400 border-white/10 hover:border-[#d12027]/50'" class="cc-amount-btn py-3 rounded-[10px] font-bold border transition-all">$75</button>

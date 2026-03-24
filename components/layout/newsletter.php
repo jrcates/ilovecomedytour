@@ -8,13 +8,13 @@
           <p class="text-white/90 text-sm md:text-base font-medium mb-1">For updates and special events</p>
           <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">Subscribe</h2>
           <form class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-md" onsubmit="return false;">
-            <input type="email" placeholder="Enter Email" class="flex-1 px-6 py-3.5 bg-white/30 border-none rounded-[10px] text-white placeholder:text-white/50 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/40" />
+            <input type="email" placeholder="Enter Email" aria-label="Email address" class="flex-1 px-6 py-3.5 bg-white/30 border-none rounded-[10px] text-white placeholder:text-white/50 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/40" />
             <button type="submit" class="px-7 py-3.5 bg-white text-black font-bold rounded-[10px] text-sm hover:bg-neutral-200 transition-colors whitespace-nowrap">Join Us Now!</button>
           </form>
         </div>
         <!-- Right: logo image, oversized and clipped at bottom -->
         <div class="hidden md:block absolute right-0 bottom-0 w-[500px] lg:w-[650px]">
-          <img src="assets/comedybreakinn-logo-white.png" alt="Comedy Break Inn" class="w-full h-auto object-contain translate-y-[35%] translate-x-[10%]" />
+          <img src="assets/comedybreakinn-logo-white.png" alt="Comedy Break In" class="w-full h-auto object-contain translate-y-[35%] translate-x-[10%]" />
         </div>
       </div>
     </div>

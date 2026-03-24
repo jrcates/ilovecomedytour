@@ -1,7 +1,7 @@
 <div class="pt-12 pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen">
 
   <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">Design System</h1>
-  <p class="text-neutral-400 text-sm mb-16">A reference guide for all UI patterns, tokens, and components used across Comedy Break Inn.</p>
+  <p class="text-neutral-400 text-sm mb-16">A reference guide for all UI patterns, tokens, and components used across Comedy Break In.</p>
 
   <!-- ─── Colors ─── -->
   <section class="mb-16">
