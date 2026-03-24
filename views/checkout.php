@@ -380,8 +380,8 @@ if ($success):
           <!-- Gift Certificate -->
           <div>
             <label class="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" x-model="giftOpen" @change="if (!giftOpen) { giftInput = ''; giftMsg = ''; giftApplied = false; }" class="w-5 h-5 accent-[#d12027] cursor-pointer" />
-              <h3 class="text-xl font-bold text-white flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d12027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8V4"/><path d="M12 12v8"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg> Use Gift Certificate</h3>
+              <input type="checkbox" x-model="giftOpen" @change="if (!giftOpen) { giftInput = ''; giftMsg = ''; giftApplied = false; }" class="w-4 h-4 accent-[#d12027] cursor-pointer" />
+              <span class="text-sm font-medium text-neutral-400">Use Gift Certificate</span>
             </label>
             <div x-show="giftOpen" x-cloak class="mt-4">
               <div class="flex gap-2">
