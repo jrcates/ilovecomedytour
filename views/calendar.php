@@ -29,7 +29,7 @@ $showDatesJson = json_encode(array_keys($showsByDate));
           <div x-show="calendarOpen"
                x-transition
                @click.outside="calendarOpen = false"
-               class="absolute right-0 top-full mt-2 bg-neutral-900 border border-white/10 rounded-xl shadow-lg p-5 w-[300px] z-50">
+               class="absolute right-0 top-full mt-2 bg-neutral-900 border border-white/10 rounded-xl shadow-lg p-5 w-[calc(100vw-2rem)] max-w-[300px] z-50">
 
             <!-- Month navigation -->
             <div class="flex items-center justify-between mb-4">

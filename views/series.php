@@ -102,7 +102,7 @@ $meta = isset($seriesDescriptions[$seriesName]) ? $seriesDescriptions[$seriesNam
           <span class="inline-block px-3 py-1 bg-white/10 text-neutral-400 text-xs font-bold uppercase tracking-widest rounded-[5px]"><?= htmlspecialchars($showTime) ?></span>
         </div>
 
-        <h2 class="text-2xl sm:text-4xl md:text-6xl font-bold tracking-tight mb-6"><?= htmlspecialchars($seriesName) ?></h2>
+        <h2 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"><?= htmlspecialchars($seriesName) ?></h2>
 
         <!-- Quick Stats -->
         <div class="flex flex-wrap gap-6 mb-8">

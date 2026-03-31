@@ -21,10 +21,10 @@
 
   <!-- Bottom Images -->
   <div class="grid md:grid-cols-2 gap-6 mb-16">
-    <div class="h-[300px] md:h-[400px] rounded-xl overflow-hidden">
+    <div class="h-[220px] sm:h-[300px] md:h-[400px] rounded-xl overflow-hidden">
       <img src="assets/cc-abtimg1.png" alt="Comedy show crowd" class="w-full h-full object-cover" />
     </div>
-    <div class="h-[300px] md:h-[400px] rounded-xl overflow-hidden">
+    <div class="h-[220px] sm:h-[300px] md:h-[400px] rounded-xl overflow-hidden">
       <img src="assets/cc-abtimg2.png" alt="Comedy club night" class="w-full h-full object-cover" />
     </div>
   </div>

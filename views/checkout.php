@@ -204,7 +204,7 @@ if ($success):
     <div class="lg:col-span-7 space-y-8 order-2 lg:order-1" x-show="!isMobile || step === 1">
 
       <!-- Event Details -->
-      <section class="bg-white/5 rounded-xl border border-white/10 shadow-md p-8">
+      <section class="bg-white/5 rounded-xl border border-white/10 shadow-md p-5 md:p-8">
         <h2 class="text-lg font-bold mb-6 flex items-center gap-3 pb-4 border-b border-white/10">
           <div class="w-8 h-8 rounded-full bg-[#d12027] flex items-center justify-center flex-shrink-0">
             <i data-lucide="ticket" class="w-4 h-4 text-white"></i>
@@ -238,7 +238,7 @@ if ($success):
       </section>
 
       <!-- Order Summary -->
-      <section class="bg-white/5 rounded-xl border border-white/10 shadow-md p-8">
+      <section class="bg-white/5 rounded-xl border border-white/10 shadow-md p-5 md:p-8">
         <h2 class="text-lg font-bold mb-6 flex items-center gap-3 pb-4 border-b border-white/10">
           <div class="w-8 h-8 rounded-full bg-[#d12027] flex items-center justify-center flex-shrink-0">
             <i data-lucide="receipt" class="w-4 h-4 text-white"></i>
@@ -317,7 +317,7 @@ if ($success):
       </section>
 
       <!-- Restrictions -->
-      <section class="bg-white/5 rounded-xl border border-white/10 shadow-md p-8">
+      <section class="bg-white/5 rounded-xl border border-white/10 shadow-md p-5 md:p-8">
         <h2 class="text-lg font-bold flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
           <div class="w-8 h-8 rounded-full bg-[#d12027] flex items-center justify-center flex-shrink-0">
             <i data-lucide="alert-triangle" class="w-4 h-4 text-white"></i>
@@ -335,7 +335,7 @@ if ($success):
 
     <!-- Right Column: Form & Total -->
     <div class="lg:col-span-5 space-y-8 order-1 lg:order-2" x-show="!isMobile || step === 2" x-cloak>
-      <div class="bg-white/5 pt-0 pb-8 px-8 rounded-xl border border-white/10 shadow-xl sticky top-32 text-white">
+      <div class="bg-white/5 pt-0 pb-8 px-5 md:px-8 rounded-xl border border-white/10 shadow-xl sticky top-4 md:top-32 text-white">
         <!-- Mobile Back Button -->
         <button type="button" @click="step = 1; window.scrollTo({ top: 0, behavior: 'smooth' })" class="lg:hidden flex items-center gap-2 text-sm font-bold text-neutral-400 hover:text-white py-4 transition-colors">
           <i data-lucide="arrow-left" class="w-4 h-4"></i>

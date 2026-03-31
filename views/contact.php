@@ -23,7 +23,7 @@ $success = isset($_POST['form_submitted']) && $_POST['form_submitted'] === '1';
   <div class="grid lg:grid-cols-2 gap-12 max-w-6xl items-start">
 
     <!-- Left Column: Info -->
-    <div class="relative bg-[#1e1e1e] p-10 rounded-xl shadow-2xl overflow-hidden">
+    <div class="relative bg-[#1e1e1e] p-6 md:p-10 rounded-xl shadow-2xl overflow-hidden">
       <div class="relative z-10 space-y-8">
         <div>
           <h3 class="text-3xl font-bold text-white mb-4">Ready to Team Up?</h3>
@@ -32,24 +32,20 @@ $success = isset($_POST['form_submitted']) && $_POST['form_submitted'] === '1';
 
         <!-- Email & Phone -->
         <div class="space-y-3">
-          <a href="mailto:comedybreakin205@gmail.com" class="flex gap-4 items-center p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
-            <div class="shrink-0 w-10 h-10 rounded-[10px] flex items-center justify-center text-[#d12027]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
-            </div>
-            <div>
+          <a href="mailto:comedybreakin205@gmail.com" class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group min-w-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#d12027] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+            <div class="min-w-0">
               <h4 class="text-white font-bold">Email</h4>
-              <p class="text-neutral-400 text-sm group-hover:text-neutral-300 transition-colors">comedybreakin205@gmail.com</p>
+              <p class="text-neutral-400 text-sm group-hover:text-neutral-300 transition-colors break-all">comedybreakin205@gmail.com</p>
             </div>
           </a>
-          <a href="tel:0000000000" class="flex gap-4 items-center p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
-          <div class="shrink-0 w-10 h-10 rounded-[10px] flex items-center justify-center text-[#d12027]">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-          </div>
-          <div>
-            <h4 class="text-white font-bold">Phone</h4>
-            <p class="text-neutral-400 text-sm group-hover:text-neutral-300 transition-colors">(000) 000-0000</p>
-          </div>
-        </a>
+          <a href="tel:0000000000" class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#d12027] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            <div>
+              <h4 class="text-white font-bold">Phone</h4>
+              <p class="text-neutral-400 text-sm group-hover:text-neutral-300 transition-colors">(000) 000-0000</p>
+            </div>
+          </a>
         </div>
 
         <!-- What We Offer -->
@@ -83,7 +79,7 @@ $success = isset($_POST['form_submitted']) && $_POST['form_submitted'] === '1';
       ],
       get selected() { return this.options.find(o => o.value === this.inquiry) },
       get selectedDesc() { return this.selected ? this.selected.desc : '' }
-    }" @click.away="open = false" class="bg-[#1e1e1e] pt-0 pb-8 px-8 md:px-10 rounded-xl border border-white/10 shadow-xl">
+    }" @click.away="open = false" class="bg-[#1e1e1e] pt-0 pb-8 px-5 md:px-10 rounded-xl border border-white/10 shadow-xl">
       <form method="POST" action="?view=contact" class="space-y-6">
         <input type="hidden" name="form_submitted" value="1" />
 

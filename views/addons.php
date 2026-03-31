@@ -147,7 +147,7 @@ $addons = [
 
     <!-- Right: Order Summary -->
     <div class="lg:col-span-5">
-      <div class="bg-white/5 p-8 rounded-xl shadow-xl sticky top-32 text-white space-y-6 border border-white/10">
+      <div class="bg-white/5 p-5 md:p-8 rounded-xl shadow-xl sticky top-4 md:top-32 text-white space-y-6 border border-white/10">
 
         <h2 class="text-xl font-bold text-white flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>

@@ -28,7 +28,7 @@ $showDatesJson = json_encode(array_keys($showsByDate));
 
           <!-- Calendar Popup -->
           <div x-show="calendarOpen" x-transition @click.outside="calendarOpen = false"
-               class="absolute right-0 top-full mt-2 bg-neutral-900 border border-white/10 rounded-xl shadow-lg p-5 w-[300px] z-50">
+               class="absolute right-0 top-full mt-2 bg-neutral-900 border border-white/10 rounded-xl shadow-lg p-5 w-[calc(100vw-2rem)] max-w-[300px] z-50">
             <div class="flex items-center justify-between mb-4">
               <button @click="calPrevMonth()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 text-neutral-400 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>

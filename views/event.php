@@ -67,8 +67,12 @@ function findComedianId(string $performer, array $lookup): ?int {
   <!-- Hero Banner -->
   <div class="mb-12">
     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden flex flex-col md:flex-row items-stretch md:h-[378px]">
-      <!-- Left Content -->
-      <div class="flex-1 p-6 md:pb-10 md:px-14 md:pt-0 flex flex-col justify-end gap-4">
+      <!-- Image (first on mobile, right on desktop) -->
+      <div class="w-full md:w-[380px] h-[220px] md:h-full flex-shrink-0 p-4 md:p-6 order-first md:order-last">
+        <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover rounded-xl" />
+      </div>
+      <!-- Content (second on mobile, left on desktop) -->
+      <div class="flex-1 p-6 pt-0 md:pt-0 md:pb-10 md:px-14 flex flex-col justify-end gap-4">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight"><?= htmlspecialchars($show['title']) ?></h2>
         <div class="flex flex-wrap items-center gap-2">
           <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
@@ -84,10 +88,6 @@ function findComedianId(string $performer, array $lookup): ?int {
           <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           <?= htmlspecialchars($show['location']) ?>
         </div>
-      </div>
-      <!-- Right Image -->
-      <div class="w-full md:w-[380px] h-[220px] md:h-full flex-shrink-0 p-4 md:p-6">
-        <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover rounded-xl" />
       </div>
     </div>
   </div>
@@ -163,7 +163,7 @@ function findComedianId(string $performer, array $lookup): ?int {
       <?php endif; ?>
 
       <!-- RESTRICTIONS & REQUIREMENTS -->
-      <div id="restrictions-section" class="bg-white/5 rounded-xl border border-white/10 p-8">
+      <div id="restrictions-section" class="bg-white/5 rounded-xl border border-white/10 p-5 md:p-8">
         <h2 class="text-lg font-bold tracking-wide text-white mb-6 flex items-center gap-2">
           <i data-lucide="info" class="w-5 h-5 text-neutral-400"></i>
           Restrictions &amp; Requirements
@@ -198,7 +198,7 @@ function findComedianId(string $performer, array $lookup): ?int {
 
     <!-- Right Column: Purchase Tickets -->
     <div class="lg:col-span-5 order-1 lg:order-2">
-      <div class="bg-white/5 p-8 rounded-xl shadow-xl sticky top-32 text-white space-y-6 border border-white/10">
+      <div class="bg-white/5 p-5 md:p-8 rounded-xl shadow-xl sticky top-4 md:top-32 text-white space-y-6 border border-white/10">
 
         <h2 class="text-2xl font-bold tracking-tight text-white">Purchase Tickets</h2>
 

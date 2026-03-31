@@ -23,7 +23,7 @@ $success = isset($_POST['gift_submitted']) && $_POST['gift_submitted'] === '1';
 
     <!-- Info Side -->
     <div class="lg:col-span-5 space-y-8">
-      <div class="relative bg-[#1e1e1e] p-10 rounded-xl shadow-2xl overflow-hidden">
+      <div class="relative bg-[#1e1e1e] p-6 md:p-10 rounded-xl shadow-2xl overflow-hidden">
         <div class="relative z-10 space-y-6">
           <h2 class="text-2xl font-bold text-white">How it works</h2>
           <div class="space-y-4 text-neutral-400">
@@ -60,7 +60,7 @@ $success = isset($_POST['gift_submitted']) && $_POST['gift_submitted'] === '1';
 
     <!-- Form Side -->
     <div class="lg:col-span-7">
-      <form method="POST" action="?view=gift" class="bg-neutral-900 pt-0 pb-8 px-8 md:px-10 rounded-xl border border-white/10 shadow-xl space-y-8 text-white">
+      <form method="POST" action="?view=gift" class="bg-neutral-900 pt-0 pb-8 px-5 md:px-10 rounded-xl border border-white/10 shadow-xl space-y-8 text-white">
         <input type="hidden" name="gift_submitted" value="1" />
 
         <!-- Amount -->

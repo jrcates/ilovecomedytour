@@ -25,9 +25,12 @@ $totalSlides = count($slideData);
 
         <!-- Card view -->
         <div class="cc-card" style="background:#1e1e1e; border-radius:10px; border:1px solid rgba(255,255,255,0.08); overflow:hidden; display:<?= $isFirst ? 'block' : 'none' ?>;">
-          <!-- Mobile: text first, image below -->
+          <!-- Mobile: image first, text below -->
           <div class="flex flex-col md:hidden w-full">
-            <div class="p-5 pb-4 flex flex-col gap-3">
+            <div class="w-full h-[300px] px-3 pt-3">
+              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="<?= htmlspecialchars($sd['slide']['title']) ?>" class="w-full h-full object-cover rounded-lg" />
+            </div>
+            <div class="p-5 pt-4 flex flex-col gap-3">
               <h2 class="text-xl font-bold text-white leading-tight"><?= htmlspecialchars($sd['slide']['title']) ?></h2>
               <div class="flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1 rounded-full">
@@ -44,9 +47,6 @@ $totalSlides = count($slideData);
                 <span class="truncate"><?= htmlspecialchars($sd['slide']['location']) ?></span>
               </div>
               <a href="?view=event&show=<?= urlencode($sd['slide']['id']) ?>" class="inline-block px-6 py-2.5 bg-white text-black font-bold text-sm rounded-[10px] hover:bg-neutral-200 transition-colors w-fit">Buy Tickets</a>
-            </div>
-            <div class="w-full h-[300px] px-3 pb-3">
-              <img src="<?= htmlspecialchars($sd['slide']['image']) ?>" alt="<?= htmlspecialchars($sd['slide']['title']) ?>" class="w-full h-full object-cover rounded-lg" />
             </div>
           </div>
           <!-- Desktop: side-by-side layout -->
@@ -114,10 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var gap = 16;
 
   // Content width matches the site (1200px max, centered)
-  var isMobile = window.innerWidth < 768;
-  function contentWidth() { return Math.min(1200, window.innerWidth - (isMobile ? 32 : 48)); }
-  function contentLeft() { return Math.max(isMobile ? 16 : 24, (window.innerWidth - contentWidth()) / 2); }
-  var thumbW = isMobile ? 0 : (window.innerWidth < 1024 ? 380 : 470);
+  // Use clientWidth to exclude scrollbar, matching CSS mx-auto centering
+  function vw() { return document.documentElement.clientWidth; }
+  var isMobile = vw() < 768;
+  function contentWidth() { return Math.min(1200, vw() - (isMobile ? 32 : 48)); }
+  function contentLeft() { return Math.max(isMobile ? 16 : 24, (vw() - contentWidth()) / 2); }
+  var thumbW = isMobile ? 0 : (vw() < 1024 ? 380 : 470);
 
   // Dots
   var dots = [];
@@ -217,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (Math.abs(d) > 50) { clearInterval(auto); d > 0 ? go(current<total-1?current+1:0) : go(current>0?current-1:total-1); }
   });
 
-  window.addEventListener('resize', function() { isMobile = window.innerWidth < 768; thumbW = isMobile ? 0 : (window.innerWidth < 1024 ? 380 : 470); render(false); });
+  window.addEventListener('resize', function() { isMobile = vw() < 768; thumbW = isMobile ? 0 : (vw() < 1024 ? 380 : 470); render(false); });
 
   // Init
   render(false);
