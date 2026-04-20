@@ -29,7 +29,12 @@
   <template x-if="devicePreview === 'mobile'">
     <div class="cc-view-switcher-backdrop">
       <div class="cc-view-switcher-frame">
-        <iframe src="<?= htmlspecialchars('?' . http_build_query($_GET)) ?>" class="w-full h-full border-0"></iframe>
+        <iframe
+          :src="window.location.pathname + window.location.search"
+          class="w-full h-full"
+          style="border:0;background:#101010;display:block;"
+          scrolling="yes"
+        ></iframe>
       </div>
     </div>
   </template>

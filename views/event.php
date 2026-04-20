@@ -1,224 +1,279 @@
 <?php
-$showId = isset($_GET['show']) ? preg_replace('/[^a-z0-9\-]/', '', $_GET['show']) : null;
-$promoCode = isset($_GET['promo']) ? preg_replace('/[^A-Za-z0-9]/', '', $_GET['promo']) : '';
+$showId = isset($_GET['show']) ? preg_replace('/[^a-z0-9\-]/', '', $_GET['show']) : '';
 $show = null;
-
 foreach ($shows as $s) {
-  if ($s['id'] === $showId) {
-    $show = $s;
-    break;
+  if ($s['id'] === $showId) { $show = $s; break; }
+}
+
+if (!$show):
+?>
+<div class="pt-10 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto px-4 md:px-6 min-h-screen flex flex-col items-center justify-center text-center">
+  <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Show Not Found</h1>
+  <a href="?view=calendar" class="cc-btn-primary text-sm tracking-[0.14em] px-8 py-3">View Tour Dates</a>
+</div>
+<?php return; endif;
+
+$d         = formatShowDate($show['date']);
+$cityState = parseCityState($show['location']);
+$venue     = parseVenue($show['location']);
+$basePrice = (float)$show['priceValue'];
+
+// Each tier: base price + 10% service fee displayed upfront (legal pricing)
+$feeRate = 0.10;
+$tiers = [
+  [
+    'key'     => 'general',
+    'label'   => 'General Admission',
+    'desc'    => 'Standard seating',
+    'base'    => $basePrice,
+    'min'     => 1,  // at least 1 GA required
+    'default' => 1,
+  ],
+  [
+    'key'     => 'premium',
+    'label'   => 'Front Row Seats',
+    'desc'    => 'Guaranteed front row seating',
+    'base'    => round($basePrice + 20),
+    'min'     => 0,
+    'default' => 0,
+  ],
+  [
+    'key'     => 'vip',
+    'label'   => 'Gold Front Row VIP',
+    'desc'    => 'VIP front row with priority check-in',
+    'base'    => round($basePrice + 30),
+    'min'     => 0,
+    'default' => 0,
+  ],
+];
+foreach ($tiers as &$tier) {
+  $tier['fee']   = round($tier['base'] * $feeRate, 2);
+  $tier['total'] = round($tier['base'] + $tier['fee'], 2);
+}
+unset($tier);
+
+// Prev / Next show — navigate by unique venue in chronological order
+$uniqueStops   = [];
+$seenLocations = [];
+foreach ($shows as $s) {
+  if (!in_array($s['location'], $seenLocations)) {
+    $seenLocations[] = $s['location'];
+    $uniqueStops[]   = $s;
   }
 }
-
-if (!$show) {
-  echo '<div class="pt-12 pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen text-center">';
-  echo '<h1 class="text-4xl font-bold mb-4">Event Not Found</h1>';
-  echo '<p class="text-neutral-400 mb-8">The event you\'re looking for doesn\'t exist.</p>';
-  echo '<a href="?view=calendar" class="px-8 py-3 bg-white text-black font-bold rounded-[10px] hover:bg-neutral-200 transition-colors">View Schedule</a>';
-  echo '</div>';
-  return;
+$currentStopIdx = -1;
+foreach ($uniqueStops as $i => $v) {
+  if ($v['location'] === $show['location']) { $currentStopIdx = $i; break; }
 }
-
-$d = formatShowDate($show['date']);
-$isSoldOut = $show['status'] === 'Sold Out';
-
-// Generate initials from performer name
-function getInitials(string $name): string {
-  $clean = preg_replace('/^(Host:\s*|Opener:\s*)/i', '', $name);
-  $words = explode(' ', trim($clean));
-  if (count($words) >= 2) {
-    return strtoupper(mb_substr($words[0], 0, 1) . mb_substr($words[1], 0, 1));
-  }
-  return strtoupper(mb_substr($clean, 0, 2));
-}
-
-$avatarColors = ['#C084FC', '#9CA3AF', '#F59E0B', '#6B7280', '#EC4899', '#34D399', '#F97316', '#60A5FA'];
-
-// Generate comedian lookup for linking performers
-$cfn = ["James","Sarah","Michael","Jessica","David","Emily","Robert","Jennifer","William","Elizabeth","Joseph","Maria","Thomas","Lisa","Charles","Ashley"];
-$cln = ["Chen","Johnson","Smith","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Hernandez","Lopez","Gonzalez","Wilson","Anderson"];
-$comedianLookup = [];
-for ($ci = 0; $ci < 160; $ci++) {
-  $cname = $cfn[$ci % count($cfn)] . ' ' . $cln[(int)floor($ci / count($cfn)) % count($cln)];
-  $comedianLookup[strtolower($cname)] = $ci;
-}
-
-function findComedianId(string $performer, array $lookup): ?int {
-  $clean = preg_replace('/^(Host:\s*|Opener:\s*)/i', '', $performer);
-  $clean = strtolower(trim($clean));
-  return isset($lookup[$clean]) ? $lookup[$clean] : null;
-}
+$prevShow = $currentStopIdx > 0 ? $uniqueStops[$currentStopIdx - 1] : null;
+$nextShow = ($currentStopIdx !== -1 && $currentStopIdx < count($uniqueStops) - 1) ? $uniqueStops[$currentStopIdx + 1] : null;
 ?>
 
-<div class="pt-12 pb-24 max-w-[1200px] mx-auto px-4 md:px-6 min-h-screen" x-data="{ aboutExpanded: false }">
+<div class="pt-10 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto px-4 md:px-6 min-h-screen"
+     x-data="{
+        tickets: { general: 1, premium: 0, vip: 0 },
+        prices: { general: <?= $tiers[0]['total'] ?>, premium: <?= $tiers[1]['total'] ?>, vip: <?= $tiers[2]['total'] ?> },
+        increment(tier) {
+          if (this.tickets[tier] >= 10) return;
+          // Only one tier active at a time — reset others to 0
+          Object.keys(this.tickets).forEach(k => { if (k !== tier) this.tickets[k] = 0; });
+          this.tickets[tier]++;
+        },
+        decrement(tier) {
+          // Don't let the active tier go below 1; inactive tiers stay at 0
+          if (this.tickets[tier] > 1) this.tickets[tier]--;
+        },
+        get totalQty() { return this.tickets.general + this.tickets.premium + this.tickets.vip; },
+        get grand()    { return this.tickets.general*this.prices.general + this.tickets.premium*this.prices.premium + this.tickets.vip*this.prices.vip; },
+        get continueUrl() {
+          return '?view=addons&show=<?= urlencode($showId) ?>&tickets=g:' + this.tickets.general + ',p:' + this.tickets.premium + ',v:' + this.tickets.vip;
+        }
+     }">
 
-  <!-- Tab Navigation -->
-  <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-    <div class="flex flex-wrap items-center gap-2">
-      <a href="#about-section" class="cc-event-tab text-sm font-medium px-4 py-2 rounded-[5px] border border-white/10 bg-white/5 text-white transition-colors">About</a>
-      <a href="#restrictions-section" class="cc-event-tab text-xs md:text-sm font-medium px-3 md:px-4 py-2 rounded-[5px] border border-white/10 bg-white/5 text-white transition-colors">Restrictions</a>
-    </div>
-    <a href="?view=calendar" class="flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors px-4 py-2 rounded-[10px] border border-white/10 hover:border-white/20">
-      <i data-lucide="arrow-left" class="w-4 h-4"></i>
-      Back
-    </a>
+  <!-- ─── Breadcrumb ─── -->
+  <div class="flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.3em] mb-6">
+    <a href="?view=calendar" class="text-neutral-500 hover:text-[#f9dda9] transition-colors">Tour Dates</a>
+    <span class="text-white/20">/</span>
+    <span class="text-[#f9dda9]">Step 01 · Tickets</span>
+    <span class="text-white/20">/</span>
+    <span class="text-neutral-500">Add-ons</span>
+    <span class="text-white/20">/</span>
+    <span class="text-neutral-500">Checkout</span>
   </div>
 
-  <!-- Hero Banner -->
-  <div class="mb-12">
-    <div class="bg-[#1e1e1e] rounded-xl overflow-hidden flex flex-col md:flex-row items-stretch md:h-[378px]">
-      <!-- Image (first on mobile, right on desktop) -->
-      <div class="w-full md:w-[380px] h-[220px] md:h-full flex-shrink-0 p-4 md:p-6 order-first md:order-last">
-        <img src="<?= htmlspecialchars($show['image']) ?>" alt="<?= htmlspecialchars($show['title']) ?>" class="w-full h-full object-cover rounded-xl" />
-      </div>
-      <!-- Content (second on mobile, left on desktop) -->
-      <div class="flex-1 p-6 pt-0 md:pt-0 md:pb-10 md:px-14 flex flex-col justify-end gap-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight"><?= htmlspecialchars($show['title']) ?></h2>
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <?= htmlspecialchars($d['weekday']) ?>, <?= htmlspecialchars($d['day']) ?> <?= htmlspecialchars($d['month']) ?> <?= htmlspecialchars($d['year']) ?>
-          </span>
-          <span class="inline-flex items-center gap-1.5 bg-[#d12027] text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <?= htmlspecialchars($d['time']) ?>
-          </span>
-        </div>
-        <div class="inline-flex items-center gap-1.5 bg-[#383838] text-neutral-300 text-xs font-medium px-3 py-1.5 rounded-full w-fit">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          <?= htmlspecialchars($show['location']) ?>
-        </div>
-      </div>
+  <!-- ─── Header ─── -->
+  <div class="relative mb-8 md:mb-16">
+    <span aria-hidden="true" class="hidden md:block absolute -top-10 -left-4 text-[220px] lg:text-[260px] font-black text-white/[0.04] select-none leading-none pointer-events-none tracking-tight">01</span>
+    <div class="inline-flex mb-5 md:mb-0 md:absolute md:top-0 md:right-12 -rotate-[4deg] bg-[#d12027] text-white text-[10px] md:text-xs font-extrabold uppercase tracking-[0.22em] px-4 py-2 border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+      Grab It Now
     </div>
+    <h1 class="relative text-5xl md:text-7xl font-extrabold tracking-tight leading-[0.9]">Pick Your Seats.</h1>
   </div>
 
-  <!-- Two Column Layout -->
-  <div class="grid lg:grid-cols-12 gap-12">
+  <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
 
-    <!-- Left Column -->
-    <div class="lg:col-span-7 space-y-10 order-2 lg:order-1">
+    <!-- ─── Top show info (meta + city/venue) ─── -->
+    <div class="md:col-span-7 md:order-1 order-1 space-y-8">
 
-      <!-- ABOUT -->
-      <div id="about-section">
-        <h2 class="text-lg font-bold tracking-wide text-white mb-4">About</h2>
-        <div :class="aboutExpanded ? '' : 'line-clamp-3'" class="cc-about-text text-neutral-400 text-base leading-relaxed">
-          <p><?= htmlspecialchars($show['description']) ?> Join us at <?= htmlspecialchars($show['location']) ?> for an unforgettable night of live entertainment. Our intimate venue offers the perfect setting to experience comedy up close and personal, with excellent sightlines from every seat in the house. Whether you're a seasoned comedy fan or a first-timer, this show promises non-stop laughs from start to finish. Doors open one hour before showtime — arrive early to grab a drink and settle into the best seats.</p>
-        </div>
-        <button @click="aboutExpanded = !aboutExpanded" class="text-[#d12027] text-sm font-bold mt-3 hover:text-[#a91a20] transition-colors" x-text="aboutExpanded ? 'Read Less' : 'Read More...'">Read More...</button>
+      <!-- Meta pills -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="inline-flex items-center h-7 px-3 bg-white/10 border border-white/15 text-white text-[11px] font-extrabold tracking-[0.18em] uppercase leading-none rounded-[5px]"><?= $d['weekday'] ?>, <?= $d['month'] ?> <?= $d['day'] ?><?= ordinalSuffix((int)$d['day']) ?></span>
+        <span class="inline-flex items-center h-7 px-3 bg-[#f9dda9] border border-[#f9dda9] text-black text-[11px] font-extrabold tracking-[0.18em] uppercase leading-none rounded-[5px]"><?= $d['time'] ?></span>
       </div>
 
-      <!-- FEATURING (only comedians with profiles, min 3) -->
-      <?php
-        $profiledPerformers = [];
-        $usedIds = [];
-        if (!empty($show['lineup'])) {
-          foreach ($show['lineup'] as $i => $performer) {
-            $cId = findComedianId($performer, $comedianLookup);
-            if ($cId !== null) {
-              $profiledPerformers[] = ['name' => $performer, 'id' => $cId, 'index' => $i];
-              $usedIds[] = $cId;
-            }
-          }
-        }
-        $minFeatured = 3;
-        if (count($profiledPerformers) < $minFeatured) {
-          $showSeed = crc32($show['id']);
-          $needed = $minFeatured - count($profiledPerformers);
-          $offset = abs($showSeed) % 160;
-          for ($fi = 0; $fi < 160 && $needed > 0; $fi++) {
-            $candidateId = ($offset + $fi) % 160;
-            if (!in_array($candidateId, $usedIds)) {
-              $cname = $cfn[$candidateId % count($cfn)] . ' ' . $cln[(int)floor($candidateId / count($cfn)) % count($cln)];
-              $profiledPerformers[] = ['name' => $cname, 'id' => $candidateId, 'index' => count($profiledPerformers)];
-              $usedIds[] = $candidateId;
-              $needed--;
-            }
-          }
-        }
-      ?>
-      <?php if (!empty($profiledPerformers)): ?>
+      <!-- City / venue -->
       <div>
-        <h2 class="text-lg font-bold tracking-wide text-white mb-6">Featuring</h2>
-        <div class="flex flex-wrap gap-5">
-          <?php foreach ($profiledPerformers as $p):
-            $initials = getInitials($p['name']);
-            $bgColor = $avatarColors[$p['index'] % count($avatarColors)];
+        <h2 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.05] mb-2"><?= htmlspecialchars($cityState) ?></h2>
+        <div class="text-2xl md:text-3xl font-extrabold text-[#f9dda9] tracking-tight mb-3"><?= htmlspecialchars($venue) ?></div>
+        <p class="text-sm text-neutral-400"><?= htmlspecialchars($show['location']) ?></p>
+      </div>
+    </div>
+
+    <!-- ─── Ticket selector (mobile: middle / desktop: right, spans rows) ─── -->
+    <aside class="md:col-span-5 md:row-span-2 order-2 md:order-2">
+      <div class="md:sticky md:top-44 bg-[#1e1e1e] border border-white/10 rounded-xl p-6 md:p-8">
+
+        <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight mb-6">Purchase Tickets</h3>
+
+        <div class="space-y-4 mb-6">
+          <?php foreach ($tiers as $tier):
+            $key = $tier['key'];
           ?>
-          <a href="?view=comedian&id=<?= $p['id'] ?>" class="flex flex-col items-center gap-2 w-[100px] md:w-[130px] group">
-            <div class="w-[100px] h-[100px] md:w-[130px] md:h-[130px] rounded-xl flex items-center justify-center group-hover:ring-2 group-hover:ring-[#d12027] transition-all bg-[<?= $bgColor ?>]">
-              <span class="text-4xl font-bold text-white tracking-wider"><?= $initials ?></span>
+          <div
+            class="rounded-xl p-5 border-2 transition-colors"
+            :class="tickets.<?= $key ?> > 0 ? 'border-[#d12027] bg-[#d12027]/[0.06]' : 'border-white/10 hover:border-white/20'">
+            <!-- Title + total price -->
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h4 class="text-base md:text-xl font-extrabold text-white tracking-tight leading-tight"><?= htmlspecialchars($tier['label']) ?></h4>
+              <span class="text-base md:text-xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap">$<?= number_format($tier['total'], 2) ?></span>
             </div>
-            <span class="text-sm font-bold text-white text-center leading-tight group-hover:text-[#d12027] transition-colors"><?= htmlspecialchars($p['name']) ?></span>
-          </a>
+            <!-- Info + stepper row (side-by-side on all screens) -->
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm text-neutral-500 leading-snug">$<?= number_format($tier['base'], 2) ?> + $<?= number_format($tier['fee'], 2) ?> Service Fee</p>
+                <p class="text-sm text-neutral-400 leading-snug"><?= htmlspecialchars($tier['desc']) ?></p>
+              </div>
+              <div class="shrink-0">
+                <div class="flex items-center gap-1 bg-black/40 border border-white/10 rounded-[10px] p-1">
+                  <button type="button" @click="decrement('<?= $key ?>')" :class="tickets.<?= $key ?> <= 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10'" class="w-9 h-9 flex items-center justify-center text-white rounded-[6px] transition-colors" aria-label="Decrease">−</button>
+                  <span class="w-9 text-center text-white font-extrabold" x-text="tickets.<?= $key ?>"></span>
+                  <button type="button" @click="increment('<?= $key ?>')" :class="tickets.<?= $key ?> >= 10 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10'" class="w-9 h-9 flex items-center justify-center text-white rounded-[6px] transition-colors" aria-label="Increase">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <?php endforeach; ?>
         </div>
+
+        <!-- Total -->
+        <div class="pt-5 border-t border-white/10 flex items-end justify-between mb-4">
+          <span class="text-xl font-extrabold text-white">Total</span>
+          <span class="text-2xl md:text-3xl font-extrabold text-white tracking-tight" x-text="'$' + grand.toFixed(2)"></span>
+        </div>
+
+        <p class="text-[11px] text-neutral-500 italic mb-5">* Promo codes can be added in the next step.</p>
+
+        <a :href="continueUrl"
+           :class="totalQty > 0 ? '' : 'is-disabled'"
+           class="cc-btn-primary w-full text-sm tracking-[0.24em] px-6 py-4">
+          Continue
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+
+        <a href="?view=calendar" class="mt-4 block text-center w-full text-sm text-neutral-400 hover:text-[#f9dda9] transition-colors">← Back to Tour Dates</a>
+      </div>
+    </aside>
+
+    <!-- ─── Bottom show info (about / lineup / restrictions) ─── -->
+    <div class="md:col-span-7 md:order-3 order-3 space-y-8">
+
+      <?php if (!empty($show['description'])): ?>
+      <div class="pt-6 border-t border-white/10">
+        <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-3">About The Show</p>
+        <p class="text-base md:text-lg text-white/85 leading-relaxed"><?= htmlspecialchars($show['description']) ?></p>
       </div>
       <?php endif; ?>
 
-      <!-- SERIES BANNER -->
-      <?php if (!empty($show['series'])): ?>
-      <a href="?view=series&name=<?= urlencode($show['series']) ?>" class="block w-full bg-[#d12027] hover:bg-[#a91a20] transition-colors text-white font-semibold text-center py-3.5 px-6 rounded-[10px] text-sm md:text-base">
-        This event is part of: <?= htmlspecialchars($show['series']) ?>!
-      </a>
+      <?php if (!empty($show['lineup'])): ?>
+      <div class="pt-6 border-t border-white/10">
+        <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-3">Line-up</p>
+        <ul class="flex flex-wrap gap-2">
+          <?php foreach ($show['lineup'] as $i => $act): ?>
+          <li class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white">
+            <span class="text-[10px] text-[#f9dda9] font-extrabold"><?= str_pad((string)($i+1), 2, '0', STR_PAD_LEFT) ?></span>
+            <?= htmlspecialchars($act) ?>
+          </li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
       <?php endif; ?>
 
-      <!-- RESTRICTIONS & REQUIREMENTS -->
-      <div id="restrictions-section" class="bg-white/5 rounded-xl border border-white/10 p-5 md:p-8">
-        <h2 class="text-lg font-bold tracking-wide text-white mb-6 flex items-center gap-2">
-          <i data-lucide="info" class="w-5 h-5 text-neutral-400"></i>
-          Restrictions &amp; Requirements
-        </h2>
-        <ul class="space-y-5 text-sm text-neutral-400">
+      <!-- Restrictions & Requirements -->
+      <div class="pt-6 border-t border-white/10">
+        <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-4">Restrictions &amp; Requirements</p>
+        <ul class="space-y-3 text-sm">
           <li class="flex items-start gap-3">
-            <i data-lucide="clock" class="w-5 h-5 text-neutral-400 shrink-0 mt-0.5"></i>
-            <span><strong class="text-white">Arrive 30 mins before showtime</strong> as seating is on a first-come basis. Those arriving late are not guaranteed seats as we begin seating standby customers. If reservations are missed, tickets may be used another time without penalty.</span>
+            <i data-lucide="clock" class="w-4 h-4 text-[#f9dda9] mt-0.5 flex-shrink-0"></i>
+            <p class="text-white/85 leading-relaxed"><strong class="text-white">Arrive 30 mins before showtime</strong> as seating is on a first-come basis.</p>
           </li>
           <li class="flex items-start gap-3">
-            <i data-lucide="circle-check" class="w-5 h-5 text-neutral-400 shrink-0 mt-0.5"></i>
-            <span>There is a <strong class="text-white">2-drink minimum</strong> for all shows.</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f9dda9] mt-0.5 flex-shrink-0"></i>
+            <p class="text-white/85 leading-relaxed">There is a <strong class="text-white">2-drink minimum</strong> for all shows.</p>
           </li>
           <li class="flex items-start gap-3">
-            <i data-lucide="alert-triangle" class="w-5 h-5 text-neutral-400 shrink-0 mt-0.5"></i>
-            <span><strong class="text-white">LINE-UPS SUBJECT TO CHANGE.</strong> If you're coming to see a specific performer, please note they might not be in the lineup. Rosters are current at time of posting but may get switched around. Tickets are for a comedy show, not for any specific performer.</span>
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-[#f9dda9] mt-0.5 flex-shrink-0"></i>
+            <p class="text-white/85 leading-relaxed"><strong class="text-white uppercase tracking-wider">Line-ups subject to change.</strong> Tickets are for a comedy show, not for any specific performer.</p>
           </li>
           <li class="flex items-start gap-3">
-            <i data-lucide="circle-check" class="w-5 h-5 text-neutral-400 shrink-0 mt-0.5"></i>
-            <span><strong class="text-white">All ages welcome.</strong> Shows may contain adult content but there are no age restrictions for admission.</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <i data-lucide="list" class="w-5 h-5 text-neutral-400 shrink-0 mt-0.5"></i>
-            <span><strong class="text-white">'Front Row' and 'Gold Front Row VIP'</strong> tickets guarantee stage-side seats and expedited check-in. General admission seating is first-come. 'Front Row' tickets are a way to secure patrons' seats of choice.</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f9dda9] mt-0.5 flex-shrink-0"></i>
+            <p class="text-white/85 leading-relaxed"><strong class="text-white">All ages welcome.</strong> Shows may contain adult content but there are no age restrictions for admission.</p>
           </li>
         </ul>
-        <div class="mt-6 pt-4 border-t border-white/10">
-          <span class="inline-block text-xs font-bold uppercase tracking-wider text-neutral-400 border border-white/10 px-3 py-1.5 rounded-[5px]">All Sales Are Final</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Column: Purchase Tickets -->
-    <div class="lg:col-span-5 order-1 lg:order-2">
-      <div class="bg-white/5 p-5 md:p-8 rounded-xl shadow-xl sticky top-4 md:top-32 text-white space-y-6 border border-white/10">
-
-        <h2 class="text-2xl font-bold tracking-tight text-white">Purchase Tickets</h2>
-
-        <?php if (!$isSoldOut): ?>
-          <?php component('ticket-selector', ['show' => $show, 'promoCode' => $promoCode]); ?>
-        <?php else: ?>
-        <!-- Sold Out State -->
-        <div class="pt-4 border-t border-white/10 text-center">
-          <button disabled class="w-full py-4 bg-white/10 text-neutral-400 font-bold text-base tracking-wider rounded-[10px] cursor-not-allowed">Sold Out</button>
-          <p class="text-xs text-neutral-400 mt-3">This show is sold out. Check our calendar for other available shows.</p>
-        </div>
-        <?php endif; ?>
-
-        <p class="text-xs text-neutral-400 text-center flex items-center justify-center gap-1.5">
-          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-          Secure Checkout powered by Stripe
-        </p>
-
       </div>
     </div>
 
   </div>
+
+  <!-- ─── Prev / Next Show ─── -->
+  <?php if ($prevShow || $nextShow): ?>
+  <nav class="mt-10 md:mt-20 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <?php if ($prevShow):
+      $pDt = formatShowDate($prevShow['date']);
+      $pCity = parseCityState($prevShow['location']);
+      $pVenue = parseVenue($prevShow['location']);
+    ?>
+    <a href="?view=event&show=<?= urlencode($prevShow['id']) ?>" class="group block">
+      <div class="flex items-center gap-2 text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-2">
+        <svg class="w-3 h-3 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Previous
+      </div>
+      <p class="text-sm md:text-base font-bold text-white group-hover:text-[#f9dda9] transition-colors leading-snug">
+        <?= htmlspecialchars($pCity) ?> <span class="text-neutral-500 font-normal">·</span> <?= htmlspecialchars($pVenue) ?>
+      </p>
+      <p class="text-xs text-neutral-500 mt-1"><?= $pDt['weekday'] ?>, <?= $pDt['month'] ?> <?= $pDt['day'] ?><?= ordinalSuffix((int)$pDt['day']) ?></p>
+    </a>
+    <?php else: ?>
+    <div></div>
+    <?php endif; ?>
+
+    <?php if ($nextShow):
+      $nDt = formatShowDate($nextShow['date']);
+      $nCity = parseCityState($nextShow['location']);
+      $nVenue = parseVenue($nextShow['location']);
+    ?>
+    <a href="?view=event&show=<?= urlencode($nextShow['id']) ?>" class="group block md:text-right">
+      <div class="flex items-center md:justify-end gap-2 text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-2">
+        Next
+        <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </div>
+      <p class="text-sm md:text-base font-bold text-white group-hover:text-[#f9dda9] transition-colors leading-snug">
+        <?= htmlspecialchars($nCity) ?> <span class="text-neutral-500 font-normal">·</span> <?= htmlspecialchars($nVenue) ?>
+      </p>
+      <p class="text-xs text-neutral-500 mt-1"><?= $nDt['weekday'] ?>, <?= $nDt['month'] ?> <?= $nDt['day'] ?><?= ordinalSuffix((int)$nDt['day']) ?></p>
+    </a>
+    <?php endif; ?>
+  </nav>
+  <?php endif; ?>
+
 </div>
+

@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= isset($siteName) ? $siteName : 'Comedy Break In' ?></title>
+  <title><?= isset($siteName) ? $siteName : 'Ronny Chieng' ?></title>
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,9 +30,6 @@
       button,
       a[class*="font-bold"][class*="px-"] {
         border-radius: 10px;
-      }
-      a.cc-tab-btn {
-        border-radius: 5px;
       }
     }
   </style>

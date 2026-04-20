@@ -1,37 +1,67 @@
 [x-cloak] { display: none !important; }
+
+/* ─── Primary CTA — cream bg, black border, floating black shadow, square corners ─── */
+.cc-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #f9dda9;
+  color: #000;
+  font-weight: 800;
+  text-transform: uppercase;
+  border: 2px solid #000;
+  border-radius: 0;
+  box-shadow: 6px 6px 0 #000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1;
+}
+.cc-btn-primary:hover {
+  background: #fbe6bb;
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 #000;
+}
+.cc-btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+.cc-btn-primary[disabled],
+.cc-btn-primary.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* Desktop nav link underline */
+.cc-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: #f9dda9;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cc-nav-link:hover::after,
+.cc-nav-link.cc-nav-active::after { transform: scaleX(1); }
+.cc-nav-link.cc-nav-active::after { transform-origin: left; }
 ::selection { background: #d12027; color: #fff; }
-.cc-no-scrollbar::-webkit-scrollbar { display: none; }
-.cc-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-/* Slide-in drawer animation (legacy + new) */
-#cc-nav-drawer { transform: translateX(100%); transition: transform 0.3s ease; }
-#cc-nav-drawer.cc-drawer-open { transform: translateX(0); }
-#cc-drawer-backdrop { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-#cc-drawer-backdrop.cc-drawer-open { opacity: 1; pointer-events: all; }
-/* Simple fade for view transitions */
+
+/* View transition fade */
 .cc-view-fade { animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-/* Marquee scroll for announcement */
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-/* Date badge */
-.cc-date-badge { min-width: 80px; }
-/* Gallery hover */
-.cc-gallery-item img { transition: transform 0.5s ease; }
-.cc-gallery-item:hover img { transform: scale(1.05); }
-/* Show card hover */
-.cc-show-card:hover { box-shadow: 0 20px 40px rgba(209,32,39,0.1); }
-.cc-show-card:hover .cc-show-card-img { transform: scale(1.1); }
-.cc-show-card-img { transition: transform 0.5s ease; }
-/* Dotted line */
-.cc-dotted-line { border-bottom: 2px dotted rgba(255,255,255,0.15); flex-grow: 1; margin: 0 1rem; position: relative; top: -2px; }
-/* Nav */
-main { padding-top: 290px; }
+
+/* Announcement marquee (used via Tailwind's animate-[marquee_60s_linear_infinite] in nav) */
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Clear space for fixed nav + marquee banner */
+main { padding-top: 180px; }
 @media (max-width: 767px) { main { padding-top: 140px; } }
-/* Carousel */
-.cc-hero-carousel { overflow: hidden; }
-.cc-hero-track { display: flex; transition: transform 0.5s ease; }
-.cc-hero-slide { flex: 0 0 100%; }
-/* Card hover lift */
-.cc-hover-lift:hover { transform: translateY(-2px); }
 /* View Switcher — iframe mobile preview */
 .cc-view-switcher-backdrop {
   position: fixed;
@@ -51,5 +81,5 @@ main { padding-top: 290px; }
   border: 2px solid rgba(255,255,255,0.15);
   box-shadow: 0 0 60px rgba(0,0,0,0.5);
   overflow: hidden;
-  background: #fff;
+  background: #101010;
 }
