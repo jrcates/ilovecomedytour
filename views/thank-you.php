@@ -10,7 +10,7 @@ foreach ($shows as $s) {
 if (!$show):
 ?>
 <div class="pt-10 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto px-4 md:px-6 min-h-screen flex flex-col items-center justify-center text-center">
-  <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Order Not Found</h1>
+  <h1 class="text-4xl font-extrabold text-neutral-900 mb-4 tracking-tight">Order Not Found</h1>
   <a href="?view=home" class="cc-btn-primary text-sm tracking-[0.14em] px-8 py-3">Back to Home</a>
 </div>
 <?php return; endif;
@@ -66,7 +66,7 @@ $venue     = parseVenue($show['location']);
 $startDt = clone $dt;
 $endDt   = (clone $dt)->modify('+2 hours');
 $gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-         . '&text=' . urlencode('Ronny Chieng — ' . $venue)
+         . '&text=' . urlencode('I Love Comedy Tour — ' . $venue)
          . '&dates=' . $startDt->format('Ymd\THis') . '/' . $endDt->format('Ymd\THis')
          . '&location=' . urlencode($show['location'])
          . '&details=' . urlencode('Your tickets have been confirmed. Order #' . $orderId);
@@ -77,26 +77,26 @@ $gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
   <!-- Breadcrumb -->
   <div class="flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.3em] mb-6">
     <span class="text-neutral-500">Tickets</span>
-    <span class="text-white/20">/</span>
+    <span class="text-black/20">/</span>
     <span class="text-neutral-500">Add-ons</span>
-    <span class="text-white/20">/</span>
+    <span class="text-black/20">/</span>
     <span class="text-neutral-500">Checkout</span>
-    <span class="text-white/20">/</span>
-    <span class="text-[#f9dda9]">Done</span>
+    <span class="text-black/20">/</span>
+    <span class="text-[#d12027]">Done</span>
   </div>
 
   <!-- ─── Header ─── -->
   <div class="relative mb-8 md:mb-16">
-    <span aria-hidden="true" class="hidden md:block absolute -top-10 -left-4 text-[220px] lg:text-[260px] font-black text-white/[0.04] select-none leading-none pointer-events-none tracking-tight">✓</span>
-    <p class="relative text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-4">Order <?= $orderId ?> · Confirmed</p>
-    <div class="inline-flex mb-5 md:mb-0 md:absolute md:top-0 md:right-12 -rotate-[4deg] bg-[#2fb03c] text-white text-[10px] md:text-xs font-extrabold uppercase tracking-[0.22em] px-4 py-2 border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+    <span aria-hidden="true" class="hidden md:block absolute -top-10 -left-4 text-[220px] lg:text-[260px] font-black text-black/[0.04] select-none leading-none pointer-events-none tracking-tight">✓</span>
+    <p class="relative text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-4">Order <?= $orderId ?> · Confirmed</p>
+    <div class="cc-sticker mb-5 md:mb-0 md:absolute md:top-0 md:right-12 -rotate-[4deg] bg-[#2fb03c] text-white text-[10px] md:text-xs font-extrabold uppercase tracking-[0.22em] px-4 py-2">
       <span class="inline-flex items-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
         Tickets Sent
       </span>
     </div>
     <h1 class="relative text-5xl md:text-7xl font-extrabold tracking-tight leading-[0.9]">You're Going.</h1>
-    <p class="relative mt-6 text-neutral-400 text-base md:text-lg max-w-xl">
+    <p class="relative mt-6 text-neutral-600 text-base md:text-lg max-w-xl">
       We've emailed <?= $ticketQty ?> ticket<?= $ticketQty > 1 ? 's' : '' ?> to you. Bring the confirmation (digital is fine) to the door.
     </p>
   </div>
@@ -105,7 +105,7 @@ $gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
 
     <!-- ─── Ticket stub ─── -->
     <div class="md:col-span-8">
-      <article class="relative bg-[#1e1e1e] border border-white/10 rounded-xl overflow-hidden">
+      <article class="relative bg-neutral-50 border border-black/10 rounded-xl overflow-hidden">
 
         <!-- Top band -->
         <div class="bg-[#f9dda9] text-black px-6 py-3 flex items-center justify-between border-b-2 border-black">
@@ -116,93 +116,93 @@ $gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
         <!-- When / Where -->
         <div class="p-5 md:p-10 grid md:grid-cols-3 gap-6 items-start">
           <div class="md:col-span-1">
-            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-3">When</p>
-            <div class="text-5xl md:text-6xl font-extrabold text-white leading-none tracking-tight"><?= $d['day'] ?></div>
-            <div class="mt-2 text-sm font-extrabold uppercase tracking-[0.18em] text-[#f9dda9]"><?= $d['month'] ?> <?= $d['year'] ?></div>
-            <div class="mt-4 flex items-center gap-2 text-sm text-white font-bold">
-              <svg class="w-3.5 h-3.5 text-[#f9dda9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-3">When</p>
+            <div class="text-5xl md:text-6xl font-extrabold text-neutral-900 leading-none tracking-tight"><?= $d['day'] ?></div>
+            <div class="mt-2 text-sm font-extrabold uppercase tracking-[0.18em] text-[#d12027]"><?= $d['month'] ?> <?= $d['year'] ?></div>
+            <div class="mt-4 flex items-center gap-2 text-sm text-neutral-900 font-bold">
+              <svg class="w-3.5 h-3.5 text-[#d12027]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               <?= $d['weekday'] ?> · <?= $d['time'] ?>
             </div>
           </div>
 
-          <div class="md:col-span-2 md:border-l md:border-dashed md:border-white/15 md:pl-8">
-            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-3">Where</p>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-[1.05] mb-2"><?= htmlspecialchars($cityState) ?></h2>
-            <div class="text-lg font-extrabold text-[#f9dda9] tracking-tight mb-4"><?= htmlspecialchars($venue) ?></div>
-            <p class="text-sm text-neutral-400 leading-relaxed"><?= htmlspecialchars($show['location']) ?></p>
+          <div class="md:col-span-2 md:border-l md:border-dashed md:border-black/15 md:pl-8">
+            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-3">Where</p>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight leading-[1.05] mb-2"><?= htmlspecialchars($cityState) ?></h2>
+            <div class="text-lg font-extrabold text-[#d12027] tracking-tight mb-4"><?= htmlspecialchars($venue) ?></div>
+            <p class="text-sm text-neutral-600 leading-relaxed"><?= htmlspecialchars($show['location']) ?></p>
           </div>
         </div>
 
         <!-- Order breakdown -->
-        <div class="border-t border-dashed border-white/15 px-6 md:px-10 py-6 space-y-4">
+        <div class="border-t border-dashed border-black/15 px-6 md:px-10 py-6 space-y-4">
 
           <div>
-            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-3">Tickets</p>
+            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-3">Tickets</p>
             <div class="space-y-2">
               <?php foreach ($tickets as $k => $qty):
                 if (!isset($tierInfo[$k]) || $qty <= 0) continue;
               ?>
               <div class="flex items-center justify-between text-sm">
-                <span class="text-white"><?= $qty ?> × <?= htmlspecialchars($tierInfo[$k]['label']) ?></span>
-                <span class="text-white font-bold">$<?= number_format($qty * $tierInfo[$k]['price'], 0) ?></span>
+                <span class="text-neutral-900"><?= $qty ?> × <?= htmlspecialchars($tierInfo[$k]['label']) ?></span>
+                <span class="text-neutral-900 font-bold">$<?= number_format($qty * $tierInfo[$k]['price'], 0) ?></span>
               </div>
               <?php endforeach; ?>
             </div>
           </div>
 
           <?php if ($addonQty > 0): ?>
-          <div class="pt-3 border-t border-white/10">
-            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9] mb-3">Extras</p>
+          <div class="pt-3 border-t border-black/10">
+            <p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-3">Extras</p>
             <div class="space-y-2">
               <?php foreach ($addons as $k => $qty):
                 if (!isset($addonInfo[$k]) || $qty <= 0) continue;
               ?>
               <div class="flex items-center justify-between text-sm">
-                <span class="text-white"><?= $qty ?> × <?= htmlspecialchars($addonInfo[$k]['label']) ?></span>
-                <span class="text-white font-bold">$<?= number_format($qty * $addonInfo[$k]['price'], 0) ?></span>
+                <span class="text-neutral-900"><?= $qty ?> × <?= htmlspecialchars($addonInfo[$k]['label']) ?></span>
+                <span class="text-neutral-900 font-bold">$<?= number_format($qty * $addonInfo[$k]['price'], 0) ?></span>
               </div>
               <?php endforeach; ?>
             </div>
           </div>
           <?php endif; ?>
 
-          <div class="pt-3 border-t border-white/10 space-y-1">
+          <div class="pt-3 border-t border-black/10 space-y-1">
             <div class="flex items-center justify-between text-sm">
-              <span class="text-neutral-400">Subtotal</span>
-              <span class="text-white font-bold">$<?= number_format($subtotal, 2) ?></span>
+              <span class="text-neutral-600">Subtotal</span>
+              <span class="text-neutral-900 font-bold">$<?= number_format($subtotal, 2) ?></span>
             </div>
             <?php if ($promoApplied): ?>
             <div class="flex items-center justify-between text-sm">
-              <span class="text-[#f9dda9] font-semibold">Promo (10% off)</span>
-              <span class="text-[#f9dda9] font-bold">− $<?= number_format($promoDisc, 2) ?></span>
+              <span class="text-[#d12027] font-semibold">Promo (10% off)</span>
+              <span class="text-[#d12027] font-bold">− $<?= number_format($promoDisc, 2) ?></span>
             </div>
             <?php endif; ?>
             <div class="flex items-center justify-between text-sm">
-              <span class="text-neutral-400">Sales Tax</span>
-              <span class="text-white font-bold">$<?= number_format($fees, 2) ?></span>
+              <span class="text-neutral-600">Sales Tax</span>
+              <span class="text-neutral-900 font-bold">$<?= number_format($fees, 2) ?></span>
             </div>
             <?php if ($giftApplied): ?>
             <div class="flex items-center justify-between text-sm">
-              <span class="text-[#f9dda9] font-semibold">Gift Certificate</span>
-              <span class="text-[#f9dda9] font-bold">− $<?= number_format($giftUse, 2) ?></span>
+              <span class="text-[#d12027] font-semibold">Gift Certificate</span>
+              <span class="text-[#d12027] font-bold">− $<?= number_format($giftUse, 2) ?></span>
             </div>
             <?php endif; ?>
           </div>
 
-          <div class="pt-3 border-t border-white/10 flex items-end justify-between">
-            <span class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#f9dda9]">Total Charged</span>
-            <span class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">$<?= number_format($total, 2) ?></span>
+          <div class="pt-3 border-t border-black/10 flex items-end justify-between">
+            <span class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027]">Total Charged</span>
+            <span class="text-2xl md:text-3xl font-extrabold text-neutral-900 tracking-tight">$<?= number_format($total, 2) ?></span>
           </div>
         </div>
 
         <!-- Barcode -->
-        <div class="bg-black/40 border-t border-white/10 px-6 md:px-10 py-4 flex items-center gap-4">
+        <div class="bg-black/5 border-t border-black/10 px-6 md:px-10 py-4 flex items-center gap-4">
           <div class="flex gap-[2px]">
             <?php for ($i = 0; $i < 40; $i++): $h = [14, 20, 24, 18][($i * 3 + 1) % 4]; ?>
-            <span class="block w-[2px] bg-white/80" style="height: <?= $h ?>px"></span>
+            <span class="block w-[2px] bg-black/80" style="height: <?= $h ?>px"></span>
             <?php endfor; ?>
           </div>
-          <p class="text-[10px] font-extrabold tracking-[0.24em] uppercase text-white/60 font-mono"><?= $orderId ?></p>
+          <p class="text-[10px] font-extrabold tracking-[0.24em] uppercase text-neutral-600 font-mono"><?= $orderId ?></p>
         </div>
 
       </article>
@@ -210,37 +210,37 @@ $gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
 
     <!-- Actions -->
     <aside class="md:col-span-4 space-y-3">
-      <a href="<?= $gcalUrl ?>" target="_blank" rel="noopener" class="group flex items-center justify-between gap-3 p-5 bg-[#1e1e1e] border border-white/10 hover:border-[#f9dda9] rounded-xl transition-colors">
+      <a href="<?= $gcalUrl ?>" target="_blank" rel="noopener" class="group flex items-center justify-between gap-3 p-5 bg-neutral-50 border border-black/10 hover:border-[#d12027] rounded-xl transition-colors">
         <div class="flex items-center gap-3">
           <span class="w-10 h-10 rounded-lg bg-[#f9dda9] text-black flex items-center justify-center flex-shrink-0">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </span>
           <div>
-            <p class="text-white font-extrabold text-sm">Save to Calendar</p>
+            <p class="text-neutral-900 font-extrabold text-sm">Save to Calendar</p>
             <p class="text-xs text-neutral-500">Don't miss it</p>
           </div>
         </div>
-        <svg class="w-4 h-4 text-neutral-500 group-hover:text-[#f9dda9] group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <svg class="w-4 h-4 text-neutral-500 group-hover:text-[#d12027] group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
 
       <button type="button"
-              onclick="if (navigator.share) { navigator.share({ title: 'Ronny Chieng — <?= addslashes($venue) ?>', text: 'I\'m going to see Ronny Chieng live. Come with?', url: window.location.origin }); } else { navigator.clipboard.writeText(window.location.origin); this.querySelector('.share-label').textContent = 'Link Copied'; }"
-              class="group w-full flex items-center justify-between gap-3 p-5 bg-[#1e1e1e] border border-white/10 hover:border-[#f9dda9] rounded-xl transition-colors text-left">
+              onclick="if (navigator.share) { navigator.share({ title: 'I Love Comedy Tour — <?= addslashes($venue) ?>', text: 'I\'m going to the I Love Comedy Tour. Come with?', url: window.location.origin }); } else { navigator.clipboard.writeText(window.location.origin); this.querySelector('.share-label').textContent = 'Link Copied'; }"
+              class="group w-full flex items-center justify-between gap-3 p-5 bg-neutral-50 border border-black/10 hover:border-[#d12027] rounded-xl transition-colors text-left">
         <div class="flex items-center gap-3">
           <span class="w-10 h-10 rounded-lg bg-[#d12027] text-white flex items-center justify-center flex-shrink-0">
             <i data-lucide="share-2" class="w-5 h-5"></i>
           </span>
           <div>
-            <p class="text-white font-extrabold text-sm share-label">Share With Friends</p>
+            <p class="text-neutral-900 font-extrabold text-sm share-label">Share With Friends</p>
             <p class="text-xs text-neutral-500">Make them jealous</p>
           </div>
         </div>
-        <svg class="w-4 h-4 text-neutral-500 group-hover:text-[#f9dda9] group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <svg class="w-4 h-4 text-neutral-500 group-hover:text-[#d12027] group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </button>
 
-      <div class="pt-4 border-t border-white/10 space-y-3 mt-6">
-        <a href="?view=calendar" class="cc-btn-primary w-full text-sm tracking-[0.14em] px-6 py-3.5">See Other Dates</a>
-        <a href="?view=home" class="block text-center text-sm text-neutral-400 hover:text-[#f9dda9] transition-colors">← Back to home</a>
+      <div class="pt-4 border-t border-black/10 space-y-3 mt-6">
+        <a href="?view=tour&tour=ilct-nyc" class="cc-btn-primary w-full text-sm tracking-[0.14em] px-6 py-3.5">Book Another Date</a>
+        <a href="?view=home" class="block text-center text-sm text-neutral-600 hover:text-[#d12027] transition-colors">← Back to home</a>
       </div>
     </aside>
 

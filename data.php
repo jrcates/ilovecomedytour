@@ -1,201 +1,94 @@
 <?php
 // ─────────────────────────────────────────────
-//  Ronny Chieng – Tour Schedule
-//  One comedian, one venue per date.
+//  I Love Comedy Tour — data loader
+//
+//  Loads authored tours from data/tours.json, generates scheduled
+//  instances at runtime from each tour's scheduleRule, and exposes
+//  a legacy $shows array (one entry per instance, in the old ticket
+//  shape) so existing views keep rendering unchanged.
+//
+//  See data/SCHEMA.md for full details.
+//
+//  When real backend persistence lands: replace json_decode with a
+//  DB query, remove the $shows alias once views are migrated.
 // ─────────────────────────────────────────────
 
-$siteName = 'Ronny Chieng';
+$siteName = 'I Love Comedy Tour';
 
-// Slot presets
-$slots_2 = [['19:00:00', '07:00 PM'], ['21:30:00', '09:30 PM']];
-$slots_1early = [['19:00:00', '07:00 PM']];
-$slots_1late  = [['20:00:00', '08:00 PM']];
-
-// Tour schedule: each stop is a city/venue run (Fri+Sat or single night).
-// Ordered chronologically; one stop gets scheduled per weekend starting from next Friday.
-$tourStops = [
-  [
-    'venue'       => 'Fox Theatre',
-    'address'     => '660 Peachtree St NE',
-    'city'        => 'Atlanta',
-    'state'       => 'GA',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'The Love to Hate It Tour',
-    'priceValue'  => 48,
-  ],
-  [
-    'venue'       => 'Colonial Theatre',
-    'address'     => '227 Bridge St',
-    'city'        => 'Phoenixville',
-    'state'       => 'PA',
-    'days'        => 1,
-    'slots'       => $slots_1early,
-    'description' => '',
-    'priceValue'  => 38,
-  ],
-  [
-    'venue'       => 'Magoobys Jokehouse',
-    'address'     => '9603 Deereco Rd',
-    'city'        => 'Timonium',
-    'state'       => 'MD',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'I Never Promised You A Rose Garden Tour',
-    'priceValue'  => 42,
-  ],
-  [
-    'venue'       => 'The Lab at Zanies',
-    'address'     => '209 10th Ave S',
-    'city'        => 'Nashville',
-    'state'       => 'TN',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => '',
-    'priceValue'  => 40,
-  ],
-  [
-    'venue'       => 'Zanies Chicago',
-    'address'     => '1548 N Wells St',
-    'city'        => 'Chicago',
-    'state'       => 'IL',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'The Love to Hate It Tour',
-    'priceValue'  => 45,
-  ],
-  [
-    'venue'       => 'Paramount Theatre',
-    'address'     => '713 Congress Ave',
-    'city'        => 'Austin',
-    'state'       => 'TX',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'Keep Austin Laughing',
-    'priceValue'  => 50,
-  ],
-  [
-    'venue'       => 'Town Hall',
-    'address'     => '123 W 43rd St',
-    'city'        => 'New York',
-    'state'       => 'NY',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => '',
-    'priceValue'  => 68,
-    'forceStatus' => 'Sold Out',
-  ],
-  [
-    'venue'       => 'The Fonda Theatre',
-    'address'     => '6126 Hollywood Blvd',
-    'city'        => 'Los Angeles',
-    'state'       => 'CA',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'The Love to Hate It Tour',
-    'priceValue'  => 55,
-  ],
-  [
-    'venue'       => 'Neptune Theatre',
-    'address'     => '1303 NE 45th St',
-    'city'        => 'Seattle',
-    'state'       => 'WA',
-    'days'        => 1,
-    'slots'       => $slots_1late,
-    'description' => 'A special one-night-only set',
-    'priceValue'  => 44,
-  ],
-  [
-    'venue'       => 'Warfield',
-    'address'     => '982 Market St',
-    'city'        => 'San Francisco',
-    'state'       => 'CA',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => '',
-    'priceValue'  => 60,
-  ],
-  [
-    'venue'       => 'Wilbur Theatre',
-    'address'     => '246 Tremont St',
-    'city'        => 'Boston',
-    'state'       => 'MA',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'The Love to Hate It Tour',
-    'priceValue'  => 52,
-  ],
-  [
-    'venue'       => 'Empire Comedy Club',
-    'address'     => '575 Congress St',
-    'city'        => 'Portland',
-    'state'       => 'ME',
-    'days'        => 2,
-    'slots'       => $slots_2,
-    'description' => 'An evening with Ronny Chieng',
-    'priceValue'  => 40,
-  ],
-];
-
-// Status pool — mix available / selling fast / sold out
-$statusPool = [
-  'Tickets Available','Tickets Available','Tickets Available',
-  'Selling Fast','Tickets Available','Selling Fast',
-  'Tickets Available','Tickets Available','Sold Out','Tickets Available',
-];
-
-// Generate: one tour stop per weekend, starting next Friday from today
-$current = new DateTime('today');
-while ((int)$current->format('w') !== 5) { // 5 = Friday
-  $current->modify('+1 day');
-}
-$endDate = (new DateTime('today'))->modify('+3 months');
-
-$shows = [];
-$num = 1;
-foreach ($tourStops as $stopIdx => $stop) {
-  if ($current > $endDate) break;
-  $location = $stop['venue'] . ', ' . $stop['address'] . ', ' . $stop['city'] . ', ' . $stop['state'];
-
-  for ($day = 0; $day < $stop['days']; $day++) {
-    $showDate = (clone $current)->modify("+{$day} days");
-    foreach ($stop['slots'] as $slot) {
-      list($time, $display) = $slot;
-      $idx = $num - 1;
-      $shows[] = [
-        'id'          => 'show-' . $num,
-        'title'       => 'Ronny Chieng at ' . $stop['venue'],
-        'date'        => $showDate->format('Y-m-d') . 'T' . $time,
-        'time'        => $display,
-        'location'    => $location,
-        'price'       => '$' . $stop['priceValue'],
-        'priceValue'  => $stop['priceValue'],
-        'image'       => 'assets/rc-img1.jpg',
-        'description' => $stop['description'],
-        'lineup'      => ['Ronny Chieng', 'Special Guests'],
-        'type'        => 'standup',
-        'status'      => $stop['forceStatus'] ?? $statusPool[$idx % count($statusPool)],
-        'featured'    => ($stopIdx === 0),
-        'series'      => $stop['venue'] . ' — ' . $stop['city'],
-      ];
-      $num++;
+// ─── 1. Load tour catalog ──────────────────────
+$toursFile = __DIR__ . '/data/tours.json';
+$tours     = [];
+if (file_exists($toursFile)) {
+    $raw = json_decode(file_get_contents($toursFile), true);
+    if (is_array($raw) && isset($raw['tours']) && is_array($raw['tours'])) {
+        $tours = $raw['tours'];
     }
-  }
+}
 
-  // Advance to next Friday (one tour stop per weekend)
-  $current->modify('+7 days');
+// ─── 2. Generate instances for every active tour ──
+$instances = [];
+foreach ($tours as $tour) {
+    if (empty($tour['isActive'])) continue;
+    foreach (generateInstances($tour) as $inst) {
+        $instances[] = $inst;
+    }
+}
+usort($instances, function ($a, $b) { return strcmp($a['dateTime'], $b['dateTime']); });
+
+// ─── 3. Legacy $shows alias ────────────────────
+//  One legacy show per instance, keyed by instance id. Views that
+//  iterate $shows and look up by id continue to work unchanged.
+//  When a view migrates to use $tours/$instances directly, the
+//  corresponding entries here become unreferenced.
+$shows = [];
+foreach ($instances as $inst) {
+    $tour = null;
+    foreach ($tours as $t) {
+        if (($t['id'] ?? null) === $inst['tourId']) { $tour = $t; break; }
+    }
+    if (!$tour) continue;
+
+    $ts          = strtotime($inst['dateTime']);
+    $timeDisplay = date('g:iA', $ts);
+
+    // Legacy "location" — comma-delimited so parseVenue() / parseCityState()
+    // still split cleanly into venue + city/state.
+    $mp       = $tour['meetingPoint'] ?? [];
+    $locParts = [];
+    if (!empty($mp['name']))            $locParts[] = $mp['name'];
+    if (!empty($tour['neighborhood']))  $locParts[] = $tour['neighborhood'];
+    if (!empty($tour['city']))          $locParts[] = $tour['city'];
+    if (!empty($tour['state']))         $locParts[] = $tour['state'];
+    $location = implode(', ', $locParts);
+
+    // Legacy $shows alias — slim shape kept for addons / checkout / thank-you,
+    // which look up by id and read only: date, description, location, priceValue.
+    // Plus tourId / instanceId / capacity / spotsRemaining for forward-looking code.
+    $shows[] = [
+        'id'             => $inst['id'],
+        'date'           => $inst['dateTime'],
+        'time'           => $timeDisplay,
+        'location'       => $location,
+        'priceValue'     => (float)$tour['pricePerGuest'],
+        'description'    => $tour['tagline'] ?? ($tour['shortDescription'] ?? ''),
+        'tourId'         => $tour['id'],
+        'instanceId'     => $inst['id'],
+        'capacity'       => $inst['capacity'],
+        'spotsRemaining' => $inst['spotsRemaining'],
+    ];
 }
 
 // ─────────────────────────────────────────────
-//  Helper: format date parts from ISO string
+//  Legacy helper kept here — used by many views.
+//  Do NOT move during Stage 1 (views rely on load order).
 // ─────────────────────────────────────────────
 function formatShowDate(string $isoDate): array {
-  $ts = strtotime($isoDate);
-  return [
-    'weekday' => date('D', $ts),
-    'day'     => date('j', $ts),
-    'month'   => date('M', $ts),
-    'year'    => date('Y', $ts),
-    'time'    => date('g:iA', $ts),
-  ];
+    $ts = strtotime($isoDate);
+    return [
+        'weekday' => date('D', $ts),
+        'day'     => date('j', $ts),
+        'month'   => date('M', $ts),
+        'year'    => date('Y', $ts),
+        'time'    => date('g:iA', $ts),
+    ];
 }

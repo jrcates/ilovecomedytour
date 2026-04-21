@@ -1,0 +1,64 @@
+{
+  "__comment": "REFERENCE ONLY — the current PHP app does NOT read or write this file. The checkout flow still carries cart state in URL params and the thank-you page re-derives totals from those params. This file exists so whoever wires up real backend persistence (DB, API) knows the expected booking shape. When that happens, replace the URL re-derivation in thank-you.php with a lookup by booking id. See SCHEMA.md.",
+  "bookings": [
+    {
+      "id": "ILCT-260424-A3F9B2",
+      "instanceId": "ilct-nyc-20260424-1900",
+      "tourId": "ilct-nyc",
+      "guestCount": 4,
+      "addons": {
+        "ts": 1,
+        "po": 0
+      },
+      "customer": {
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "email": "jane@example.com",
+        "phone": "+1-555-555-0100"
+      },
+      "pricing": {
+        "currency": "USD",
+        "subtotal": 215.00,
+        "promoCode": null,
+        "promoDiscount": 0.00,
+        "giftCode": null,
+        "giftDiscount": 0.00,
+        "taxRatePct": 8.875,
+        "tax": 19.08,
+        "total": 234.08
+      },
+      "status": "confirmed",
+      "createdAt": "2026-04-21T16:30:00-04:00",
+      "notes": "Customer requested early arrival."
+    },
+    {
+      "id": "ILCT-260425-B7C2D1",
+      "instanceId": "ilct-nyc-20260425-1700",
+      "tourId": "ilct-nyc",
+      "guestCount": 2,
+      "addons": {
+        "ts": 0,
+        "po": 1
+      },
+      "customer": {
+        "firstName": "Marcus",
+        "lastName": "Patel",
+        "email": "marcus.patel@example.com",
+        "phone": "+1-555-555-0122"
+      },
+      "pricing": {
+        "currency": "USD",
+        "subtotal": 135.00,
+        "promoCode": "LOCAL10",
+        "promoDiscount": 13.50,
+        "giftCode": null,
+        "giftDiscount": 0.00,
+        "taxRatePct": 8.875,
+        "tax": 10.78,
+        "total": 132.28
+      },
+      "status": "confirmed",
+      "createdAt": "2026-04-22T09:14:00-04:00"
+    }
+  ]
+}

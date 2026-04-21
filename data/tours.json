@@ -1,0 +1,69 @@
+{
+  "_comment": "Authored tour catalog. One record per reusable tour product. Instances (scheduled departures) are generated at runtime from scheduleRule in data.php — not stored here. See SCHEMA.md.",
+  "tours": [
+    {
+      "id": "ilct-nyc",
+      "slug": "i-love-comedy-tour",
+      "title": "I Love Comedy Tour",
+      "tagline": "Part walking tour, part comedy crash course, 100% New York.",
+      "shortDescription": "A 30-minute guided walk through Greenwich Village, capped off with a live stand-up show at a real NYC comedy club.",
+      "description": "A quick-hit introduction to the place where modern comedy was born. Guided by working comedians, you'll explore Greenwich Village's legendary comedy roots, learn how stand-up really works, and hear stories you won't get from a history book.\n\nThe experience wraps up exactly where it should: inside a real New York comedy club, where your night continues with a live stand-up show.\n\nPart walking tour, part comedy crash course, and 100% New York.",
+
+      "pricePerGuest": 45,
+      "currency": "USD",
+
+      "durationMinutes": 120,
+      "walkingMinutes": 30,
+      "showMinutes": 90,
+      "walkDistanceMiles": 1,
+      "includesDrinks": 2,
+
+      "defaultCapacity": 15,
+      "neighborhood": "Greenwich Village",
+      "city": "New York",
+      "state": "NY",
+
+      "meetingPoint": {
+        "name": "Meeting Point (TBD)",
+        "address": "Greenwich Village, New York, NY",
+        "lat": null,
+        "lng": null,
+        "notes": "Exact meeting point TBD — somewhere in Greenwich Village. Update this field once confirmed; nothing in the UI needs to change."
+      },
+      "endPoint": {
+        "name": "The Grisly Pear Comedy Club",
+        "address": "107 MacDougal St, New York, NY 10012",
+        "includesShow": true,
+        "notes": "Tour concludes at the Grisly Pear for a live stand-up show. Two drink tickets included to cover the club's two-drink minimum."
+      },
+
+      "whyThisTour": [
+        { "headline": "Led by actual comedians",   "body": "Not actors or tour guides." },
+        { "headline": "Short, high-energy, easy to fit into your night", "body": "" },
+        { "headline": "Combines history, humor, and nightlife", "body": "In one experience." }
+      ],
+      "whyThisTourFooter": "Perfect for visitors, locals, date nights… anyone who loves comedy!",
+
+      "whatsIncluded": [
+        { "label": "30-minute guided walking tour", "body": "Through Greenwich Village." },
+        { "label": "Live stand-up comedy show",     "body": "At an NYC comedy club." },
+        { "label": "Two drink tickets",             "body": "Covering the club's two-drink minimum." }
+      ],
+
+      "scheduleRule": {
+        "_comment": "daysOfWeek: 0=Sun, 1=Mon … 6=Sat. timeSlots: 24h HH:MM. horizonDays: how far forward to auto-generate instances.",
+        "daysOfWeek": [4, 5, 6, 0],
+        "timeSlots": ["17:00", "19:00", "21:00"],
+        "horizonDays": 90
+      },
+      "addons": [
+        { "id": "ts", "label": "Tour T-Shirt",  "description": "Black tee, tour cities on the back.", "price": 35 },
+        { "id": "po", "label": "Signed Poster", "description": "Numbered, signed, limited to 500.",   "price": 45 }
+      ],
+
+      "featured": true,
+      "isActive": true,
+      "createdAt": "2026-04-21"
+    }
+  ]
+}

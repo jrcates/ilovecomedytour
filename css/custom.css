@@ -1,67 +1,94 @@
 [x-cloak] { display: none !important; }
 
-/* ─── Primary CTA — cream bg, black border, floating black shadow, square corners ─── */
+/* ─── Hero gradient — Times Square neon (Concept C) ─── */
+.cc-hero-gradient {
+  background:
+    radial-gradient(circle at 18% 28%, rgba(255, 88, 136, 0.42) 0%, transparent 45%),
+    radial-gradient(circle at 82% 62%, rgba(54, 126, 255, 0.40) 0%, transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(255, 140, 50, 0.32) 0%, transparent 55%),
+    linear-gradient(180deg, #0b0820 0%, #1a1140 50%, #230f3a 100%);
+}
+
+/* ─── Nav background for non-home pages — matches hero base tone ─── */
+.cc-nav-bg {
+  background: linear-gradient(180deg, #0a0620 0%, #0f0930 100%);
+}
+
+/* ─── Cartoon sticker badges — match button aesthetic (brown outline + solid drop) ─── */
+.cc-sticker {
+  display: inline-flex;
+  align-items: center;
+  border: 3px solid #2d1712;
+  border-radius: 9999px;
+  box-shadow: 0 4px 0 0 #2d1712;
+  line-height: 1;
+}
+.cc-sticker-sm {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #2d1712;
+  border-radius: 9999px;
+  box-shadow: 0 3px 0 0 #2d1712;
+  line-height: 1;
+}
+
+/* ─── Modal panel (matches sticker aesthetic on a larger scale) ─── */
+.cc-modal-panel {
+  border: 3px solid #2d1712;
+  box-shadow: 0 8px 0 0 #2d1712, 0 12px 32px -8px rgba(0, 0, 0, 0.35);
+}
+
+/* ─── Mascot idle float (hero right-side logo) ─── */
+.cc-mascot-float { animation: cc-floaty 6s ease-in-out infinite; }
+@keyframes cc-floaty {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(-3deg) translateY(-14px); }
+}
+
+/* ─── Primary CTA — cartoon sticker pill (red + brown outline, peels on hover) ─── */
 .cc-btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: #f9dda9;
-  color: #000;
-  font-weight: 800;
+  background: #d12027;
+  color: #fff;
+  font-weight: 900;
   text-transform: uppercase;
-  border: 2px solid #000;
-  border-radius: 0;
-  box-shadow: 6px 6px 0 #000;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  border: 3px solid #2d1712;
+  border-radius: 9999px;
+  box-shadow: 0 6px 0 0 #2d1712, 0 6px 20px -4px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
   cursor: pointer;
   text-decoration: none;
   line-height: 1;
 }
 .cc-btn-primary:hover {
-  background: #fbe6bb;
-  transform: translate(-3px, -3px);
-  box-shadow: 9px 9px 0 #000;
+  background: #e62a31;
+  transform: translateY(-3px) rotate(-1.5deg);
+  box-shadow: 0 9px 0 0 #2d1712, 0 10px 26px -4px rgba(0, 0, 0, 0.5);
 }
 .cc-btn-primary:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #000;
+  transform: translateY(3px) rotate(0);
+  box-shadow: 0 1px 0 0 #2d1712;
 }
 .cc-btn-primary[disabled],
 .cc-btn-primary.is-disabled {
   opacity: 0.45;
   pointer-events: none;
-  box-shadow: 3px 3px 0 #000;
+  transform: none;
+  box-shadow: 0 3px 0 0 #2d1712;
 }
 
-/* Desktop nav link underline */
-.cc-nav-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px;
-  height: 2px;
-  background: #f9dda9;
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.cc-nav-link:hover::after,
-.cc-nav-link.cc-nav-active::after { transform: scaleX(1); }
-.cc-nav-link.cc-nav-active::after { transform-origin: left; }
 ::selection { background: #d12027; color: #fff; }
 
 /* View transition fade */
 .cc-view-fade { animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Announcement marquee (used via Tailwind's animate-[marquee_60s_linear_infinite] in nav) */
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* Clear space for fixed nav + marquee banner */
-main { padding-top: 180px; }
-@media (max-width: 767px) { main { padding-top: 140px; } }
+/* Clear space for fixed nav */
+main { padding-top: 96px; }
+@media (max-width: 767px) { main { padding-top: 84px; } }
 /* View Switcher — iframe mobile preview */
 .cc-view-switcher-backdrop {
   position: fixed;

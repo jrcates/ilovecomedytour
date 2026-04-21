@@ -10,7 +10,7 @@
 <div class="hidden md:block pt-10 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto px-4 md:px-6 min-h-screen">
 
   <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-3 tracking-tight">Design System</h1>
-  <p class="text-neutral-400 text-sm mb-16 max-w-2xl">Tokens, components, and patterns used across the Ronny Chieng site — derived from the homepage, tour-dates list, and footer.</p>
+  <p class="text-neutral-400 text-sm mb-16 max-w-2xl">Tokens, components, and patterns used across the I Love Comedy Tour site — derived from the homepage, tour-dates list, and footer.</p>
 
   <!-- ─── Colors ─── -->
   <section class="mb-20">
