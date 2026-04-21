@@ -119,7 +119,7 @@ $venue     = parseVenue($show['location']);
     <span class="text-black/20">/</span>
     <a href="?view=addons&show=<?= urlencode($showId) ?>&tickets=<?= urlencode($ticketsParam) ?>" class="text-neutral-500 hover:text-[#d12027] transition-colors">Add-ons</a>
     <span class="text-black/20">/</span>
-    <span class="text-[#d12027]">Step 03 · Checkout</span>
+    <span class="text-[#d12027]">Checkout</span>
   </div>
 
   <!-- ─── Header ─── -->
@@ -223,7 +223,7 @@ $venue     = parseVenue($show['location']);
           <div x-show="showPromo" x-transition class="mt-4 space-y-2">
             <div class="flex items-end gap-4">
               <input type="text" name="promo" x-model="promoCode" @keydown.enter.prevent="applyPromo()" placeholder="Try 1111"
-                     class="flex-1 bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="flex-1 bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none transition-colors" />
               <button type="button" @click="applyPromo()" class="shrink-0 pb-3 text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] hover:text-neutral-900 transition-colors">Apply</button>
             </div>
             <p x-show="promoMsg" x-transition :class="promoMsgKind === 'ok' ? 'text-[#d12027]' : 'text-[#ff6b6b]'" class="text-xs font-semibold" x-text="promoMsg"></p>
@@ -296,7 +296,7 @@ $venue     = parseVenue($show['location']);
                 <span class="text-[#d12027] text-base leading-none">*</span>
               </label>
               <input required type="text" name="first_name" placeholder="First"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
             <div>
               <label class="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] mb-3">
@@ -304,7 +304,7 @@ $venue     = parseVenue($show['location']);
                 <span class="text-[#d12027] text-base leading-none">*</span>
               </label>
               <input required type="text" name="last_name" placeholder="Last"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
             <div class="sm:col-span-2">
               <label class="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] mb-3">
@@ -312,14 +312,14 @@ $venue     = parseVenue($show['location']);
                 <span class="text-[#d12027] text-base leading-none">*</span>
               </label>
               <input required type="email" name="email" placeholder="you@somewhere.com"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
             <div class="sm:col-span-2">
               <label class="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] mb-3">
                 <span>Phone</span>
               </label>
               <input type="tel" name="phone" placeholder="(555) 555-5555"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
           </div>
         </div>
@@ -340,7 +340,7 @@ $venue     = parseVenue($show['location']);
                 <span class="text-[#d12027] text-base leading-none">*</span>
               </label>
               <input required type="text" inputmode="numeric" name="card" placeholder="0000 0000 0000 0000"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
             <div>
               <label class="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] mb-3">
@@ -348,7 +348,7 @@ $venue     = parseVenue($show['location']);
                 <span class="text-[#d12027] text-base leading-none">*</span>
               </label>
               <input required type="text" name="expiry" placeholder="MM / YY"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
             <div>
               <label class="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] mb-3">
@@ -356,7 +356,7 @@ $venue     = parseVenue($show['location']);
                 <span class="text-[#d12027] text-base leading-none">*</span>
               </label>
               <input required type="text" inputmode="numeric" name="cvc" placeholder="123"
-                     class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
             </div>
           </div>
 
@@ -371,7 +371,7 @@ $venue     = parseVenue($show['location']);
           <div x-show="useGift" x-transition class="mt-4 space-y-2">
             <div class="flex items-end gap-4">
               <input type="text" name="gift" x-model="giftCode" @keydown.enter.prevent="applyGift()" placeholder="Try 2222"
-                     class="flex-1 bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                     class="flex-1 bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none transition-colors" />
               <button type="button" @click="applyGift()" class="shrink-0 pb-3 text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#d12027] hover:text-neutral-900 transition-colors">Apply</button>
             </div>
             <p x-show="giftMsg" x-transition :class="giftMsgKind === 'ok' ? 'text-[#d12027]' : 'text-[#ff6b6b]'" class="text-xs font-semibold" x-text="giftMsg"></p>

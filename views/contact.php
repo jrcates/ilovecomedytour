@@ -45,7 +45,7 @@
             <span class="text-[#d12027] text-base leading-none">*</span>
           </label>
           <input required type="text" name="first_name" placeholder="First"
-                 class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                 class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
         </div>
 
         <div>
@@ -54,7 +54,7 @@
             <span class="text-[#d12027] text-base leading-none">*</span>
           </label>
           <input required type="text" name="last_name" placeholder="Last"
-                 class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                 class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
         </div>
 
         <div class="md:col-span-2">
@@ -63,7 +63,7 @@
             <span class="text-[#d12027] text-base leading-none">*</span>
           </label>
           <input required type="email" name="email" placeholder="you@somewhere.com"
-                 class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
+                 class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-full px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors" />
         </div>
 
         <div class="md:col-span-2">
@@ -72,7 +72,7 @@
             <span class="text-[#d12027] text-base leading-none">*</span>
           </label>
           <textarea required name="message" rows="5" placeholder="Say something…"
-                    class="w-full bg-transparent border-b-2 border-black/15 focus:border-[#d12027] py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors resize-none"></textarea>
+                    class="w-full bg-white border-2 border-black/15 focus:border-[#d12027] rounded-2xl px-5 py-3 text-neutral-900 text-base placeholder:text-neutral-400 focus:outline-none transition-colors resize-none"></textarea>
         </div>
       </div>
 

@@ -71,7 +71,7 @@ $venue     = parseVenue($show['location']);
   <div class="flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.3em] mb-6">
     <a href="?view=tour&tour=ilct-nyc" class="text-neutral-500 hover:text-[#d12027] transition-colors">Book</a>
     <span class="text-black/20">/</span>
-    <span class="text-[#d12027]">Step 02 · Add-ons</span>
+    <span class="text-[#d12027]">Add-ons</span>
     <span class="text-black/20">/</span>
     <span class="text-neutral-500">Checkout</span>
   </div>

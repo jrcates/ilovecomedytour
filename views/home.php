@@ -62,7 +62,7 @@
       On Sale Now
     </div>
     <p class="relative text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-4">Upcoming Tours</p>
-    <h2 class="relative text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[0.9] text-neutral-900">Grab a spot.</h2>
+    <h2 class="relative text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] text-neutral-900">Grab a spot.</h2>
     <p class="relative mt-6 md:mt-8 text-neutral-600 text-base md:text-lg max-w-lg">
       Pick from the next few dates. Each tour runs rain or shine and wraps up at the Grisly Pear with a live stand-up show.
     </p>

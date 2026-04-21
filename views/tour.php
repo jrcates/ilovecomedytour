@@ -136,7 +136,7 @@ for ($m = 0; $m < $monthsToShow; $m++) {
   <div class="relative mb-10 md:mb-20">
     <span aria-hidden="true" class="hidden md:block absolute -top-10 -left-4 text-[220px] lg:text-[260px] font-black text-black/[0.04] select-none leading-none pointer-events-none tracking-tight">BOOK</span>
     <div class="cc-sticker mb-5 md:mb-0 md:absolute md:top-0 md:right-12 rotate-[-4deg] bg-[#d12027] text-white text-[10px] md:text-xs font-extrabold uppercase tracking-[0.22em] px-4 py-2">
-      Step One
+      Let's Walk
     </div>
     <p class="relative text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#d12027] mb-4">Pick Your Date</p>
     <h1 class="relative text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] text-neutral-900">When would you like<br class="hidden md:block">to go?</h1>
@@ -146,7 +146,7 @@ for ($m = 0; $m < $monthsToShow; $m++) {
   </div>
 
   <!-- ─── Calendar ─── -->
-  <div class="bg-neutral-50 border border-black/10 rounded-2xl p-3 md:p-10">
+  <div x-cloak class="bg-neutral-50 border border-black/10 rounded-2xl p-3 md:p-10">
 
     <!-- Month header with prev/next -->
     <div class="flex items-center justify-between mb-6 md:mb-8">
@@ -247,7 +247,7 @@ for ($m = 0; $m < $monthsToShow; $m++) {
   </div>
 
   <!-- ─── List for current month (Alpine — mirrors calendar's month) ─── -->
-  <div class="mt-12 md:mt-16">
+  <div x-cloak class="mt-12 md:mt-16">
 
     <div class="flex items-baseline justify-between mb-6">
       <h3 class="text-xl md:text-2xl font-extrabold text-neutral-900 tracking-tight">

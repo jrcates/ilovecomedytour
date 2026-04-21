@@ -12,10 +12,6 @@
           fontFamily: {
             sans: ['Montserrat', 'sans-serif'],
           },
-          colors: {
-            red: { DEFAULT: '#d12027', light: '#e85a5f', lighter: '#f4a3a6', 50: '#fce8e8', dark: '#a91a20', darker: '#7f1318' },
-            charcoal: { DEFAULT: '#383839', light: '#5a5a5b', lighter: '#8c8c8d', 50: '#e8e8e8' },
-          }
         }
       }
     }
@@ -37,8 +33,8 @@
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons — defer so it doesn't block HTML parsing -->
+  <script defer src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
